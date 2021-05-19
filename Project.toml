@@ -1,0 +1,13 @@
+name = "EntropyHub"
+uuid = "3938faea-3bfa-4bc3-8092-0c6746ff9af1"
+authors = ["Matthew W. Flood <entropyhubproject@gmail.com>"]
+version = "0.0.1"
+
+[compat]
+julia = "0.0.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
