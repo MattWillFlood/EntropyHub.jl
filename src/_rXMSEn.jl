@@ -101,7 +101,7 @@ using Plots
     For Terms of Use see https://github.com/MattWillFlood/EntropyHub  
     """
     function rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
-        F_order::Int=6, F_num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
+        F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
         
     size(Sig,1) == 2  ?  Sig = Sig' : nothing
 
@@ -109,8 +109,8 @@ using Plots
     (length(Mobj) >= 1) ? nothing :  error("Mobj:    must be a multiscale entropy object created 
          with the function EntropyHub.MSobject")
     (Scales>1) ? nothing : error("Scales:     must be an integer > 1")
-    (F_order>1) ? nothing :  error("F_order:     must be an integer > 1")
-    (0 < F_num < 1) ? nothing : error("F_num:     must be a scalar in range 0 < F_num < 1")
+    (F_Order>1) ? nothing :  error("F_Order:     must be an integer > 1")
+    (0 < F_Num < 1) ? nothing : error("F_Num:     must be a scalar in range 0 < F_Num < 1")
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("XSampEn","XApEn"))) ? nothing :
     error("RadNew:  must be 0, or an integer in range [1 4] with entropy function `XSampEn` or `XApEn`")
         
@@ -141,7 +141,7 @@ using Plots
 
     for T = 1:Scales
         print(" .")
-        Temp = refined(Sig,T,F_order,F_num)
+        Temp = refined(Sig,T,F_Order,F_Num)
         RadNew > 0 ? Args = (Args..., r=Cx*Rnew(Temp[:])) : nothing      
         Tempx = Mobj.Func(Temp; Args...)
         typeof(Tempx)<:Tuple ? MSx[T] = Tempx[1][end] : MSx[T] = Tempx[end]
