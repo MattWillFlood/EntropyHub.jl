@@ -3,13 +3,13 @@ export XMSEn
 using Statistics: std, mean, median, var
 using Dierckx: Spline1D
 using Plots
-function __init__()
+#=function __init__()
  @warn("\n\n Methodx option IMF (Intrinisic Mode Function) is not stable.
  Random or highly aperiodic signals may not decompose fully.
  Access to the IMFs decomposed by the empirical mode decomposition (EMD) function
  can be found by calling _MSEn.EMD(`Sig`,`MaxIMFs`).
  A stable EMD function will be included in future releases.\n\n")
-end
+end=#
     
     """
     # MSx, CI = XMSEn(`Sig`, `Mobj`) 

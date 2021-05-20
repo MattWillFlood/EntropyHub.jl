@@ -2,6 +2,7 @@ module _XPermEn
 export XPermEn
 using StatsBase: fit, Histogram
 using Combinatorics: permutations
+
     """
     # XPerm = XPermEn(`Sig`) 
 
