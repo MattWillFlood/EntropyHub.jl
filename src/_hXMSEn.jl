@@ -170,7 +170,7 @@ using Plots
 
     end
 
-    return MSx, CI
+    return MSx, Sn, CI
     end
 
     function Hierarchy(Z,sx)
