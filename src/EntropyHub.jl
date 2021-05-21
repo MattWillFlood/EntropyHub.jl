@@ -46,6 +46,8 @@ export
     EMD,
     ExampleData
 
+using Reexport
+
 include("./_ApEn.jl"),
 include("./_AttnEn.jl"),
 include("./_BubbEn.jl"),
@@ -91,8 +93,23 @@ include("./_FuzzEn2D.jl"),
 include("./_DistEn2D.jl"),
 
 # Base Entropies:
-using ._ApEn: ApEn
-using ._AttnEn: AttnEn
+
+@reexport using ._ApEn
+@reexport using ._AttnEn
+@reexport using ._BubbEn
+@reexport using ._CondEn
+@reexport using ._CoSiEn
+@reexport using ._DistEn
+@reexport using ._DispEn
+@reexport using ._EnofEn
+@reexport using ._FuzzEn
+
+
+
+
+
+
+#=using ._AttnEn: AttnEn
 using ._BubbEn: BubbEn
 using ._CoSiEn: CoSiEn
 using ._CondEn: CondEn
@@ -138,7 +155,7 @@ using ._cXMSEn: cXMSEn
 using ._rXMSEn: rXMSEn
 using ._hXMSEn: hXMSEn
 
-using ._ExampleData: ExampleData
+using ._ExampleData: ExampleData  =#
 
 
 
