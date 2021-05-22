@@ -3,16 +3,21 @@ export cXMSEn
 using Statistics: std, mean, median, var
 using Plots
     """
-    # MSx, CI = cXMSEn(`Sig`, `Mobj`) 
+        MSx, CI = cXMSEn(Sig, Mobj) 
+
     Returns a vector of composite multiscale cross-entropy values (`MSx`) 
     between two univariate data sequences contained in `Sig` using the 
     parameters specified by the multiscale object (`Mobj`) using the composite 
     multiscale method (cMSE) over 3 temporal scales.
 
-    # MSx, CI = cXMSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, CI = cXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple;
+                              Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)
+
     Returns a vector of composite multiscale cross-entropy values (`MSx`) 
     between the data sequences contained in `Sig` using the parameters
     specified by the multiscale object (`Mobj`) and the following keyword arguments:
+
+    # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3)
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
                  When the entropy specified by Mobj is `XSampEn` or `XApEn`, 
@@ -35,54 +40,40 @@ using Plots
     # See also `MSobject`, `XMSEn`, `rXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `cMSEn`
 
     # References:
-       [1] Rui Yan, Zhuo Yang, and Tao Zhang,
+        [1] Rui Yan, Zhuo Yang, and Tao Zhang,
             "Multiscale cross entropy: a novel algorithm for analyzing two
             time series." 
             5th International Conference on Natural Computation. 
             Vol. 1, pp: 411-413 IEEE, 2009.
 
-       [2] Yi Yin, Pengjian Shang, and Guochen Feng, 
+        [2] Yi Yin, Pengjian Shang, and Guochen Feng, 
             "Modified multiscale cross-sample entropy for complex time 
             series."
             Applied Mathematics and Computation 
             289 (2016): 98-110.
 
-       [3] Madalena Costa, Ary Goldberger, and C-K. Peng,
+        [3] Madalena Costa, Ary Goldberger, and C-K. Peng,
             "Multiscale entropy analysis of complex physiologic time series."
             Physical review letters
             89.6 (2002): 068102.
 
-       [4] Antoine Jamin, et al,
+        [4] Antoine Jamin, et al,
             "A novel multiscale cross-entropy method applied to navigation 
             data acquired with a bike simulator." 
             41st annual international conference of the IEEE EMBC
             IEEE, 2019.
 
-       [5] Antoine Jamin and Anne Humeau-Heurtier. 
+        [5] Antoine Jamin and Anne Humeau-Heurtier. 
             "(Multiscale) Cross-Entropy Methods: A Review." 
             Entropy 
             22.1 (2020): 45.
 
-       [6] Shuen-De Wu, et al.,
+        [6] Shuen-De Wu, et al.,
             "Time series analysis using composite multiscale entropy." 
             Entropy 
             15.3 (2013): 1069-1084.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function cXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
         Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)
@@ -177,3 +168,21 @@ using Plots
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

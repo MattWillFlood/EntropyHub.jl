@@ -2,7 +2,7 @@ module _SampEn2D
 export SampEn2D
 using Statistics: mean, std
     """
-    # SE2D, Phi1, Phi2 = SampEn2D(`Mat`) 
+        SE2D, Phi1, Phi2 = SampEn2D(Mat) 
 
     Returns the bidimensional sample entropy estimate (`SE2D`) and the number
     of matched sub-matricess (m:Phi1, m+1:Phi2) estimated for the data 
@@ -10,9 +10,10 @@ using Statistics: mean, std
     radius distance threshold = 0.2*SD(`Mat`), logarithm = natural
     matrix template size = [floor(H/10) floor(W/10)]  (where H and W represent
     the height (rows) and width (columns) of the data matrix `Mat`) 
-    ``* The minimum dimension size of Mat must be > 10.``
+    ** The minimum dimension size of Mat must be > 10.**
 
-    # SE2D, Phi1, Phi2 = SampEn2D(`Mat`, 'keyword' = value, ...)
+        SE2D, Phi1, Phi2 = SampEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10),             
+                                        tau::Int=1, r::Real=0.2*std(Mat,corrected=false), Logx::Real=exp(1), Lock::Bool=true)
 
     Returns the bidimensional sample entropy (`SE2D`) estimates for the data
     matrix (`Mat`) using the specified 'keyword' arguments:
@@ -31,33 +32,19 @@ using Statistics: mean, std
               SampEn2D creates a vector of 753049836 elements. 
               To enable matrices greater than [128 x 128] elements,
               set `Lock` to false.  (default: true)  \n
-              ``WARNING: unlocking the permitted matrix size may cause your Julia
-              IDE to crash.``
+              `WARNING: unlocking the permitted matrix size may cause your Julia
+              IDE to crash.`
 
     #  See also `SampEn`, `FuzzEn2D`, `XSampEn`, `MSEn` 
 
     # References:
-       [1] Luiz Eduardo Virgili Silva, et al.,
+        [1] Luiz Eduardo Virgili Silva, et al.,
              "Two-dimensional sample entropy: Assessing image texture 
              through irregularity." 
              Biomedical Physics & Engineering Express
              2.4 (2016): 045002.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function SampEn2D(Mat::AbstractArray{T,2} where T<:Real; 
         m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), 
@@ -109,3 +96,21 @@ using Statistics: mean, std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

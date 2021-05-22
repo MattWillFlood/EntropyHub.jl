@@ -4,27 +4,30 @@ using Statistics: std, mean, median, var
 #using DataInterpolations: CubicSpline
 using Dierckx: Spline1D
 using Plots
-function __init__()
+#=function __init__()
  @warn("\n\n Methodx option IMF (Intrinisic Mode Function) is not stable.
  Random or highly aperiodic signals may not decompose fully.
  Access to the IMFs decomposed by the empirical mode decomposition (EMD) function
  can be found by calling EntropyHub.EMD(`Sig`,`MaxIMFs`).
  A stable EMD function will be included in future releases.\n\n")
-end
+end=#
 
     """
-    # MSx, CI = MSEn(`Sig`, `Mobj`) 
+        MSx, CI = MSEn(Sig, Mobj) 
 
     Returns a vector of multiscale entropy values `MSx` and the complexity 
     index `CI` of the data sequence `Sig` using the parameters specified 
     by the multiscale object `Mobj` over 3 temporal scales with coarse-
-    graining `default`. 
+    graining (default). 
 
-    # MSx, CI = MSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, CI = MSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
+                             Methodx::String="coarse", RadNew::Int=0, Plotx::Bool=false)
 
     Returns a vector of multiscale entropy values `MSx` and the complexity 
     index `CI` of the data sequence `Sig` using the parameters specified by
     the multiscale object `Mobj` and the following 'keyword' arguments:
+
+    # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
     `Method`   - Graining method, one of the following: 
                  {`coarse`,`modified`,`imf`,`timeshift`} [default = `coarse`]  
@@ -43,7 +46,7 @@ end
     `Plotx`    - When Plotx == true, returns a plot of the entropy value at each
                  time scale (i.e. the multiscale entropy curve) [default: false]\n
 
-    ``For further info on these graining procedures see the EntropyHub guide.``
+    `For further info on these graining procedures see the EntropyHub guide.`
 
     # See also `MSobject`, `rMSEn`, `cMSEn`, `hMSEn`, `SampEn`, `ApEn`, `XMSEn`
 
@@ -108,21 +111,6 @@ end
                 and dispersion entropy." 
                 Entropy 20.2 (2018): 138.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function MSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
         Methodx::String="coarse", RadNew::Int=0, Plotx::Bool=false)
@@ -297,3 +285,21 @@ end
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

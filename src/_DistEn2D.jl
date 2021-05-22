@@ -2,16 +2,17 @@ module _DistEn2D
 export DistEn2D
 using StatsBase: fit, Histogram, skewness
     """
-    # Dist2D = DistEn2D(`Mat`) 
+        Dist2D = DistEn2D(Mat) 
 
     Returns the bidimensional distribution entropy estimate (`Dist2D`)
     estimated for the data matrix (`Mat`) using the default parameters:
     time delay = 1, histogram binning method = "sturges", logarithm = natural, 
     template matrix size = [floor(H/10) floor(W/10)] (where H and W represent
     the height (rows) and width (columns) of the data matrix `Mat`) 
-    ``* The minimum number of rows and columns of Mat must be > 10.``
+    ** The minimum number of rows and columns of Mat must be > 10.**
 
-    # Dist2D = DistEn2D(`Mat`, 'keyword' = value, ...)
+        Dist2D = DistEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), tau::Int=1,
+                            Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Int=2, Lock::Bool=true)
 
     Returns the bidimensional distribution entropy (`Dist2D`) estimate for 
     the data matrix (`Mat`) using the specified 'keyword' arguments:
@@ -43,8 +44,8 @@ using StatsBase: fit, Histogram, skewness
               creates a vector of 753049836 elements. To enable matrices
               greater than [128 x 128] elements, set `Lock` to false.
               [default: 'true']
-              ``* WARNING: unlocking the permitted matrix size may cause your Julia
-               IDE to crash.``
+              `WARNING: unlocking the permitted matrix size may cause your Julia
+               IDE to crash.`
 
     # See also `DistEn`, `XDistEn`, `SampEn2D`, `FuzzEn2D`, `MSEn`
 
@@ -55,21 +56,7 @@ using StatsBase: fit, Histogram, skewness
             IEEE Signal Processing Letters 
             24.9 (2017): 1338-1342.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function DistEn2D(Mat::AbstractArray{T,2} where T<:Real; 
         m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), tau::Int=1,
@@ -158,6 +145,26 @@ using StatsBase: fit, Histogram, skewness
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""
+
+
 
 #= Y = []
 for k = 1:p-1

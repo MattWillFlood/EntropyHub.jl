@@ -2,14 +2,14 @@ module _SlopEn
 export SlopEn
 using GroupSlices
     """
-    # Slop = SlopEn(`Sig`) 
+        Slop = SlopEn(Sig) 
 
     Returns the slope entropy (`Slop`) estimates for embedding dimensions
     [2, ..., m] of the data sequence (`Sig`) using the default parameters:
     embedding dimension = 2, time delay = 1, 
     angular thresholds = [5 45],  logarithm = base 2 
 
-    # Slop = SlopEn(`Sig`, 'keyword' = value, ...)
+        Slop = SlopEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, Lvls::AbstractArray{T,1} where T<:Real=[5, 45], Logx::Real=2, Norm::Bool=true)
 
     Returns the slope entropy (`Slop`) estimate of the data sequence (`Sig`)  
     using the specified 'keyword' arguments:
@@ -28,27 +28,12 @@ using GroupSlices
     # See also `PhasEn`, `GridEn`, `MSEn`, `CoSiEn`, `SampEn`, `ApEn`
 
     # References:
-    [1] David Cuesta-Frau,
+        [1] David Cuesta-Frau,
             "Slope Entropy: A New Time Series Complexity Estimator Based on
             Both Symbolic Patterns and Amplitude Information." 
             Entropy 
             21.12 (2019): 1167.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function SlopEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1,
          Lvls::AbstractArray{T,1} where T<:Real=[5, 45], Logx::Real=2, Norm::Bool=true)
@@ -100,3 +85,21 @@ using GroupSlices
     end
 
 end
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
+"""

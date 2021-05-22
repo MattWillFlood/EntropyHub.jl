@@ -4,7 +4,7 @@ using Clustering: kmeans, assignments
 using StatsBase: Histogram, fit
 using Statistics: mean
     """
-    # SyDy, Zt = SyDyEn(`Sig`) 
+        SyDy, Zt = SyDyEn(Sig) 
 
     Returns the symbolic dynamic entropy (`SyDy`) and the symbolic sequence
     (`Zt`) of the data sequence (`Sig`) using the default parameters: 
@@ -12,12 +12,12 @@ using Statistics: mean
     symbolic partition type = maximum entropy partitioning (`MEP`), 
     normalisation = normalises w.r.t # possible vector permutations (c^m) 
 
-    # SyDy, Zt = SyDyEn(`Sig`, 'keyword' = value, ...)
+        SyDy, Zt = SyDyEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, c::Int=3, Typex::String="MEP", Logx::Real=exp(1), Norm::Bool=true)
 
     Returns the symbolic dynamic entropy (`SyDy`) and the symbolic sequence
     (`Zt`) of the data sequence (`Sig`) using the specified 'keyword' arguments:
 
-    #Arguments:
+    # Arguments:
     `m`     - Embedding Dimension, a positive integer  \n
     `tau`   - Time Delay, a positive integer  \n
     `c`     - Number of symbols, an integer > 1  \n
@@ -33,40 +33,25 @@ using Statistics: mean
     # See also `DispEn`, `PermEn`, `CondEn`, `SampEn`, `MSEn`
   
     # References:
-      [1] Yongbo Li, et al.,
+        [1] Yongbo Li, et al.,
             "A fault diagnosis scheme for planetary gearboxes using 
             modified multi-scale symbolic dynamic entropy and mRMR feature 
             selection." 
             Mechanical Systems and Signal Processing 
             91 (2017): 295-312. 
   
-      [2] Jian Wang, et al.,
+        [2] Jian Wang, et al.,
             "Fault feature extraction for multiple electrical faults of 
             aviation electro-mechanical actuator based on symbolic dynamics
             entropy." 
             IEEE International Conference on Signal Processing, 
             Communications and Computing (ICSPCC), 2015.
   
-      [3] Venkatesh Rajagopalan and Asok Ray,
+        [3] Venkatesh Rajagopalan and Asok Ray,
             "Symbolic time series analysis via wavelet-based partitioning."
             Signal processing 
             86.11 (2006): 3309-3320.
   
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function SyDyEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
         c::Int=3, Typex::String="MEP", Logx::Real=exp(1), Norm::Bool=true)
@@ -140,3 +125,20 @@ using Statistics: mean
     end
 
 end
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

@@ -12,18 +12,21 @@ using Plots
 end=#
     
     """
-    # MSx, CI = XMSEn(`Sig`, `Mobj`) 
+        MSx, CI = XMSEn(Sig, Mobj) 
 
     Returns a vector of multiscale cross-entropy values `MSx` and the complexity 
     index `CI` between the data sequences contained in `Sig` using the parameters 
     specified by the multiscale object `Mobj` over 3 temporal scales with coarse-
     graining `default`. 
 
-    # MSx,CI = MSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx,CI = MSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
+                         Scales::Int=3, Methodx::String="coarse", RadNew::Int=0, Plotx::Bool=false)
 
     Returns a vector of multiscale cross-entropy values `MSx` and the complexity 
     index `CI` of the data sequences contained in `Sig` using the parameters 
     specified by the multiscale object `Mobj` and the following 'keyword' arguments:
+
+    # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
     `Method`   - Graining method, one of the following:
                  {'coarse','modified','imf','timeshift'}  [default: 'coarse'] 
@@ -41,58 +44,45 @@ end=#
                  [4]    Median Absolute Deviation   - r*med_ad(Xt) \n
     `Plotx`    - When `Plotx` == true, returns a plot of the entropy value at each
                  time scale (i.e. the multiscale entropy curve)  [default: false]
+    
+    `For further info on these graining procedures see the EntropyHub guide.`
 
     # See also `MSobject`, `MSEn`, `cXMSEn`, `rXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `XFu`zzEn`
 
     # References:
-      [1] Rui Yan, Zhuo Yang, and Tao Zhang,
+        [1] Rui Yan, Zhuo Yang, and Tao Zhang,
           "Multiscale cross entropy: a novel algorithm for analyzing two
           time series." 
           5th International Conference on Natural Computation. 
           Vol. 1, pp: 411-413 IEEE, 2009.
 
-      [2] Madalena Costa, Ary Goldberger, and C-K. Peng,
+        [2] Madalena Costa, Ary Goldberger, and C-K. Peng,
           "Multiscale entropy analysis of complex physiologic time series."
           Physical review letters
           89.6 (2002): 068102.
 
-      [3] Vadim V. Nikulin, and Tom Brismar,
+        [3] Vadim V. Nikulin, and Tom Brismar,
           "Comment on “Multiscale entropy analysis of complex physiologic
           time series”." 
           Physical review letters 
           92.8 (2004): 089803.
 
-      [4] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+        [4] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
           "Costa, Goldberger, and Peng reply." 
           Physical Review Letters
           92.8 (2004): 089804.
 
-      [5] Antoine Jamin, et al,
+        [5] Antoine Jamin, et al,
           "A novel multiscale cross-entropy method applied to navigation 
           data acquired with a bike simulator." 
           41st annual international conference of the IEEE EMBC
           IEEE, 2019.
 
-      [6] Antoine Jamin and Anne Humeau-Heurtier. 
+        [6] Antoine Jamin and Anne Humeau-Heurtier. 
          "(Multiscale) Cross-Entropy Methods: A Review." 
           Entropy 
           22.1 (2020): 45.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function XMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
         Scales::Int=3, Methodx::String="coarse", RadNew::Int=0, Plotx::Bool=false)
@@ -288,3 +278,21 @@ end=#
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

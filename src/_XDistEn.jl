@@ -3,7 +3,7 @@ export XDistEn
 using StatsBase: fit, Histogram, skewness
 using Statistics: mean, std
     """
-    # XDist, Ppi = XDistEn(`Sig`) 
+        XDist, Ppi = XDistEn(Sig) 
 
     Returns the cross-distribution entropy estimate (`XDist`) and the
     corresponding distribution probabilities (`Ppi`) estimated between the data 
@@ -11,7 +11,7 @@ using Statistics: mean, std
     embedding dimension = 2, time delay = 1, binning method = 'Sturges',
     logarithm = base 2, normalisation = w.r.t # of histogram bins
 
-    # XDist, Ppi = XDistEn(`Sig`, 'keyword' = value, ...)
+        XDist, Ppi = XDistEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
 
     Returns the cross-distribution entropy estimate (`XDist`) estimated between the 
     data sequences contained in `Sig` using the specified 'keyword' = arguments:
@@ -32,27 +32,12 @@ using Statistics: mean, std
     # See also `XSampEn`, `XApEn`, `XPermEn`, `XCondEn`, `DistEn`, `DistEn2D`, `XMSEn`
   
     # References:
-      [1] Yuanyuan Wang and Pengjian Shang,
+        [1] Yuanyuan Wang and Pengjian Shang,
             "Analysis of financial stock markets through the multiscale
             cross-distribution entropy based on the Tsallis entropy."
             Nonlinear Dynamics 
             94.2 (2018): 1361-1376.
-  
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub    
+    
     """
     function XDistEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, 
         Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
@@ -124,3 +109,21 @@ using Statistics: mean, std
     return XDist, Ppi
     end
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub  
+"""

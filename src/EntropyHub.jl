@@ -46,7 +46,7 @@ export
     EMD,
     ExampleData
 
-using Reexport
+# using Reexport
 
 include("./_ApEn.jl"),
 include("./_AttnEn.jl"),
@@ -92,9 +92,12 @@ include("./_SampEn2D.jl"),
 include("./_FuzzEn2D.jl"),
 include("./_DistEn2D.jl"),
 
-# Base Entropies:
 
+
+#= 
 @reexport using ._ApEn
+@reexport using ._MSobject
+
 @reexport using ._AttnEn
 @reexport using ._BubbEn
 @reexport using ._CondEn
@@ -102,14 +105,15 @@ include("./_DistEn2D.jl"),
 @reexport using ._DistEn
 @reexport using ._DispEn
 @reexport using ._EnofEn
-@reexport using ._FuzzEn
+@reexport using ._FuzzEn =#
 
 
 
 
 
-
-#=using ._AttnEn: AttnEn
+# Base Entropies:
+using ._ApEn: ApEn
+using ._AttnEn: AttnEn
 using ._BubbEn: BubbEn
 using ._CoSiEn: CoSiEn
 using ._CondEn: CondEn
@@ -155,7 +159,23 @@ using ._cXMSEn: cXMSEn
 using ._rXMSEn: rXMSEn
 using ._hXMSEn: hXMSEn
 
-using ._ExampleData: ExampleData  =#
+using ._ExampleData: ExampleData
+
+
+greet() = print(raw"""  
+     ___  _   _  _____  _____  ____  ____  _     _
+    |  _|| \ | ||_   _||     \|    ||    || \   / |   ___________
+    | \_ |  \| |  | |  |   __/|    ||  __| \ \_/ /   /  _______  \   
+    |  _|| \ \ |  | |  |   \  |    || |     \   /   |  /  ___  \  |
+    | \_ | |\  |  | |  | |\ \ |    || |      | |    | |  /   \  | |
+    |___||_| \_|  |_|  |_| \_||____||_|      |_|   _|_|__\___/  | |
+     _   _  _   _  ____                           / |__\______\/  |
+    | | | || | | ||    \     An open-source      |  /\______\__|_/  
+    | |_| || | | ||    |     toolkit for         | |  /   \  | |
+    |  _  || | | ||    \     entropic time-      | |  \___/  | |
+    | | | || |_| ||     \    series analysis     |  \_______/  |
+    |_| |_|\_____/|_____/                         \___________/  
+    """)
 
 
 
@@ -304,19 +324,6 @@ Multiscale Cross-Conditional Entropy                  |
 
   For Terms of Use see https://github.com/MattWillFlood/EntropyHub
 """
-greet() = print(raw"""  
-     ___  _   _  _____  _____  ____  ____  _     _
-    |  _|| \ | ||_   _||     \|    ||    || \   / |   ___________
-    | \_ |  \| |  | |  |   __/|    ||  __| \ \_/ /   /  _______  \   
-    |  _|| \ \ |  | |  |   \  |    || |     \   /   |  /  ___  \  |
-    | \_ | |\  |  | |  | |\ \ |    || |      | |    | |  /   \  | |
-    |___||_| \_|  |_|  |_| \_||____||_|      |_|   _|_|__\___/  | |
-     _   _  _   _  ____                           / |__\______\/  |
-    | | | || | | ||    \     An open-source      |  /\______\__|_/  
-    | |_| || | | ||    |     toolkit for         | |  /   \  | |
-    |  _  || | | ||    \     entropic time-      | |  \___/  | |
-    | | | || |_| ||     \    series analysis     |  \_______/  |
-    |_| |_|\_____/|_____/                         \___________/  
-    """)
+
 
   end

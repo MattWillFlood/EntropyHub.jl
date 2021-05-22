@@ -5,7 +5,7 @@ using DSP.Filters: filtfilt, Butterworth, Lowpass, digitalfilter
 using Plots
     
     """
-    # MSx, CI = rMSEn(`Sig`, `Mobj`) 
+        MSx, CI = rMSEn(Sig, Mobj) 
 
     Returns a vector of refined multiscale entropy values (`MSx`) and the complexity 
     index (`CI`) of the data sequence (`Sig`) using the parameters specified by
@@ -17,7 +17,8 @@ using Plots
     to 0.2*std(Xt) if no `r` value is provided by Mobj, or r*std(Xt) if `r`
     is specified.
 
-    # MSx, CI = rMSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, CI = rMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
+                            F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
 
     Returns a vector of refined multiscale entropy values (`MSx`) and the complexity 
     index (`CI`) of the data sequence (`Sig`) using the parameters specified by
@@ -47,51 +48,35 @@ using Plots
     # See also `MSobject`, `MSEn`, `cMSEn`, `hMSEn`, `SampEn`, `ApEn`, `XMSEn`
 
     # References:
-       [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
+        [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
             "Multiscale entropy analysis of complex physiologic time series."
             Physical review letters
             89.6 (2002): 068102.
 
-       [2] Vadim V. Nikulin, and Tom Brismar,
+        [2] Vadim V. Nikulin, and Tom Brismar,
             "Comment on “Multiscale entropy analysis of complex physiologic
             time series”." 
             Physical review letters 
             92.8 (2004): 089803.
 
-       [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+        [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
             "Costa, Goldberger, and Peng reply." 
             Physical Review Letters
             92.8 (2004): 089804.
 
-       [4] José Fernando Valencia, et al.,
+        [4] José Fernando Valencia, et al.,
             "Refined multiscale entropy: Application to 24-h holter 
             recordings of heart period variability in healthy and aortic 
             stenosis subjects." 
             IEEE Transactions on Biomedical Engineering 
             56.9 (2009): 2202-2213.
 
-       [5] Puneeta Marwaha and Ramesh Kumar Sunkaria,
+        [5] Puneeta Marwaha and Ramesh Kumar Sunkaria,
             "Optimal selection of threshold value ‘r’for refined multiscale
             entropy." 
             Cardiovascular engineering and technology 
             6.4 (2015): 557-576.
 
-
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function rMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
         F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
@@ -163,3 +148,24 @@ using Plots
     end
 
 end
+
+"""
+
+
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
+"""

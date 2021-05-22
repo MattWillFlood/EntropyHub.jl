@@ -4,7 +4,7 @@ using DSP.Filters: filtfilt, Butterworth, Lowpass, digitalfilter
 using Statistics: std, mean, median, var
 using Plots
     """
-    # MSx, CI = rXMSEn(`Sig`, `Mobj`)
+        MSx, CI = rXMSEn(Sig, Mobj)
 
     Returns a vector of refined multiscale cross-entropy values (`MSx`) and
     the complexity index (`CI`) between the data sequences contained in `Sig`
@@ -16,11 +16,15 @@ using Plots
     to 0.2*std(Xt) when no `r` value is provided by `Mobj`, or r*std(Xt) if 
     `r` is specified.
      
-    # MSx, CI = rXMSEn(`Sig`, `Mobj`, `keyword` = value, ...)
+        MSx, CI = rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
+                                F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
+
     Returns a vector of refined multiscale cross-entropy values (`MSx`) and 
     the complexity index (`CI`) between the data sequences contained in `Sig`
     using the parameters specified by the multiscale object (`Mobj`) and the
     following keyword arguments:
+
+    # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1 (default: 3)  \n
     `F_Order`  - Butterworth low-pass filter order, a positive integer (default: 6)  \n
     `F_Num`    - Numerator of Butterworth low-pass filter cutoff frequency,
@@ -44,61 +48,46 @@ using Plots
     # See also `MSobject`, `XMSEn`, `cXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `MSEn`
   
     # References:
-      [1]   Matthew W. Flood,
+        [1]   Matthew W. Flood,
             "rXMSEn - EntropyHub Project"
             2021, https://github.com/MattWillFlood/EntropyHub
   
-      [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
+        [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
             "Multiscale cross entropy: a novel algorithm for analyzing two
             time series." 
             5th International Conference on Natural Computation. 
             Vol. 1, pp: 411-413 IEEE, 2009.
   
-      [3] José Fernando Valencia, et al.,
+        [3] José Fernando Valencia, et al.,
             "Refined multiscale entropy: Application to 24-h holter 
             recordings of heart period variability in healthy and aortic 
             stenosis subjects." 
             IEEE Transactions on Biomedical Engineering 
             56.9 (2009): 2202-2213.
   
-      [4] Puneeta Marwaha and Ramesh Kumar Sunkaria,
+        [4] Puneeta Marwaha and Ramesh Kumar Sunkaria,
             "Optimal selection of threshold value ‘r’for refined multiscale
             entropy." 
             Cardiovascular engineering and technology 
             6.4 (2015): 557-576.
   
-      [5] Yi Yin, Pengjian Shang, and Guochen Feng, 
+        [5] Yi Yin, Pengjian Shang, and Guochen Feng, 
             "Modified multiscale cross-sample entropy for complex time 
             series."
             Applied Mathematics and Computation 
             289 (2016): 98-110.
   
-      [6] Antoine Jamin, et al,
+        [6] Antoine Jamin, et al,
             "A novel multiscale cross-entropy method applied to navigation 
             data acquired with a bike simulator." 
             41st annual international conference of the IEEE EMBC
             IEEE, 2019.
   
-      [7] Antoine Jamin and Anne Humeau-Heurtier. 
+        [7] Antoine Jamin and Anne Humeau-Heurtier. 
             "(Multiscale) Cross-Entropy Methods: A Review." 
             Entropy 
             22.1 (2020): 45.
-  
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub  
+   
     """
     function rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
         F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
@@ -172,3 +161,21 @@ using Plots
         return Yt[1:sx:end,:]
     end
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub 
+"""

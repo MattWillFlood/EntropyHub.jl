@@ -4,14 +4,14 @@ using Clustering: kmeans, assignments
 using Statistics: std, mean
 using StatsFuns: normcdf
     """
-    # Dispx, RDE = DispEn(`Sig`)
+        Dispx, RDE = DispEn(Sig)
 
     Returns the dispersion entropy (`Dispx`) and the reverse dispersion entropy
     (`RDE`) estimated from the data sequence (`Sig`) using the default parameters:
     embedding dimension = 2, time delay = 1, symbols = 3, logarithm = natural,
     data transform = normalised cumulative density function (ncdf)
 
-    # Dispx, RDE = DispEn(`Sig`, 'keyword' = value, ...)
+        Dispx, RDE = DispEn(Sig::AbstractArray{T,1} where T<:Real; c::Int=3, m::Int=2, tau::Int=1, Typex::String="ncdf", Logx::Real=exp(1), Fluct::Bool=false, Norm::Bool=false, rho::Real=1)
 
     Returns the dispersion entropy (`Dispx`) and the reverse dispersion entropy (`RDE`)
     estimated from the data sequence (`Sig`) using the specified 'keyword' arguments:
@@ -56,21 +56,6 @@ using StatsFuns: normcdf
             Entropy
             21.4 (2019): 404.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function DispEn(Sig::AbstractArray{T,1} where T<:Real; c::Int=3, m::Int=2, tau::Int=1, Typex::String="ncdf", 
         Logx::Real=exp(1), Fluct::Bool=false, Norm::Bool=false, rho::Real=1)
@@ -179,3 +164,21 @@ if Fluct
     Nx = size(T,1)
     Counter = zeros(Nx)
 end =#
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

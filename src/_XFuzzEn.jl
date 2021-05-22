@@ -2,7 +2,7 @@ module _XFuzzEn
 export XFuzzEn
 using Statistics: mean, std
     """
-    # XFuzz, Ps1, Ps2 = XFuzzEn(`Sig`) 
+        XFuzz, Ps1, Ps2 = XFuzzEn(Sig) 
 
     Returns the cross-fuzzy entropy estimates (`XFuzz`) and the average fuzzy
     distances (m:Ps1, m+1:Ps2) for m = [1,2] estimated for the data sequences
@@ -10,7 +10,7 @@ using Statistics: mean, std
     time delay = 1, fuzzy function (Fx) = 'default', 
     fuzzy function parameters (r) = [0.2, 2], logarithm = natural
 
-    # XFuzz, Ps1, Ps2 = XFuzzEn(`Sig`, 'keyword' = value, ...)
+        XFuzz, Ps1, Ps2 = XFuzzEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, r::Union{Real,Tuple{Real,Real}}=(.2,2), Fx::String="default", Logx::Real=exp(1))
 
     Returns the cross-fuzzy entropy estimates (`XFuzz`) for dimensions = [1,...,m]
     estimated for the data sequences in `Sig` using the specified 'keyword' arguments:
@@ -44,27 +44,12 @@ using Statistics: mean, std
     # See also `FuzzEn`, `XSampEn`, `XApEn`, `FuzzEn2D`, `XMSEn`, `MSEn`
 
     # References:
-      [1] Hong-Bo Xie, et al.,
+        [1] Hong-Bo Xie, et al.,
             "Cross-fuzzy entropy: A new method to test pattern synchrony of
             bivariate time series." 
             Information Sciences 
             180.9 (2010): 1715-1724.
   
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function XFuzzEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1,
          r::Union{Real,Tuple{Real,Real}}=(.2,2), Fx::String="default", Logx::Real=exp(1))
@@ -167,3 +152,21 @@ using Statistics: mean, std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

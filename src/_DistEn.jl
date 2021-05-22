@@ -2,7 +2,7 @@ module _DistEn
 export DistEn
 using StatsBase: Histogram, fit, skewness
     """ 
-    # Dist, Ppi = DistEn(`Sig`) 
+        Dist, Ppi = DistEn(Sig) 
 
     Returns the distribution entropy estimate (`Dist`) and the
     corresponding distribution probabilities (`Ppi`) estimated from 
@@ -10,12 +10,12 @@ using StatsBase: Histogram, fit, skewness
     embedding dimension = 2, time delay = 1, binning method = 'Sturges',
     logarithm = base 2, normalisation = w.r.t # of histogram bins
 
-    # Dist, Ppi = DistEn(`Sig`, 'keyword' = value, ...)
+        Dist, Ppi = DistEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
 
     Returns the distribution entropy estimate (`Dist`) estimated from 
     the data sequence (`Sig`) using the specified 'keyword' arguments:
 
-    #Arguments:
+    # Arguments:
     `m`     - Embedding Dimension, a positive integer  \n
     `tau`   - Time Delay, a positive integer  \n
     `Bins`  - Histogram bin selection method for distance distribution, 
@@ -37,21 +37,6 @@ using StatsBase: Histogram, fit, skewness
             Medical & biological engineering & computing 
             53.1 (2015): 77-87. 
     
-    Copyright 2021 Matthew W. Flood, EntropyHub
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-            http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-    
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub          
     """
     function DistEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
         Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
@@ -122,3 +107,21 @@ using StatsBase: Histogram, fit, skewness
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+    
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub          
+"""

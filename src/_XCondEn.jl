@@ -3,19 +3,19 @@ export XCondEn
 using StatsBase: fit, Histogram
 using Statistics: mean, std
     """
-    # XCond, SEw, SEz = XCondEn(`Sig`) 
+        XCond, SEw, SEz = XCondEn(Sig) 
 
     Returns the corrected cross-conditional entropy estimates (`XCond`) and the
     corresponding Shannon entropies (m: SEw, m+1: SEz) for m = [1,2] 
     estimated for the data sequences contained in `Sig` using the default
     parameters:  embedding dimension = 2, time delay = 1, number of symbols = 6, 
     logarithm = natural
-    ``** Note: XCondEn is direction-dependent. Therefore, the order of the
+    ** Note: XCondEn is direction-dependent. Therefore, the order of the
     data sequences in `Sig` matters. If the first row/column of `Sig` is the
     sequence 'y', and the second row/column is the sequence 'u', the `XCond` is
-    the amount of information carried by y(i) when the pattern u(i) is found.``
+    the amount of information carried by y(i) when the pattern u(i) is found.**
 
-    # XCond, SEw, SEz = XCondEn(`Sig`, 'keyword' = value, ...)
+        XCond, SEw, SEz = XCondEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
 
     Returns the corrected cross-conditional entropy estimates (`XCond`) for
     the data sequences contained in `Sig` using the specified 'keyword' arguments:
@@ -37,22 +37,7 @@ using Statistics: mean, std
             coupling strength." 
             Biological cybernetics 
             81.2 (1999): 119-129.
-            
-    Copyright 2021 Matthew W. Flood, EntropyHub
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-        http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-    
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub            
+                       
     """
     function XCondEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, 
         c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
@@ -107,3 +92,21 @@ using Statistics: mean, std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+    
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub 
+"""

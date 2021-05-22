@@ -3,19 +3,19 @@ export CoSiEn
 using Statistics: std, mean, median
 using LinearAlgebra: Diagonal, UpperTriangular
     """
-    # CoSi, Bm = CoSiEn(`Sig`) 
+        CoSi, Bm = CoSiEn(Sig) 
 
     Returns the cosine similarity entropy (`CoSi`) and the corresponding
     global probabilities estimated from the data sequence (`Sig`) using the
     default parameters:   embedding dimension = 2, time delay = 1, 
     angular threshold = .1,  logarithm = base 2,
 
-    # CoSi, Bm = CoSiEn(`Sig`, 'keyword' = value, ...)
+        CoSi, Bm = CoSiEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=.1, Logx::Real=2, Norm::Int=0)
 
     Returns the cosine similarity entropy (`CoSi`) estimated from the data
     sequence (`Sig`) using the specified 'keyword' arguments:
 
-    #Arguments:
+    # Arguments:
     `m`     - Embedding Dimension, an integer > 1   \n
     `tau`   - Time Delay, a positive integer    \n
     `r`     - Angular threshold, a value in range [0 < r < 1]   \n
@@ -30,27 +30,13 @@ using LinearAlgebra: Diagonal, UpperTriangular
     # See also `PhasEn`, `SlopEn`, `GridEn`, `MSEn`, `cMSEn`
     
     # References:
-    [1] Theerasak Chanwimalueang and Danilo Mandic,
+        [1] Theerasak Chanwimalueang and Danilo Mandic,
             "Cosine similarity entropy: Self-correlation-based complexity
             analysis of dynamical systems."
             Entropy 
             19.12 (2017): 652.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+ 
     """
     function CoSiEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
         r::Real=.1, Logx::Real=2, Norm::Int=0)
@@ -103,3 +89,21 @@ using LinearAlgebra: Diagonal, UpperTriangular
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

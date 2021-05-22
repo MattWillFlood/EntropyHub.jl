@@ -2,14 +2,14 @@ module _BubbEn
 export BubbEn
 using GroupSlices
     """
-    # Bubb, H = BubbEn(`Sig`) 
+        Bubb, H = BubbEn(Sig) 
 
     Returns the bubble entropy (`Bubb`) and the conditional Rényi entropy (`H`)
     estimates of dimension m = 2 from the data sequence (`Sig`) using 
     the default parameters: 
     embedding dimension = 2, time delay = 1, logarithm = natural 
 
-    # Bubb, H = BubbEn(`Sig`, 'keyword' = value, ...)
+        Bubb, H = BubbEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, Logx::Real=exp(1))
 
     Returns the bubble entropy (`Bubb`) estimate of the data sequence (`Sig`)  
     using the specified 'keyword' arguments:
@@ -24,25 +24,10 @@ using GroupSlices
 
     # References:
         [1] George Manis, M.D. Aktaruzzaman and Roberto Sassi,
-                "Bubble entropy: An entropy almost free of parameters."
-                IEEE Transactions on Biomedical Engineering
-                64.11 (2017): 2711-2718.
+            "Bubble entropy: An entropy almost free of parameters."
+            IEEE Transactions on Biomedical Engineering
+            64.11 (2017): 2711-2718.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function BubbEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, Logx::Real=exp(1))
 
@@ -103,3 +88,21 @@ using GroupSlices
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

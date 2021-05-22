@@ -2,7 +2,7 @@ module _XApEn
 export XApEn
 using Statistics: mean, std
     """
-    # XAp, Phi = XApEn(`Sig`)
+        XAp, Phi = XApEn(Sig)
 
     Returns the cross-approximate entropy estimates (`XAp`) and the average
     number of matched vectors (`Phi`) for m = [0,1,2], estimated for the data
@@ -10,11 +10,11 @@ using Statistics: mean, std
     embedding dimension = 2, time delay = 1, 
     radius distance threshold= 0.2*SD(`Sig`), logarithm = natural
 
-    ``NOTE: XApEn is direction-dependent. Thus, the first column of
-    'Sig' is used as the template data sequence, and the second
+    **NOTE**: XApEn is direction-dependent. Thus, the first column of
+    `Sig` is used as the template data sequence, and the second
     column is the matching sequence.``
 
-    # XAp, Phi = XApEn(`Sig`, 'keyword' = value, ...)
+        XAp, Phi = XApEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
 
     Returns the cross-approximate entropy estimates (`XAp`) between the data
     sequences contained in 'Sig' using the specified 'keyword' arguments:
@@ -28,31 +28,16 @@ using Statistics: mean, std
     # See also `XSampEn`, `XFuzzEn`, `XMSEn`, `ApEn`, `SampEn`, `MSEn`
   
     # References:
-      [1] Steven Pincus and Burton H. Singer,
+        [1] Steven Pincus and Burton H. Singer,
             "Randomness and degrees of irregularity." 
             Proceedings of the National Academy of Sciences 
             93.5 (1996): 2083-2088.
   
-      [2] Steven Pincus,
+        [2] Steven Pincus,
             "Assessing serial irregularity and its implications for health."
             Annals of the New York Academy of Sciences 
             954.1 (2001): 245-267.
   
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub  
     """
     function XApEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, 
         tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
@@ -101,3 +86,21 @@ using Statistics: mean, std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub  
+"""

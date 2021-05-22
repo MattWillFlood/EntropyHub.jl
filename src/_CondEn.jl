@@ -3,7 +3,7 @@ export CondEn
 using Statistics: std, mean
 using StatsBase: Histogram, fit
     """
-    # Cond, SEw, SEz = CondEn(`Sig`) 
+        Cond, SEw, SEz = CondEn(Sig) 
 
     Returns the corrected conditional entropy estimates (`Cond`) and the
     corresponding Shannon entropies (m: `SEw`, m+1: `SEz`) for m = [1,2] 
@@ -12,12 +12,12 @@ using StatsBase: Histogram, fit
     normalisation = false
     Note: CondEn(m=1) returns the Shannon entropy of `Sig`.
 
-    # Cond, SEw, SEz = CondEn(`Sig`, 'keyword' = value, ...)
+        Cond, SEw, SEz = CondEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
 
     Returns the corrected conditional entropy estimates (`Cond`) from the data
     sequence (`Sig`) using the specified 'keyword' arguments:
 
-    #Arguments:
+    # Arguments:
     `m`     - Embedding Dimension, an integer > 1  \n
     `tau`   - Time Delay, a positive integer  \n
     `c`     - # of symbols, an integer > 1  \n
@@ -29,27 +29,12 @@ using StatsBase: Histogram, fit
     # See also `XCondEn`, `MSEn`, `PermEn`, `DistEn`, `XPermEn`
   
     # References:
-      [1] Alberto Porta, et al.,
+        [1] Alberto Porta, et al.,
             "Measuring regularity by means of a corrected conditional
             entropy in sympathetic outflow." 
             Biological cybernetics 
             78.1 (1998): 71-78.
             
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function CondEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
         c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
@@ -109,3 +94,21 @@ end
     #Edges[1] -= .1; Edges[end] += .1
     Sx = map(x -> searchsortedfirst(Edges,x), Sig) .- 1
     Sx[Sx.==0] .= 1 =#
+
+    """
+    Copyright 2021 Matthew W. Flood, EntropyHub
+      
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+  
+         http://www.apache.org/licenses/LICENSE-2.0
+  
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+  
+    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+    """

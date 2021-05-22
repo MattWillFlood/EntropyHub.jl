@@ -4,14 +4,14 @@ using Plots
 using Plots.PlotMeasures
 using StatsBase: Histogram, fit 
     """
-    # GDE, GDR, _ = GridEn(`Sig`) 
+        GDE, GDR, _ = GridEn(Sig) 
 
     Returns the gridded distribution entropy (`GDE`) and the gridded 
     distribution rate (`GDR`) estimated from the data sequence (`Sig`) using 
     the default  parameters:
     grid coarse-grain = 3, time delay = 1, logarithm = base 2
    
-    # GDE, GDR, PIx, GIx, SIx, AIx = GridEn(`Sig`)
+        GDE, GDR, PIx, GIx, SIx, AIx = GridEn(Sig)
 
     In addition to GDE and GDR, GridEn returns the following indices 
     estimated for the data sequence (`Sig`) using the default  parameters:
@@ -20,8 +20,8 @@ using StatsBase: Histogram, fit
     [`SIx`]   - Ratio of phase angles (w.r.t. LI) of the points above the LI
     [`AIx`]   - Ratio of the cumulative area of sectors of points above the LI
 
-    # GDE, GDR, ..., = GridEn(`Sig`, 'keyword' = value, ...)
-
+        GDE, GDR, ..., = GridEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=3, tau::Int=1, Logx::Real=exp(1), Plotx::Bool=false)
+    
     Returns the gridded distribution entropy (`GDE`) estimated from the data 
     sequence (`Sig`) using the specified 'keyword' arguments:
 
@@ -58,21 +58,7 @@ using StatsBase: Histogram, fit
                 Physiological measurement 
                 36.2 (2015): 303.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function GridEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=3, tau::Int=1, 
         Logx::Real=exp(1), Plotx::Bool=false)
@@ -130,3 +116,22 @@ using StatsBase: Histogram, fit
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
+"""

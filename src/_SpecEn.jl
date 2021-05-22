@@ -3,7 +3,7 @@ export SpecEn
 using FFTW: fft
 using DSP: conv
     """
-    # Spec, BandEn = SpecEn(`Sig`) 
+        Spec, BandEn = SpecEn(Sig) 
 
     Returns the spectral entropy estimate of the full spectrum (`Spec`)
     and the within-band entropy (`BandEn`) estimated from the data sequence (`Sig`)
@@ -11,12 +11,12 @@ using DSP: conv
     N-point FFT = 2*len(`Sig`) + 1, normalised band edge frequencies = [0 1],
     logarithm = base 2, normalisation = w.r.t # of spectrum/band frequency values.
 
-    # Spec, BandEn = SpecEn(`Sig`, 'keyword' = value, ...)
+        Spec, BandEn = SpecEn(Sig::AbstractArray{T,1} where T<:Real; N::Int=1 + (2*size(Sig,1)), Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
 
     Returns the spectral entropy (`Spec`) and the within-band entropy (`BandEn`)
     estimate for the data sequence (`Sig`) using the specified 'keyword' arguments:
 
-    #Arguments:
+    # Arguments:
     `N`     - Resolution of spectrum (N-point FFT), an integer > 1  \n
     `Freqs` - Normalised band edge frequencies, a 2 element tuple with values \n
               in range [0 1] where 1 corresponds to the Nyquist frequency (Fs/2).
@@ -31,33 +31,19 @@ using DSP: conv
     # See also `XSpecEn`, `fft`, `MSEn`,  `XMSEn`
   
     # References:
-      [1] G.E. Powell and I.C. Percival,
+        [1] G.E. Powell and I.C. Percival,
             "A spectral entropy method for distinguishing regular and 
             irregular motion of Hamiltonian systems." 
             Journal of Physics A: Mathematical and General 
             12.11 (1979): 2053.
   
-      [2] Tsuyoshi Inouye, et al.,
+        [2] Tsuyoshi Inouye, et al.,
             "Quantification of EEG irregularity by use of the entropy of 
             the power spectrum." 
             Electroencephalography and clinical neurophysiology 
             79.3 (1991): 204-210.
   
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
     """
     function SpecEn(Sig::AbstractArray{T,1} where T<:Real; N::Int=1 + (2*size(Sig,1)), 
         Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
@@ -100,3 +86,23 @@ using DSP: conv
     end
 
 end
+
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
+"""

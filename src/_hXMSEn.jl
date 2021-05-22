@@ -3,7 +3,7 @@ export hXMSEn
 using Statistics: std, mean, median, var
 using Plots
     """
-    # MSx, Sn, CI = hXMSEn(`Sig`, `Mobj`)
+        MSx, Sn, CI = hXMSEn(Sig, Mobj)
 
     Returns a vector of cross-entropy values (`MSx`) calculated at each node 
     in the hierarchical tree, the average cross-entropy value across all 
@@ -17,13 +17,16 @@ using Plots
     The average cross-entropy values in Sn are ordered in the same way, with the
     value of the root node given first: i.e. S0, S1, S2, ..., ST
      
-    # MSx, Sn, CI = hXMSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, Sn, CI = hXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
+                                 Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
     
     Returns a vector of cross-entropy values (`MSx`) calculated at each node 
     in the hierarchical tree, the average cross-entropy value across all
     nodes at each scale (`Sn`), and the complexity index (`CI`) of the entire
     hierarchical tree between the data sequences contained in `Sig` using 
     the following name/value pair arguments:
+
+    # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3)
                  At each scale (T), entropy is estimated for 2^(T-1) nodes. \n
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
@@ -45,36 +48,22 @@ using Plots
     # See also `MSobject`, `XMSEn`, `rXMSEn`, `cXMSEn`, `XSampEn`, `XApEn`, `hMSEn`
   
     # References:
-      [1]   Matthew W. Flood,
+        [1]   Matthew W. Flood,
             "hXMSEn - EntropyHub Project"
             2021, https://github.com/MattWillFlood/EntropyHub
   
-      [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
+        [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
             "Multiscale cross entropy: a novel algorithm for analyzing two
             time series." 
             5th International Conference on Natural Computation. 
             Vol. 1, pp: 411-413 IEEE, 2009.
   
-      [3] Ying Jiang, C-K. Peng and Yuesheng Xu,
+        [3] Ying Jiang, C-K. Peng and Yuesheng Xu,
             "Hierarchical entropy analysis for biological signals."
             Journal of Computational and Applied Mathematics
             236.5 (2011): 728-742.
   
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub 
+
     """
     function hXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
         Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
@@ -236,4 +225,22 @@ ylabel('Scale Factor','FontSize',12,'FontWeight','bold','Color',[7 54 66]/255)
 zlabel('Entropy','FontSize',12,'FontWeight','bold','Color',[7 54 66]/255)
 title(sprintf('Hierarchical Multiscale (%s) Entropy',func2str(Y{1})),...
     'FontSize',16,'FontWeight','bold','Color',[7 54 66]/255)  
+"""
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub 
 """

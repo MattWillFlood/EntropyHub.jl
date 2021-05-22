@@ -2,7 +2,7 @@ module _XK2En
 export XK2En
 using Statistics: std, mean
     """
-    # XK2, Ci = XK2En(`Sig`) 
+        XK2, Ci = XK2En(Sig) 
 
     Returns the cross-Kolmogorov entropy estimates (`XK2`) and the correlation
     integrals (`Ci`) for m = [1,2] estimated between the data sequences 
@@ -10,7 +10,7 @@ using Statistics: std, mean
     embedding dimension = 2, time delay = 1, distance threshold (r) = 0.2*SD(Sig),
     logarithm = natural
 
-    # XK2, Ci = XK2En(`Sig`, 'keyword' = value, ...)
+        XK2, Ci = XK2En(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
 
     Returns the cross-Kolmogorov entropy estimates (`XK2`) estimated between
     the data sequences contained in `Sig` using the specified 'keyword' arguments:
@@ -24,25 +24,10 @@ using Statistics: std, mean
     # See also `XSampEn`, `XFuzzEn`, `XApEn`, `K2En`, `XMSEn`, `XDistEn`
 
     # References:
-       [1]  Matthew W. Flood,
-                "XK2En - EntropyHub Project"
-                (2021) https://github.com/MattWillFlood/EntropyHub
-  
-    Copyright 2021 Matthew W. Flood, EntropyHub
-  
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-  
-         http://www.apache.org/licenses/LICENSE-2.0
-  
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-  
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+        [1]  Matthew W. Flood,
+             "XK2En - EntropyHub Project"
+             (2021) https://github.com/MattWillFlood/EntropyHub
+
     """
     function XK2En(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, 
         tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
@@ -79,3 +64,21 @@ using Statistics: std, mean
 
     end
 end
+
+""" 
+Copyright 2021 Matthew W. Flood, EntropyHub
+  
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

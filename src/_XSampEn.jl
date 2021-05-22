@@ -2,7 +2,7 @@ module _XSampEn
 export XSampEn
 using Statistics: std
     """
-    # XSamp, A, B = XSampEn(`Sig`) 
+        XSamp, A, B = XSampEn(Sig) 
 
     Returns the cross-sample entropy estimates (`XSamp`) and the number of 
     matched vectors (m:B, m+1:A) for m = [0,1,2] estimated for the two 
@@ -10,7 +10,7 @@ using Statistics: std
     embedding dimension = 2, time delay = 1, 
     radius distance threshold= 0.2*SD(`Sig`),  logarithm = natural
 
-    # XSamp, A, B = XSampEn(`Sig`, 'keyword' = value, ...)
+        XSamp, A, B = XSampEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
 
     Returns the cross-sample entropy estimates (`XSamp`) for dimensions [0,1,...,m]
     estimated between the data sequences in `Sig` using the specified 
@@ -31,21 +31,6 @@ using Statistics: std
             American Journal of Physiology-Heart and Circulatory Physiology
             (2000)
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function XSampEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, 
         tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
@@ -88,3 +73,21 @@ using Statistics: std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

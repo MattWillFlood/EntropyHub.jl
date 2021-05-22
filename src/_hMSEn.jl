@@ -4,7 +4,7 @@ using Statistics: std, mean, median, var
 using Plots        
       
     """
-    # MSx, Sn, CI = hMSEn(`Sig`, `Mobj`) 
+        MSx, Sn, CI = hMSEn(Sig, Mobj) 
 
     Returns a vector of entropy values (`MSx`) calculated at each node in the
     hierarchical tree, the average entropy value across all nodes at each 
@@ -17,7 +17,8 @@ using Plots
     The average entropy values in Sn are ordered in the same way, with the
     value of the root node given first: i.e. S0, S1, S2, ..., ST
 
-    # MSx, Sn, CI = hMSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, Sn, CI = hMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; 
+                                Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
 
     Returns a vector of entropy values (`MSx`) calculated at each node in the
     hierarchical tree, the average entropy value across all nodes at each 
@@ -46,26 +47,10 @@ using Plots
     # See also `MSobject`, `MSEn`, `cMSEn`, `rMSEn`, `SampEn`, `ApEn`, `XMSEn`
 
     # References:
-      [1] Ying Jiang, C-K. Peng and Yuesheng Xu,
+        [1] Ying Jiang, C-K. Peng and Yuesheng Xu,
           "Hierarchical entropy analysis for biological signals."
           Journal of Computational and Applied Mathematics
           236.5 (2011): 728-742.
-
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function hMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; 
         Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
@@ -186,6 +171,7 @@ using Plots
     end
 end
 
+
 """
 MM = zeros(2*Scales - 1,T)
 mid = Int(ceil(T/2))
@@ -210,4 +196,24 @@ ylabel('Scale Factor','FontSize',12,'FontWeight','bold','Color',[7 54 66]/255)
 zlabel('Entropy','FontSize',12,'FontWeight','bold','Color',[7 54 66]/255)
 title(sprintf('Hierarchical Multiscale (%s) Entropy',func2str(Y{1})),...
     'FontSize',16,'FontWeight','bold','Color',[7 54 66]/255)  
+"""
+
+"""
+
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+
 """

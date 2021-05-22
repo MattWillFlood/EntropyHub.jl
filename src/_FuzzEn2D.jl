@@ -2,16 +2,18 @@ module _FuzzEn2D
 export FuzzEn2D
 using Statistics: mean, std
     """
-    # Fuzz2D = FuzzEn2D(`Mat`) 
+        Fuzz2D = FuzzEn2D(Mat) 
 
     Returns the bidimensional fuzzy entropy estimate (`Fuzz2D`) estimated for 
     the data matrix (`Mat`) using the default parameters: time delay = 1,
     fuzzy function (Fx) = 'default', fuzzy function parameters (r) = [0.2, 2],
     logarithm = natural, template matrix size = [floor(H/10) floor(W/10)] 
     (where H and W represent the height and width of the data matrix 'Mat') 
-    ``** The minimum dimension size of Mat must be > 10.``
+    ** The minimum dimension size of Mat must be > 10.**
 
-    # Fuzz2D = FuzzEn2D(`Mat`, 'keyword' = value, ...)
+        Fuzz2D = FuzzEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), 
+                            tau::Int=1, r::Union{Real,Tuple{Real,Real}}=(.2*std(Mat, corrected=false),2), 
+                                Fx::String="default", Logx::Real=exp(1), Lock::Bool=true)
 
     Returns the bidimensional fuzzy entropy (`Fuzz2D`) estimates for the data
     matrix (`Mat`) using the specified 'keyword' arguments:
@@ -48,8 +50,8 @@ using Statistics: mean, std
               creates a vector of 753049836 elements. To enable matrices
               greater than [128 x 128] elements, set `Lock` to false.
               (default: true)
-              ``** WARNING: unlocking the permitted matrix size may cause
-              your Julia IDE to crash.`` \n
+              ` WARNING: unlocking the permitted matrix size may cause
+              your Julia IDE to crash.` \n
 
     # See also `SampEn2D`, `FuzzEn`, `XFuzzEn`
 
@@ -66,21 +68,6 @@ using Statistics: mean, std
             41st Annual International Conference of the IEEE (EMBC) Society
             2019.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function FuzzEn2D(Mat::AbstractArray{T,2} where T<:Real; 
         m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), 
@@ -193,3 +180,21 @@ using Statistics: mean, std
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

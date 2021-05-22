@@ -3,7 +3,7 @@ export PermEn
 using Combinatorics: permutations
 using Statistics: std, var, mean
     """
-    #    Perm, Pnorm, cPE = PermEn(`Sig`) 
+        Perm, Pnorm, cPE = PermEn(Sig) 
 
     Returns the permuation entropy estimates `Perm`, the normalised
     permutation entropy `Pnorm` and the conditional permutation entropy `cPE`
@@ -12,13 +12,13 @@ using Statistics: std, var, mean
     normalisation = w.r.t #symbols (`m`-1)
     Note: using the standard PermEn estimation, `Perm` = 0 when `m` = 1.
 
-    #    Perm, Pnorm, cPE = PermEn(`Sig`, `m`)
+        Perm, Pnorm, cPE = PermEn(Sig, m)
 
     Returns the permutation entropy estimates `Perm` estimated from the data
     sequence `Sig` using the specified embedding dimensions = [1,...,`m`] 
     with other default parameters as listed above.
 
-    #    Perm, Pnorm, cPE = PermEn(`Sig`, 'keyword' = value, ...)
+        Perm, Pnorm, cPE = PermEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, Typex::String="none", tpx::Union{Real,Nothing}=nothing, Logx::Real=2, Norm::Bool=false)
 
     Returns the permutation entropy estimates `Perm` for dimensions = [1,...,`m`]
     estimated from the data sequence `Sig` using the specified 'keyword' arguments:
@@ -91,21 +91,7 @@ using Statistics: std, var, mean
                 The European Physical Journal Special Topics 
                 222.2 (2013): 249-262.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function PermEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
         Typex::String="none", tpx::Union{Real,Nothing}=nothing, Logx::Real=2, Norm::Bool=false)
@@ -283,3 +269,21 @@ using Statistics: std, var, mean
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""

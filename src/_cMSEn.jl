@@ -3,13 +3,14 @@ export cMSEn
 using Statistics: std, mean, median, var
 using Plots
     """
-    # MSx, CI = cMSEn(`Sig`, `Mobj`) 
+        MSx, CI = cMSEn(Sig, Mobj) 
 
     Returns a vector of composite multiscale entropy values (`MSx`) for the data 
     sequence (`Sig`) using the parameters specified by the multiscale object 
     (`Mobj`) using the composite multiscale entropy method over 3 temporal scales.
 
-    # MSx, CI = cMSEn(`Sig`, `Mobj`, 'keyword' = value, ...)
+        MSx, CI = cMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple;  
+                            Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)
 
     Returns a vector of composite multiscale entropy values (`MSx`) of the 
     data sequence (`Sig`) using the parameters specified by the multiscale 
@@ -37,48 +38,33 @@ using Plots
     # See also `MSobject`, `rMSEn`, `MSEn`, `hMSEn`, `SampEn`, `ApEn`, `XMSEn`
 
     # References:
-     [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
+        [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
           "Multiscale entropy analysis of complex physiologic time series."
           Physical review letters
           89.6 (2002): 068102.
 
-     [2] Vadim V. Nikulin, and Tom Brismar,
+        [2] Vadim V. Nikulin, and Tom Brismar,
           "Comment on “Multiscale entropy analysis of complex physiologic
           time series”." 
           Physical review letters 
           92.8 (2004): 089803.
 
-     [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+        [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
           "Costa, Goldberger, and Peng reply." 
           Physical Review Letters
           92.8 (2004): 089804.
 
-     [4] Shuen-De Wu, et al.,
+         [4] Shuen-De Wu, et al.,
           "Time series analysis using composite multiscale entropy." 
           Entropy 
           15.3 (2013): 1069-1084.
 
-     [5] Shuen-De Wu, et al.,
+        [5] Shuen-De Wu, et al.,
           "Analysis of complex time series using refined composite 
           multiscale entropy." 
           Physics Letters A 
           378.20 (2014): 1369-1374.
 
-    Copyright 2021 Matthew W. Flood, EntropyHub
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-    For Terms of Use see https://github.com/MattWillFlood/EntropyHub
     """
     function cMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple;  
             Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)
@@ -171,3 +157,21 @@ using Plots
     end
 
 end
+
+"""
+Copyright 2021 Matthew W. Flood, EntropyHub
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+For Terms of Use see https://github.com/MattWillFlood/EntropyHub
+"""
