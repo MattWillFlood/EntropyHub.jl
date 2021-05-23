@@ -37,7 +37,7 @@ ExampleData() accepts any of the following strings:
     At present, it is not possible  to pass signals of different lengths separately. 
 
     Parameters of the base or cross- entropy methods are passed to multiscale and multiscale cross- functions using the multiscale entropy object using MSobject.
-    Base and cross- entropy methods are declared with MSobject() using any [Base](../Guide/Base_Entropies.html) or [Cross-](../Guide/Cross_Entropies.html) entropy function.
+    Base and cross- entropy methods are declared with MSobject() using any Base or Cross- entropy function.
     See the MSobject example in the following sections for more info.
 
 !!! warning "Hierarchical Multiscale Entropy (+ Multiscale Cross-Entropy)"

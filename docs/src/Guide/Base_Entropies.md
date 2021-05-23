@@ -2,7 +2,24 @@
 
 __*Functions for estimating the entropy of a single univariate time series.*__
 
-The following functions also form the base entropy method used by [Multiscale functions](../Guide/Multiscale_Entropies.html).
+`The following functions also form the base entropy method used by Multiscale functions.`
+
+These functions are directly available when EntropyHub is imported:
+
+```
+julia> using EntropyHub
+julia> names(EntropyHub)
+```
+```
+ :ApEn
+ :AttnEn
+ :BubbEn
+   ⋮
+ :hXMSEn
+ :rMSEn
+ :rXMSEn
+```
+
 
 
 ```@docs

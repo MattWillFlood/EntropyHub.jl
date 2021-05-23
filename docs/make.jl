@@ -10,7 +10,7 @@ makedocs(;
     sitename="EntropyHub.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://MattWillFlood.github.io/EntropyHub.jl",
+        canonical="https://mattwillflood.github.io/EntropyHub.jl",
         assets=String[],
         collapselevel = 1,
     ),
