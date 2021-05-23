@@ -29,7 +29,7 @@ using Plots
                  [2]    Variance                    - r*var(Xt) \n
                  [3]    Mean Absolute Deviation     - r*mean_ad(Xt) \n
                  [4]    Median Absolute Deviation   - r*med_ad(Xt)\n
-    `Refined`  - Refined-composite MSEn method. When `Refined` == true and the 
+    `Refined`  - Refined-composite MSEn method. When `Refined == true` and the 
                  entropy function specified by Mobj is `SampEn`, cMSEn returns 
                  the refined-composite multiscale entropy (rcMSEn) [default: false]\n
     `Plotx`    - When `Plotx` == true, returns a plot of the entropy value at each
@@ -39,31 +39,31 @@ using Plots
 
     # References:
         [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
-          "Multiscale entropy analysis of complex physiologic time series."
-          Physical review letters
-          89.6 (2002): 068102.
+            "Multiscale entropy analysis of complex physiologic time series."
+            Physical review letters
+            89.6 (2002): 068102.
 
         [2] Vadim V. Nikulin, and Tom Brismar,
-          "Comment on “Multiscale entropy analysis of complex physiologic
-          time series”." 
-          Physical review letters 
-          92.8 (2004): 089803.
+            "Comment on “Multiscale entropy analysis of complex physiologic
+            time series”." 
+            Physical review letters 
+            92.8 (2004): 089803.
 
         [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
-          "Costa, Goldberger, and Peng reply." 
-          Physical Review Letters
-          92.8 (2004): 089804.
+            "Costa, Goldberger, and Peng reply." 
+            Physical Review Letters
+            92.8 (2004): 089804.
 
          [4] Shuen-De Wu, et al.,
-          "Time series analysis using composite multiscale entropy." 
-          Entropy 
-          15.3 (2013): 1069-1084.
+            "Time series analysis using composite multiscale entropy." 
+            Entropy 
+            15.3 (2013): 1069-1084.
 
         [5] Shuen-De Wu, et al.,
-          "Analysis of complex time series using refined composite 
-          multiscale entropy." 
-          Physics Letters A 
-          378.20 (2014): 1369-1374.
+            "Analysis of complex time series using refined composite 
+            multiscale entropy." 
+            Physics Letters A 
+            378.20 (2014): 1369-1374.
 
     """
     function cMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple;  

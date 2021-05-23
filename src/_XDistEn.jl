@@ -24,7 +24,7 @@ using Statistics: mean, std
               following strings {'sturges','sqrt','rice','doanes'}
               [default: 'sturges'] \n
     `Logx`  - Logarithm base, a positive scalar         [default: 2]    
-            `` * enter 0 for natural log``\n
+              ** enter 0 for natural log**\n
     `Norm`  - Normalisation of DistEn value:
               [false]  no normalisation.
               [true]   normalises w.r.t # of histogram bins [default] \n

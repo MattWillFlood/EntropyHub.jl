@@ -26,8 +26,8 @@ using Statistics: mean, std
     `c`     - Number of symbols, an integer > 1          [default: 6]  \n
     `Logx`  - Logarithm base, a positive scalar          [default: natural] \n
     `Norm`  - Normalisation of `XCond` values: 
-              [false]  no normalisation                  [default]
-              [true]   normalises w.r.t cross-Shannon entropy.  \n
+                [false]  no normalisation                  [default]\n
+                [true]   normalises w.r.t cross-Shannon entropy.  \n
 
     # See also `XFuzzEn`, `XSampEn`, `XApEn`, `XPermEn`, `CondEn`, `XMSEn`
 

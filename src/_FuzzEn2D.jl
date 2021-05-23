@@ -7,8 +7,8 @@ using Statistics: mean, std
     Returns the bidimensional fuzzy entropy estimate (`Fuzz2D`) estimated for 
     the data matrix (`Mat`) using the default parameters: time delay = 1,
     fuzzy function (Fx) = 'default', fuzzy function parameters (r) = [0.2, 2],
-    logarithm = natural, template matrix size = [floor(H/10) floor(W/10)] 
-    (where H and W represent the height and width of the data matrix 'Mat') 
+    logarithm = natural, template matrix size = [floor(H/10) floor(W/10)], 
+    (where H and W represent the height and width of the data matrix 'Mat') \n
     ** The minimum dimension size of Mat must be > 10.**
 
         Fuzz2D = FuzzEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), 
@@ -25,7 +25,7 @@ using Statistics: mean, std
               (default: [floor(H/10) floor(W/10)])  \n
     `tau`   - Time Delay, a positive integer   (default: 1)  \n
     `Fx`    - Fuzzy funtion name, one of the following:
-              {'sigmoid','modsampen','default','gudermannian','linear'}  \n
+              {`"sigmoid", "modsampen", "default", "gudermannian", "linear"`}  \n
     `r`     - Fuzzy function parameters, a 1 element scalar or a 2 element
               vector of positive values. The 'r' parameters for each fuzzy
               function are defined as follows:\n
@@ -49,7 +49,7 @@ using Statistics: mean, std
               e.g. For Mat = [200 x 200], m = 3, and tau = 1, FuzzEn2D 
               creates a vector of 753049836 elements. To enable matrices
               greater than [128 x 128] elements, set `Lock` to false.
-              (default: true)
+              (default: true)\n
               ` WARNING: unlocking the permitted matrix size may cause
               your Julia IDE to crash.` \n
 

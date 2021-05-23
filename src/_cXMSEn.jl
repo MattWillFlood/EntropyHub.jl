@@ -18,18 +18,18 @@ using Plots
     specified by the multiscale object (`Mobj`) and the following keyword arguments:
 
     # Arguments:
-    `Scales`   - Number of temporal scales, an integer > 1   (default: 3)
+    `Scales`   - Number of temporal scales, an integer > 1   (default: 3)\n
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
                  When the entropy specified by Mobj is `XSampEn` or `XApEn`, 
                  RadNew rescales the radius threshold of the sub-sequences
                  at each time scale (Ykj). If a radius value is specified by
                  `Mobj` (`r`), this becomes the rescaling coefficient, otherwise
                  it is set to 0.2 (default). The value of RadNew specifies
-                 one of the following methods:
-                 [1]    Standard Deviation          - r*std(Ykj)
-                 [2]    Variance                    - r*var(Ykj)
-                 [3]    Mean Absolute Deviation     - r*mean_ad(Ykj)
-                 [4]    Median Absolute Deviation   - r*med_ad(Ykj,1)
+                 one of the following methods:\n
+                 [1]    Standard Deviation          - r*std(Ykj)\n
+                 [2]    Variance                    - r*var(Ykj)\n
+                 [3]    Mean Absolute Deviation     - r*mean_ad(Ykj)\n
+                 [4]    Median Absolute Deviation   - r*med_ad(Ykj,1)\n
     `Refined`  - Refined-composite XMSEn method. When `Refined` == true and the 
                  entropy function specified by `Mobj` is 'XSampEn', cXMSEn
                  returns the refined-composite multiscale entropy (rcXMSEn).

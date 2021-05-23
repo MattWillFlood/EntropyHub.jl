@@ -7,8 +7,8 @@ using StatsBase: fit, Histogram, skewness
     Returns the bidimensional distribution entropy estimate (`Dist2D`)
     estimated for the data matrix (`Mat`) using the default parameters:
     time delay = 1, histogram binning method = "sturges", logarithm = natural, 
-    template matrix size = [floor(H/10) floor(W/10)] (where H and W represent
-    the height (rows) and width (columns) of the data matrix `Mat`) 
+    template matrix size = [floor(H/10) floor(W/10)], (where H and W represent
+    the height (rows) and width (columns) of the data matrix `Mat`) \n
     ** The minimum number of rows and columns of Mat must be > 10.**
 
         Dist2D = DistEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), tau::Int=1,
@@ -25,10 +25,10 @@ using StatsBase: fit, Histogram, skewness
     `tau`   - Time Delay, a positive integer       [default: 1]  \n
     `Bins`  - Histogram bin selection method for distance distribution,
               an integer > 1 indicating the number of bins, or one of the 
-              following strings {'sturges','sqrt','rice','doanes'}
+              following strings {`"sturges", "sqrt", "rice", "doanes"``}
               [default: 'sturges']  \n
     `Logx`  - Logarithm base, a positive scalar        [default: natural]\n
-              ``* enter 0 for natural logarithm.``\n
+              ** enter 0 for natural logarithm.**\n
     `Norm`  - Normalisation of `Dist2D` value, one of the following integers:
               [0]  no normalisation.
               [1]  normalises values of data matrix (`Mat`) to range [0 1].
@@ -50,7 +50,7 @@ using StatsBase: fit, Histogram, skewness
     # See also `DistEn`, `XDistEn`, `SampEn2D`, `FuzzEn2D`, `MSEn`
 
     # References:
-       [1] Hamed Azami, Javier Escudero and Anne Humeau-Heurtier,
+        [1] Hamed Azami, Javier Escudero and Anne Humeau-Heurtier,
             "Bidimensional distribution entropy to analyze the irregularity
             of small-sized textures."
             IEEE Signal Processing Letters 

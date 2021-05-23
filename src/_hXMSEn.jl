@@ -11,9 +11,9 @@ using Plots
     tree (i.e. sum(`Sn`)) between the data sequences contained in `Sig` using
     the parameters specified by the multiscale object (`Mobj`) over 3 temporal
     scales (default).
-    The entropy values in `MSx` are ordered from the root node (S_00) to the
-    Nth subnode at scale T (S_TN): i.e. S_00, S_10, S_11, S_20, S_21, S_22,
-    S_23, S_30, S_31, S_32, S_33, S_34, S_35, S_36, S_37, S_40, ... , S_TN.
+    The entropy values in `MSx` are ordered from the root node (S.00) to the
+    Nth subnode at scale T (S.TN): i.e. S.00, S.10, S.11, S.20, S.21, S.22,
+    S.23, S.30, S.31, S.32, S.33, S.34, S.35, S.36, S.37, S.40, ... , S.TN.
     The average cross-entropy values in Sn are ordered in the same way, with the
     value of the root node given first: i.e. S0, S1, S2, ..., ST
      

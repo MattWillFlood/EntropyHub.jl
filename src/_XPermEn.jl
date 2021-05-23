@@ -16,7 +16,7 @@ using Combinatorics: permutations
     data sequences contained in `Sig` using the specified 'keyword' arguments:
 
     # Arguments:
-    `m`     - Embedding Dimension, an integer > 2   [default: 3]    
+    `m`     - Embedding Dimension, an integer > 2   [default: 3]  \n  
             **Note: XPerm is undefined for embedding dimensions < 3.**\n
     `tau`   - Time Delay, a positive integer        [default: 1]    \n
     `Logx`  - Logarithm base, a positive scalar     [default: 2]    

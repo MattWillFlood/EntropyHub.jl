@@ -14,7 +14,7 @@ using Plots
     at scale (T): Fc = 0.5/T. 
     If the entropy function specified by `Mobj` is SampEn or ApEn, rMSEn 
     updates the threshold radius of the data sequence (Xt) at each scale
-    to 0.2*std(Xt) if no `r` value is provided by Mobj, or r*std(Xt) if `r`
+    to 0.2std(Xt) if no `r` value is provided by Mobj, or r.std(Xt) if `r`
     is specified.
 
         MSx, CI = rMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
@@ -30,7 +30,7 @@ using Plots
                  (default: 6) \n
     `F_Num`    - Numerator of Butterworth low-pass filter cutoff frequency,
                  a scalar value in range [0 < `F_Num` < 1]. The cutoff frequency
-                 at each scale (T) becomes: Fc = F_Num/T.  (default: 0.5) \n
+                 at each scale (T) becomes: Fc = `F_Num/T.  (default: 0.5) \n
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
                  When the entropy specified by `Mobj` is `SampEn` or `ApEn`, 
                  `RadNew` allows the radius threshold to be updated at each 

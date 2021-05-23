@@ -28,8 +28,8 @@ end=#
 
     # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
-    `Method`   - Graining method, one of the following:
-                 {'coarse','modified','imf','timeshift'}  [default: 'coarse'] 
+    `Method`   - Graining method, one of the following:\n
+                 {`"coarse", "modified", "imf", "timeshift"`}  [default: 'coarse'] 
                  For further info on graining procedures, see the Entropyhub guide. \n
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
                  When the entropy specified by `Mobj` is `SampEn` or `ApEn`, 
@@ -47,41 +47,41 @@ end=#
     
     `For further info on these graining procedures see the EntropyHub guide.`
 
-    # See also `MSobject`, `MSEn`, `cXMSEn`, `rXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `XFu`zzEn`
+    # See also `MSobject`, `MSEn`, `cXMSEn`, `rXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `XFuzzEn`
 
     # References:
         [1] Rui Yan, Zhuo Yang, and Tao Zhang,
-          "Multiscale cross entropy: a novel algorithm for analyzing two
-          time series." 
-          5th International Conference on Natural Computation. 
-          Vol. 1, pp: 411-413 IEEE, 2009.
+            "Multiscale cross entropy: a novel algorithm for analyzing two
+            time series." 
+            5th International Conference on Natural Computation. 
+            Vol. 1, pp: 411-413 IEEE, 2009.
 
         [2] Madalena Costa, Ary Goldberger, and C-K. Peng,
-          "Multiscale entropy analysis of complex physiologic time series."
-          Physical review letters
-          89.6 (2002): 068102.
+            "Multiscale entropy analysis of complex physiologic time series."
+            Physical review letters
+            89.6 (2002): 068102.
 
         [3] Vadim V. Nikulin, and Tom Brismar,
-          "Comment on “Multiscale entropy analysis of complex physiologic
-          time series”." 
-          Physical review letters 
-          92.8 (2004): 089803.
+            "Comment on “Multiscale entropy analysis of complex physiologic
+            time series”." 
+            Physical review letters 
+            92.8 (2004): 089803.
 
         [4] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
-          "Costa, Goldberger, and Peng reply." 
-          Physical Review Letters
-          92.8 (2004): 089804.
+            "Costa, Goldberger, and Peng reply." 
+            Physical Review Letters
+            92.8 (2004): 089804.
 
         [5] Antoine Jamin, et al,
-          "A novel multiscale cross-entropy method applied to navigation 
-          data acquired with a bike simulator." 
-          41st annual international conference of the IEEE EMBC
-          IEEE, 2019.
+            "A novel multiscale cross-entropy method applied to navigation 
+            data acquired with a bike simulator." 
+            41st annual international conference of the IEEE EMBC
+            IEEE, 2019.
 
         [6] Antoine Jamin and Anne Humeau-Heurtier. 
-         "(Multiscale) Cross-Entropy Methods: A Review." 
-          Entropy 
-          22.1 (2020): 45.
+            "(Multiscale) Cross-Entropy Methods: A Review." 
+            Entropy 
+            22.1 (2020): 45.
 
     """
     function XMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 

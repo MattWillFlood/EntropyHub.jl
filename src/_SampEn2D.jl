@@ -8,8 +8,8 @@ using Statistics: mean, std
     of matched sub-matricess (m:Phi1, m+1:Phi2) estimated for the data 
     matrix (`Mat`) using the default parameters: time delay = 1,
     radius distance threshold = 0.2*SD(`Mat`), logarithm = natural
-    matrix template size = [floor(H/10) floor(W/10)]  (where H and W represent
-    the height (rows) and width (columns) of the data matrix `Mat`) 
+    matrix template size = [floor(H/10) floor(W/10)], (where H and W represent
+    the height (rows) and width (columns) of the data matrix `Mat`) \n
     ** The minimum dimension size of Mat must be > 10.**
 
         SE2D, Phi1, Phi2 = SampEn2D(Mat::AbstractArray{T,2} where T<:Real; m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10),             

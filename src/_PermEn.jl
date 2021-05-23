@@ -34,7 +34,8 @@ using Statistics: std, var, mean
               ** Note: When Typex = 'uniquant' and Norm = true, normalisation
               is calculated w.r.t. log(tpx^m)\n
     `Typex`  - Permutation entropy variation, one of the following:
-              {'none','uniquant','finegrain','modified','ampaware','weighted','edge'}
+              {`"none", "uniquant", "finegrain", "modified", "ampaware",
+              "weighted", "edge"}
               See the EntropyHub guide for more info on PermEn variations.    \n
     `tpx`   - Tuning parameter for associated permutation entropy variation.\n
               [uniquant]  'tpx' is the L parameter, an integer > 1 (default = 4).           

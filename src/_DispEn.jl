@@ -21,15 +21,15 @@ using StatsFuns: normcdf
     `tau`   - Time Delay, a positive integer\n
     `c`     - Number of symbols, an integer > 1\n
     `Typex` - Type of data-to-symbolic sequence transform, one of the following:
-              {"linear","kmeans","ncdf","finesort","equal"}
+              {`"linear", "kmeans" ,"ncdf", "finesort", "equal"`}\n
               See the EntropyHub guide for more info on these transforms.\n
     `Logx`  - Logarithm base, a positive scalar\n
     `Fluct` - When Fluct == true, DispEn returns the fluctuation-based
               Dispersion entropy.   [default: false]\n
     `Norm`  - Normalisation of Dispx value:
               [false]  no normalisation - default
-              [true]   normalises w.r.t # possible vector permutations (c^m).
-    `rho`   - *If Typex == 'finesort', rho is the tuning parameter (default: 1)\n
+              [true]   normalises w.r.t # possible vector permutations (c^m).\n
+    `rho`   - *If Typex == 'finesort', rho is the tuning parameter* (default: 1)\n
 
     # See also `PermEn`, `SyDyEn`, `MSEn`
 

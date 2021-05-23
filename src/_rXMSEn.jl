@@ -13,7 +13,7 @@ using Plots
     Butterworth LPF cutoff frequency at scale (T): Fc = 0.5/T. 
     If the entropy function specified by `Mobj` is `XSampEn` or `XApEn`, 
     `rMSEn` updates the threshold radius of the data sequences (Xt) at each scale
-    to 0.2*std(Xt) when no `r` value is provided by `Mobj`, or r*std(Xt) if 
+    to 0.2std(Xt) when no `r` value is provided by `Mobj`, or r.std(Xt) if 
     `r` is specified.
      
         MSx, CI = rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 

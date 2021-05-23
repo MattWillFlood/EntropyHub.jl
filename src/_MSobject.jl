@@ -14,7 +14,8 @@ export MSobject
     Returns a multiscale entropy object by passing the entropy function
     (`EnType`) and the specifying default parameters for that entropy function.
     To see the default parameters for a particular entropy method,          
-    type:   ? EntropyHub.EnType   (e.g.  ? EntropyHub.SampEn)
+    type:  `? EntropyHub.EnType`  \n
+    (e.g.  `? EntropyHub.SampEn`)
 
         Mobj = MSobject(EnType::Function; kwargs...)
 

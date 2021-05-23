@@ -46,7 +46,8 @@ end=#
     `Plotx`    - When Plotx == true, returns a plot of the entropy value at each
                  time scale (i.e. the multiscale entropy curve) [default: false]\n
 
-    `For further info on these graining procedures see the EntropyHub guide.`
+
+   `For further info on these graining procedures see the EntropyHub guide.`
 
     # See also `MSobject`, `rMSEn`, `cMSEn`, `hMSEn`, `SampEn`, `ApEn`, `XMSEn`
 

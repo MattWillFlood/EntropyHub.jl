@@ -8,9 +8,9 @@ using StatsBase: Histogram, fit
     Returns the corrected conditional entropy estimates (`Cond`) and the
     corresponding Shannon entropies (m: `SEw`, m+1: `SEz`) for m = [1,2] 
     estimated from the data sequence (`Sig`) using the default  parameters:
-    embedding dimension = 2, time delay = 1, symbols = 6, logarithm = natural
+    embedding dimension = 2, time delay = 1, symbols = 6, logarithm = natural,
     normalisation = false
-    Note: CondEn(m=1) returns the Shannon entropy of `Sig`.
+    *Note: CondEn(m=1) returns the Shannon entropy of `Sig`.*
 
         Cond, SEw, SEz = CondEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
 

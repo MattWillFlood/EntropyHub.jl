@@ -19,8 +19,8 @@ using LinearAlgebra: UpperTriangular, I, inv
     # Arguments:
     `m`     - Embedding Dimension, a positive integer  [default: 2]\n
     `tau`   - Time Delay, a positive integer        [default: 1]\n
-    `Fx`    - Fuzzy function name, one of the following:
-                {"sigmoid","modsampen","default","gudermannian","linear"}\n
+    `Fx`    - Fuzzy function name, one of the following: 
+              {`"sigmoid", "modsampen", "default", "gudermannian", "linear"`}\n
     `r`     - Fuzzy function parameters, a 1 element scalar or a 2 element
               tuple of positive values. The `r` parameters for each fuzzy
               function are defined as follows:      [default: [.2 2]]\n
@@ -45,12 +45,12 @@ using LinearAlgebra: UpperTriangular, I, inv
     # See also `SampEn`, `ApEn`, `PermEn`, `DispEn`, `XFuzzEn`, `FuzzEn2D`, `MSEn`
   
     # References:
-        	[1] Weiting Chen, et al.
+        [1] Weiting Chen, et al.
             "Characterization of surface EMG signal based on fuzzy entropy."
             IEEE Transactions on neural systems and rehabilitation engineering
             15.2 (2007): 266-272.
-  
-            [2] Hong-Bo Xie, Wei-Xing He, and Hui Liu
+
+        [2] Hong-Bo Xie, Wei-Xing He, and Hui Liu
             "Measuring time series regularity using nonlinear
             similarity-based sample entropy."
             Physics Letters A
