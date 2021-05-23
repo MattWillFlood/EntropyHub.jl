@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Multiscale Entropies · EntropyHub.jl</title><link rel="canonical" href="https://MattWillFlood.github.io/EntropyHub.jl/Guide\\Multiscale_Entropies/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="EntropyHub.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit">EntropyHub.jl</span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><input class="collapse-toggle" id="menuitem-2" type="checkbox" checked/><label class="tocitem" for="menuitem-2"><span class="docs-label">Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../Base_Entropies/">Base Entropies</a></li><li><a class="tocitem" href="../Cross_Entropies/">Cross-Entropies</a></li><li class="is-active"><a class="tocitem" href>Multiscale Entropies</a></li><li><a class="tocitem" href="../Multiscale_Cross_Entropies/">Multiscale Cross-Entropies</a></li><li><a class="tocitem" href="../Bidimensional_Entropies/">Bidimensional Entropies</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox"/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../Examples/Examples/">Notes on Examples</a></li><li><a class="tocitem" href="../../Examples/Example1/">Ex.1: Sample Entropy</a></li><li><a class="tocitem" href="../../Examples/Example2/">Ex.2: Permutation Entropy</a></li><li><a class="tocitem" href="../../Examples/Example3/">Ex.3: Phase Entropy</a></li><li><a class="tocitem" href="../../Examples/Example4/">Ex.4: Cross-Distribution Entropy</a></li><li><a class="tocitem" href="../../Examples/Example5/">Ex.5: Multiscale Entropy Object</a></li><li><a class="tocitem" href="../../Examples/Example6/">Ex.6: Multiscale [Increment] Entropy</a></li><li><a class="tocitem" href="../../Examples/Example7/">Ex.7: Refined Multiscale [Sample] Entropy</a></li><li><a class="tocitem" href="../../Examples/Example8/">Ex.8: Composite Multiscale Cross-Approximate Entropy</a></li><li><a class="tocitem" href="../../Examples/Example9/">Ex.9: Hierarchical Multiscale corrected Cross-Conditional Entropy</a></li><li><a class="tocitem" href="../../Examples/Example10/">Ex.10: Bidimensional Fuzzy Entropy</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Guide</a></li><li class="is-active"><a href>Multiscale Entropies</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Multiscale Entropies</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/master/docs/src/Guide/Multiscale_Entropies.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Multiscale-Entropies"><a class="docs-heading-anchor" href="#Multiscale-Entropies">Multiscale Entropies</a><a id="Multiscale-Entropies-1"></a><a class="docs-heading-anchor-permalink" href="#Multiscale-Entropies" title="Permalink"></a></h1><p><strong><em>Functions for estimating the multiscale entropy between of a univariate time series.</em></strong></p><article class="docstring"><header><a class="docstring-binding" id="EntropyHub._MSobject.MSobject" href="#EntropyHub._MSobject.MSobject"><code>EntropyHub._MSobject.MSobject</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">Mobj = MSobject()</code></pre><p>Returns a multiscale entropy object (<code>Mobj</code>) based on that originally  proposed by Costa et. al. (2002) using the following default parameters: EnType = SampEn(), embedding dimension = 2, time delay = 1,  radius = 0.2*SD(<code>Sig</code>), logarithm = natural</p><pre><code class="language-none">Mobj = MSobject(EnType::Function)</code></pre><p>Returns a multiscale entropy object by passing the entropy function (<code>EnType</code>) and the specifying default parameters for that entropy function. To see the default parameters for a particular entropy method,           type:  <code>? EntropyHub.EnType</code>  </p><p>(e.g.  <code>? EntropyHub.SampEn</code>)</p><pre><code class="language-none">Mobj = MSobject(EnType::Function; kwargs...)</code></pre><p>Returns a multiscale entropy object using the specified entropy method (<code>EnType</code>) and the &#39;keyword&#39; parameters for that particular method. To see the default parameters for a particular entropy method,           type:   ? EntropyHub.EnType   (e.g.  ? EntropyHub.SampEn)</p><p>EnType can be any of the following entropy functions:</p><p><strong>Base Entropies:</strong></p><pre><code class="language-none">-----------------
+`ApEn`      - Approximate Entropy  
+
+`SampEn`    - Sample Entropy   
+
+`FuzzEn`    - Fuzzy Entropy    
+
+`K2En`      - Kolmogorov Entropy   
+
+`PermEn`    - Permutation Entropy	 
+
+`CondEn`    - Conditional Entropy	   
+
+`DistEn`    - Distribution Entropy	    
+
+`DispEn`    - Dispersion Entropy	    
+
+`SpecEn`    - Spectral Entropy   
+
+`SyDyEn`    - Symbolic Dynamic Entropy	  
+
+`IncrEn`    - Increment Entropy	    
+
+`CoSiEn`    - Cosine Similarity Entropy	
+
+`PhasEn`    - Phase Entropy	    
+
+`SlopEn`    - Slope Entropy       
+
+`BubbEn`    - Bubble Entropy   
+
+`GridEn`    - Gridded Distribution Entropy  
+
+`EnofEn`    - Entropy of Entropy	
+
+`AttnEn`    - Attention Entropy</code></pre><p><strong>Cross Entropies:</strong></p><pre><code class="language-none">------------------
+`XApEn`     - Cross-Approximate Entropy    
+
+`XSampEn`   - Cross-Sample Entropy  
+
+`XFuzzEn`   - Cross-Fuzzy Entropy   
+
+`XK2En`     - Cross-Kolmogorov Entropy  
+
+`XPermEn`   - Cross-Permutation Entropy   
+
+`XCondEn`   - Cross-Conditional Entropy    
+
+`XDistEn`   - Cross-Distribution Entropy    
+
+`XSpecEn`   - Cross-Spectral Entropy</code></pre><p><strong>See also <code>MSEn</code>, <code>XMSEn</code>, <code>rMSEn</code>, <code>cMSEn</code>, <code>hMSEn</code>, <code>rXMSEn</code>, <code>cXMSEn</code>, <code>hXMSEn</code></strong></p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/efa0c7cdddf0506738bf11b605ce8b811581721f/src/_MSobject.jl#L4-L90">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EntropyHub._MSEn.MSEn" href="#EntropyHub._MSEn.MSEn"><code>EntropyHub._MSEn.MSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia"> MSx, CI = MSEn(Sig, Mobj)</code></pre><p>Returns a vector of multiscale entropy values <code>MSx</code> and the complexity   index <code>CI</code> of the data sequence <code>Sig</code> using the parameters specified   by the multiscale object <code>Mobj</code> over 3 temporal scales with coarse-  graining (default). </p><pre><code class="language-none"> MSx, CI = MSEn(Sig::AbstractArray{T,1} where T&lt;:Real, Mobj::NamedTuple; Scales::Int=3, 
+                      Methodx::String=&quot;coarse&quot;, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of multiscale entropy values <code>MSx</code> and the complexity   index <code>CI</code> of the data sequence <code>Sig</code> using the parameters specified by  the multiscale object <code>Mobj</code> and the following &#39;keyword&#39; arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3) </p><p><code>Method</code>   - Graining method, one of the following:                {<code>coarse</code>,<code>modified</code>,<code>imf</code>,<code>timeshift</code>} [default = <code>coarse</code>]                 For further info on these graining procedures, see the EntropyHub guide.  </p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].               When the entropy specified by <code>Mobj</code> is <code>SampEn</code> or <code>ApEn</code>,                RadNew allows the radius threshold to be updated at each                time scale (Xt). If a radius value is specified by <code>Mobj</code> (<code>r</code>),               this becomes the rescaling coefficient, otherwise it is set               to 0.2 (default). The value of RadNew specifies one of the                following methods:</p><pre><code class="language-none">          [1]    Standard Deviation          - r*std(Xt)
+
+          [2]    Variance                    - r*var(Xt) 
+
+          [3]    Mean Absolute Deviation     - r*mean_ad(Xt) 
+
+          [4]    Median Absolute Deviation   - r*med_ad(Xt)</code></pre><p><code>Plotx</code>    - When Plotx == true, returns a plot of the entropy value at each               time scale (i.e. the multiscale entropy curve) [default: false]</p><p><code>For further info on these graining procedures see the EntropyHub guide.</code></p><p><strong>See also <code>MSobject</code>, <code>rMSEn</code>, <code>cMSEn</code>, <code>hMSEn</code>, <code>SampEn</code>, <code>ApEn</code>, <code>XMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="language-none"> [1] Madalena Costa, Ary Goldberger, and C-K. Peng,
+         &quot;Multiscale entropy analysis of complex physiologic time series.&quot;
+         Physical review letters
+         89.6 (2002): 068102.
+
+ [2] Vadim V. Nikulin, and Tom Brismar,
+         &quot;Comment on “Multiscale entropy analysis of complex physiologic
+         time series”.&quot; 
+         Physical review letters 
+         92.8 (2004): 089803.
+
+ [3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+         &quot;Costa, Goldberger, and Peng reply.&quot; 
+         Physical Review Letters
+         92.8 (2004): 089804.
+
+ [4] Madalena Costa, Ary L. Goldberger and C-K. Peng,
+         &quot;Multiscale entropy analysis of biological signals.&quot; 
+         Physical review E 
+         71.2 (2005): 021906.
+
+ [5] Ranjit A. Thuraisingham and Georg A. Gottwald,
+         &quot;On multiscale entropy analysis for physiological data.&quot;
+         Physica A: Statistical Mechanics and its Applications
+         366 (2006): 323-332.
+
+ [6] Meng Hu and Hualou Liang,
+         &quot;Intrinsic mode entropy based on multivariate empirical mode
+         decomposition and its application to neural data analysis.&quot; 
+         Cognitive neurodynamics
+         5.3 (2011): 277-284.
+
+ [7] Anne Humeau-Heurtier 
+         &quot;The multiscale entropy algorithm and its variants: A review.&quot; 
+         Entropy 
+         17.5 (2015): 3110-3123.
+
+ [8] Jianbo Gao, et al.,
+         &quot;Multiscale entropy analysis of biological signals: a 
+         fundamental bi-scaling law.&quot; 
+         Frontiers in computational neuroscience 
+         9 (2015): 64.
+
+ [9]  Paolo Castiglioni, et al.,
+         &quot;Multiscale Sample Entropy of cardiovascular signals: Does the
+         choice between fixed-or varying-tolerance among scales 
+         influence its evaluation and interpretation?.&quot; 
+         Entropy
+         19.11 (2017): 590.
+
+ [10] Tuan D Pham,
+         &quot;Time-shift multiscale entropy analysis of physiological signals.&quot; 
+         Entropy 
+         19.6 (2017): 257.
+
+ [11] Hamed Azami and Javier Escudero,
+         &quot;Coarse-graining approaches in univariate multiscale sample 
+         and dispersion entropy.&quot; 
+         Entropy 20.2 (2018): 138.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/efa0c7cdddf0506738bf11b605ce8b811581721f/src/_MSEn.jl#L15-L123">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EntropyHub._cMSEn.cMSEn" href="#EntropyHub._cMSEn.cMSEn"><code>EntropyHub._cMSEn.cMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">MSx, CI = cMSEn(Sig, Mobj)</code></pre><p>Returns a vector of composite multiscale entropy values (<code>MSx</code>) for the data  sequence (<code>Sig</code>) using the parameters specified by the multiscale object  (<code>Mobj</code>) using the composite multiscale entropy method over 3 temporal scales.</p><pre><code class="language-none">MSx, CI = cMSEn(Sig::AbstractArray{T,1} where T&lt;:Real, Mobj::NamedTuple;  
+                    Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)</code></pre><p>Returns a vector of composite multiscale entropy values (<code>MSx</code>) of the  data sequence (<code>Sig</code>) using the parameters specified by the multiscale  object (<code>Mobj</code>) and the following &#39;keyword&#39; arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3) </p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>SampEn</code> or <code>ApEn</code>,               RadNew allows the radius threshold to be updated at each               time scale (Xt). If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of RadNew specifies one of the               following methods:</p><pre><code class="language-none">         [1]    Standard Deviation          - r*std(Xt)
+
+         [2]    Variance                    - r*var(Xt) 
+
+         [3]    Mean Absolute Deviation     - r*mean_ad(Xt) 
+
+         [4]    Median Absolute Deviation   - r*med_ad(Xt)</code></pre><p><code>Refined</code>  - Refined-composite MSEn method. When <code>Refined == true</code> and the               entropy function specified by Mobj is <code>SampEn</code>, cMSEn returns               the refined-composite multiscale entropy (rcMSEn) [default: false]</p><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the entropy value at each             time scale (i.e. the multiscale entropy curve) [default: false]</p><p><strong>See also <code>MSobject</code>, <code>rMSEn</code>, <code>MSEn</code>, <code>hMSEn</code>, <code>SampEn</code>, <code>ApEn</code>, <code>XMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="language-none">[1] Madalena Costa, Ary Goldberger, and C-K. Peng,
+    &quot;Multiscale entropy analysis of complex physiologic time series.&quot;
+    Physical review letters
+    89.6 (2002): 068102.
+
+[2] Vadim V. Nikulin, and Tom Brismar,
+    &quot;Comment on “Multiscale entropy analysis of complex physiologic
+    time series”.&quot; 
+    Physical review letters 
+    92.8 (2004): 089803.
+
+[3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+    &quot;Costa, Goldberger, and Peng reply.&quot; 
+    Physical Review Letters
+    92.8 (2004): 089804.
+
+ [4] Shuen-De Wu, et al.,
+    &quot;Time series analysis using composite multiscale entropy.&quot; 
+    Entropy 
+    15.3 (2013): 1069-1084.
+
+[5] Shuen-De Wu, et al.,
+    &quot;Analysis of complex time series using refined composite 
+    multiscale entropy.&quot; 
+    Physics Letters A 
+    378.20 (2014): 1369-1374.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/efa0c7cdddf0506738bf11b605ce8b811581721f/src/_cMSEn.jl#L5-L76">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EntropyHub._rMSEn.rMSEn" href="#EntropyHub._rMSEn.rMSEn"><code>EntropyHub._rMSEn.rMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">MSx, CI = rMSEn(Sig, Mobj)</code></pre><p>Returns a vector of refined multiscale entropy values (<code>MSx</code>) and the complexity  index (<code>CI</code>) of the data sequence (<code>Sig</code>) using the parameters specified by the multiscale object (<code>Mobj</code>) and the following default parameters: Scales = 3, Butterworth LPF Order = 6, Butterworth LPF cutoff frequency at scale (T): Fc = 0.5/T.  If the entropy function specified by <code>Mobj</code> is SampEn or ApEn, rMSEn  updates the threshold radius of the data sequence (Xt) at each scale to 0.2std(Xt) if no <code>r</code> value is provided by Mobj, or r.std(Xt) if <code>r</code> is specified.</p><pre><code class="language-none">MSx, CI = rMSEn(Sig::AbstractArray{T,1} where T&lt;:Real, Mobj::NamedTuple; Scales::Int=3, 
+                    F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of refined multiscale entropy values (<code>MSx</code>) and the complexity  index (<code>CI</code>) of the data sequence (<code>Sig</code>) using the parameters specified by the multiscale object (<code>Mobj</code>) and the following &#39;keyword&#39; arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1 (default = 3) </p><p><code>F_Order</code>  - Butterworth low-pass filter order, a positive integer              (default: 6) </p><p><code>F_Num</code>    - Numerator of Butterworth low-pass filter cutoff frequency,              a scalar value in range [0 &lt; <code>F_Num</code> &lt; 1]. The cutoff frequency              at each scale (T) becomes: Fc = `F_Num/T.  (default: 0.5) </p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>SampEn</code> or <code>ApEn</code>,               <code>RadNew</code> allows the radius threshold to be updated at each               time scale (Xt). If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of <code>RadNew</code> specifies one of the               following methods:</p><pre><code class="language-none">         [1]    Standard Deviation          - r*std(Xt)
+
+         [2]    Variance                    - r*var(Xt) 
+
+         [3]    Mean Absolute Deviation     - r*mean_ad(Xt) 
+
+         [4]    Median Absolute Deviation   - r*med_ad(Xt)</code></pre><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the entropy value at each              time scale (i.e. the multiscale entropy curve)  [default: false] </p><p><strong>See also <code>MSobject</code>, <code>MSEn</code>, <code>cMSEn</code>, <code>hMSEn</code>, <code>SampEn</code>, <code>ApEn</code>, <code>XMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="language-none">[1] Madalena Costa, Ary Goldberger, and C-K. Peng,
+    &quot;Multiscale entropy analysis of complex physiologic time series.&quot;
+    Physical review letters
+    89.6 (2002): 068102.
+
+[2] Vadim V. Nikulin, and Tom Brismar,
+    &quot;Comment on “Multiscale entropy analysis of complex physiologic
+    time series”.&quot; 
+    Physical review letters 
+    92.8 (2004): 089803.
+
+[3] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+    &quot;Costa, Goldberger, and Peng reply.&quot; 
+    Physical Review Letters
+    92.8 (2004): 089804.
+
+[4] José Fernando Valencia, et al.,
+    &quot;Refined multiscale entropy: Application to 24-h holter 
+    recordings of heart period variability in healthy and aortic 
+    stenosis subjects.&quot; 
+    IEEE Transactions on Biomedical Engineering 
+    56.9 (2009): 2202-2213.
+
+[5] Puneeta Marwaha and Ramesh Kumar Sunkaria,
+    &quot;Optimal selection of threshold value ‘r’for refined multiscale
+    entropy.&quot; 
+    Cardiovascular engineering and technology 
+    6.4 (2015): 557-576.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/efa0c7cdddf0506738bf11b605ce8b811581721f/src/_rMSEn.jl#L7-L89">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="EntropyHub._hMSEn.hMSEn" href="#EntropyHub._hMSEn.hMSEn"><code>EntropyHub._hMSEn.hMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">MSx, Sn, CI = hMSEn(Sig, Mobj)</code></pre><p>Returns a vector of entropy values (<code>MSx</code>) calculated at each node in the hierarchical tree, the average entropy value across all nodes at each  scale (Sn), and the complexity index (<code>CI</code>) of the hierarchical tree (i.e. sum(Sn)) for the data sequence (<code>Sig</code>) using the parameters specified by the multiscale object (<code>Mobj</code>) over 3 temporal scales (default). The entropy values in MSx are ordered from the root node (S.00) to the Nth subnode at scale T (S.TN): i.e. S.00, S.10, S.11, S.20, S.21, S.22, S.23, S.30, S.31, S.32, S.33, S.34, S.35, S.36, S.37, S.40, ... , S.TN. The average entropy values in Sn are ordered in the same way, with the value of the root node given first: i.e. S0, S1, S2, ..., ST</p><pre><code class="language-none">MSx, Sn, CI = hMSEn(Sig::AbstractArray{T,1} where T&lt;:Real, Mobj::NamedTuple; 
+                        Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of entropy values (<code>MSx</code>) calculated at each node in the hierarchical tree, the average entropy value across all nodes at each  scale (Sn), and the complexity index (CI) of the entire hierarchical tree for the data sequence (<code>Sig</code>) using the following &#39;keyword&#39; arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3)              At each scale (T), entropy is estimated for 2^(T-1) nodes.</p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>SampEn</code> or <code>ApEn</code>,               <code>RadNew</code> allows the radius threshold to be updated at each               node in the tree. If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of <code>RadNew</code> specifies one of the               following methods:</p><pre><code class="language-none">         [1]    Standard Deviation          - r*std(Xt)
+
+         [2]    Variance                    - r*var(Xt)
+
+         [3]    Mean Absolute Deviation     - r*mean_ad(Xt)
+
+         [4]    Median Absolute Deviation   - r*med_ad(Xt,1)</code></pre><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the average entropy               value at each time scale (i.e. the multiscale entropy curve)              and a hierarchical graph showing the entropy value of each node              in the hierarchical tree decomposition.  (default: false)</p><p><strong>See also <code>MSobject</code>, <code>MSEn</code>, <code>cMSEn</code>, <code>rMSEn</code>, <code>SampEn</code>, <code>ApEn</code>, <code>XMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="language-none">[1] Ying Jiang, C-K. Peng and Yuesheng Xu,
+    &quot;Hierarchical entropy analysis for biological signals.&quot;
+    Journal of Computational and Applied Mathematics
+    236.5 (2011): 728-742.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/efa0c7cdddf0506738bf11b605ce8b811581721f/src/_hMSEn.jl#L6-L61">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Cross_Entropies/">« Cross-Entropies</a><a class="docs-footer-nextpage" href="../Multiscale_Cross_Entropies/">Multiscale Cross-Entropies »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 23 May 2021 11:26">Sunday 23 May 2021</span>. Using Julia version 1.5.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
