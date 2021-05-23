@@ -9,10 +9,6 @@ julia:
   - nightly
 os:
   - windows
-  - osx
-  - linux
-arch:
-  - x64
 cache:
   directories:
     - ~/.julia/artifacts
