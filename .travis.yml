@@ -3,10 +3,13 @@ language: julia
 notifications:
   email: false
 julia:
-  - 1.0
+  - 1.0.6
   - 1.5
+  - 1
   - nightly
 os:
+  - windows
+  - osx
   - linux
 arch:
   - x64
@@ -19,7 +22,8 @@ jobs:
     - julia: nightly
   include:
     - stage: Documentation
-      julia: 1
+      julia: 1.4
+      os: windows
       script: |
         julia --project=docs -e '
           using Pkg
