@@ -45,5 +45,5 @@ deploydocs(;
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#.#", devurl => devurl]
+    versions = ["stable" => "v^", "v#.#.#"],
 )
