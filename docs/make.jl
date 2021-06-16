@@ -5,7 +5,7 @@ DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=tr
 
 makedocs(;
     modules=[EntropyHub],
-    authors="Matthew W. Flood <entropyhubproject@gmail.com>",
+    authors="Matthew W. Flood <info@entropyhub.xyz>",
     repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
     sitename="EntropyHub.jl",
     format=Documenter.HTML(;

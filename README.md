@@ -103,7 +103,7 @@ For example:
 	julia> ?
 	help?> hXMSEn     # Documentation on hierarchical multiscale cross-entropy function
 
-All information on the EntropyHub package is detailed in the *EntropyHub Guide*, a .pdf document available [here](https://github.com/MattWillFlood/EntropyHub).
+All information on the EntropyHub package is detailed in the *EntropyHub Guide*, a .pdf document available [here](https://github.com/MattWillFlood/EntropyHub/blob/main/EntropyHub%20Guide.pdf).
 
 
 ## Functions
@@ -201,7 +201,7 @@ realized using the software:
  
         Matthew W. Flood and Bernd Grimm, 
         EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
-        2021 github.com/MattWillFlood/EntropyHub
+        2021 www.EntropyHub.xyz
 
 __________________________________________________________________
 
@@ -230,7 +230,7 @@ MatLab File Exchange, PyPI or Julia Packages as this helps us to gauge user
 satisfaction.
 
 If you have any questions about the package or identify any issues, 
-please do not hesitate to contact us at:    entropyhubproject@gmail.com
+please do not hesitate to contact us at:    info@entropyhub.xyz
 
 
 ***Thank you*** for using EntropyHub.

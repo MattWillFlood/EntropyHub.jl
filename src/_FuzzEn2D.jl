@@ -77,7 +77,7 @@ using Statistics: mean, std
     NL, NW = size(Mat)
     ((NL > 128 || NW > 128) && Lock) ? 
         error("To prevent memory errors, matrix width & length must have <= 128 elements.
-            To estimate SampEn2D  for the current matrix ($NL,$NW) change Lock to 'false'.
+            To estimate FuzzEn2D  for the current matrix ($NL,$NW) change Lock to 'false'.
             Caution: unlocking the safe matrix size may cause the Julia IDE to crash.") :
             nothing
 

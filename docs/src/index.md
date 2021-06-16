@@ -16,7 +16,8 @@ This is a toolkit that provides a wide range of functions to calculate different
 
 There is an ever-growing range of information-theoretic entropy measures presented in the scientific literature.
 Although many functions for estimating these entropies can be found in various corners
-of the internet, there is currently no toolkit to perform entropic time-series analysis in Julia with an extensive documentation and consistent syntax, that is also accessible in multiple programming languages (Matlab, Python).
+of the internet, there is currently no toolkit to perform entropic time-series analysis in Julia with an extensive documentation and consistent syntax,
+ that is also accessible in multiple programming languages ([Matlab](https://www.entropyhub.xyz/matlab/EHmatlab.html), [Python](https://www.entropyhub.xyz/python/EHpython.html)).
 
 The goal of **EntropyHub.jl** is to integrate the many established entropy methods into one package that is available for
 users of Julia.
@@ -52,7 +53,9 @@ line, enabling a range from basic to advanced entropy methods to be implemented
 with ease.
 
 !!! warning "NOTE:"
-    It is important to clarify that the entropy functions herein described estimate entropy in the context of probability theory and information theory as defined by Shannon, and not thermodynamic or other entropies from classical physics.
+    It is important to clarify that the entropy functions herein described estimate entropy 
+    in the context of probability theory and information theory as defined by Shannon, 
+    and not thermodynamic or other entropies from classical physics.
 
 ## Installation
 Using the Julia REPL:
@@ -81,7 +84,7 @@ software:
 ```
 Matthew W. Flood and Bernd Grimm,
 EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
-2021 github.com/MattWillFlood/EntropyHub
+2021, www.EntropyHub.xyz 
 ```
 __________________________________________________________________
 
@@ -101,7 +104,8 @@ __________________________________________________________________
         
         For Terms of Use see https://github.com/MattWillFlood/EntropyHub
 
-If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub) and Julia Packages (or MatLab File Exchange and PyPI). This helps us to gauge user satisfaction.
+If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub) 
+and Julia Packages (or MatLab File Exchange and PyPI). This helps us to gauge user satisfaction.
 
 ## Functions
 
@@ -116,7 +120,7 @@ EntropyHub functions fall into 5 categories:
 
 
 ## Contact
-If have run into any difficulty with this pacakge, please do not hesitate to contact us at: `entropyhubproject@gmail.com`
+If have run into any difficulty with this pacakge, please do not hesitate to contact us at: `info@entropyhub.xyz`
 
 We will do our best to help you with any relevant issues that you may have.
 

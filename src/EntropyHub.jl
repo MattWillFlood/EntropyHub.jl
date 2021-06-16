@@ -32,6 +32,7 @@ export
     SampEn2D,
     FuzzEn2D,
     DistEn2D,
+    DispEn2D,
 
     MSobject,
     MSEn,
@@ -91,6 +92,7 @@ include("./_hXMSEn.jl"),
 include("./_SampEn2D.jl"),
 include("./_FuzzEn2D.jl"),
 include("./_DistEn2D.jl"),
+include("./_DispEn2D.jl"),
 
 
 
@@ -145,6 +147,7 @@ using ._XSpecEn: XSpecEn
 using ._SampEn2D: SampEn2D
 using ._DistEn2D: DistEn2D
 using ._FuzzEn2D: FuzzEn2D
+using ._DispEn2D: DispEn2D
 
 # (cross) Multiscale Entropies
 using ._MSobject: MSobject

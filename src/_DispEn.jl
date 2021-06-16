@@ -26,9 +26,10 @@ using StatsFuns: normcdf
     `Logx`  - Logarithm base, a positive scalar\n
     `Fluct` - When Fluct == true, DispEn returns the fluctuation-based
               Dispersion entropy.   [default: false]\n
-    `Norm`  - Normalisation of Dispx value:
+    `Norm`  - Normalisation of Dispx and RDE value:
               [false]  no normalisation - default
-              [true]   normalises w.r.t # possible vector permutations (c^m).\n
+              [true]   normalises w.r.t number of possible dispersion patterns 
+                       (c^m  or (2c -1)^m-1 if Fluct == true).\n
     `rho`   - *If Typex == 'finesort', rho is the tuning parameter* (default: 1)\n
 
     # See also `PermEn`, `SyDyEn`, `MSEn`
@@ -127,15 +128,29 @@ using StatsFuns: normcdf
     end    
     
     Ppi = Counter[Counter.!= 0]/size(Zm)[1]
-    RDE = sum(Ppi.^2) - (1/Nx)
+
+    if Fluct
+        RDE = sum((Ppi .- (1/((2*c - 1)^(m-1)))).^2)
+    else
+        RDE = sum((Ppi .- (1/(c^m))).^2)
+    end
+    #RDE = sum(Ppi.^2) - (1/Nx)
+    
     if round(sum(Ppi)) != 1
         @warn("Potential Error calculating probabilities")
     end
 
     Dispx = -sum(Ppi.*log.(Logx, Ppi))
     if Norm
-        Dispx = Dispx/log(Logx, Nx)
-        RDE = RDE/(1 - (1/Nx))
+        #Dispx = Dispx/log(Logx, Nx)
+        #RDE = RDE/(1 - (1/Nx))
+        if Fluct
+            Dispx = Dispx/(log(Logx, (2*c - 1)^(m-1)))
+            RDE = RDE/(1 - (1/((2*c - 1)^(m-1))))
+        else
+            Dispx = Dispx/(log(Logx, c^m))
+            RDE = RDE/(1 - (1/(c^m)))
+        end
     end
 
     return Dispx, RDE

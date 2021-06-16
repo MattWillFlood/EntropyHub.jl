@@ -8,6 +8,7 @@ These functions are directly available when EntropyHub is imported:
 
 ```
 julia> using EntropyHub
+
 julia> names(EntropyHub)
 ```
 ```
