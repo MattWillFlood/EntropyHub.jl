@@ -21,6 +21,16 @@ StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 
 [compat]
 julia = ">= 1.5"
+Clustering = "0.14.2"
+Combinatorics = "1.0.2"
+DSP = "0.6.8"
+Dierckx = "0.4.2"
+FFTW = "1.2.4"
+GroupSlices = "0.0.3"
+HTTP = "0.8.19"
+Plots = "1.10.3"
+StatsBase = "0.33.2"
+StatsFuns = "0.9.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
