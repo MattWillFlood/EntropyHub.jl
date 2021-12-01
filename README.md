@@ -137,12 +137,12 @@ Dispersion Entropy                            		  |	DispEn
 Symbolic Dynamic Entropy                          	  |	SyDyEn
 Increment Entropy                                 	  |	IncrEn
 Cosine Similarity Entropy                         	  |	CoSiEn
-Phase Entropy                                         |	PhasEn
-Slope Entropy                                      	  |	SlopEn
+Phase Entropy                                        |	PhasEn
+Slope Entropy                                        |	SlopEn
 Bubble Entropy                                		  |	BubbEn
-Gridded Distribution Entropy                          |	GridEn
-Entropy of Entropy                            	      |	EnofEn
-Attention Entropy                                     |	AttnEn
+Gridded Distribution Entropy                         |	GridEn
+Entropy of Entropy                            	     |	EnofEn
+Attention Entropy                                    |	AttnEn
 
 _______________________________________________________________________
 
@@ -156,7 +156,7 @@ Cross Fuzzy Entropy                                   |	XFuzzEn
 Cross Permutation Entropy                             |	XPermEn
 Cross Conditional Entropy                             |	XCondEn
 Cross Distribution Entropy                            |	XDistEn
-Cross Spectral Entropy                          	  |	XSpecEn
+Cross Spectral Entropy                          	   |	XSpecEn
 Cross Kolmogorov Entropy                              |	XK2En
 	
 _______________________________________________________________________
@@ -165,9 +165,11 @@ _______________________________________________________________________
 
 Entropy Type   |  Function Name 
 --|--
-Bi-Dimensional Sample Entropy                         |	SampEn2D
-Bi-Dimensional Fuzzy Entropy                          |	FuzzEn2D
-Bi-Dimensional Distribution Entropy                   |	DistEn2D
+Bidimensional Sample Entropy                         |	SampEn2D
+Bidimensional Fuzzy Entropy                          |	FuzzEn2D
+Bidimensional Distribution Entropy                   |	DistEn2D
+Bidimensional Dispersion Entropy                     |	DispEn2D
+
 	
 _________________________________________________________________________
 
@@ -178,7 +180,7 @@ Entropy Type   |  Function Name
 Multiscale Entropy                                    | MSEn
 Composite/Refined-Composite Multiscale Entropy        | cMSEn
 Refined Multiscale Entropy                            | rMSEn
-Hierarchical Multiscale Entropy                 | hMSEn
+Hierarchical Multiscale Entropy                       | hMSEn
 	
 _________________________________________________________________________
 
@@ -187,7 +189,7 @@ Entropy Type   |  Function Name
 --|--
 Multiscale Cross-Entropy                              |   XMSEn
 Composite/Refined-Composite Multiscale Cross-Entropy  |   cXMSEn
-Refined Multiscale Cross-Entropy                            |   rXMSEn
+Refined Multiscale Cross-Entropy                      |   rXMSEn
 Hierarchical Multiscale Cross-Entropy                 |   hXMSEn
 
 
@@ -199,9 +201,11 @@ EntropyHub is licensed under the Apache License (Version 2.0) and is free to
 use by all on condition that the following reference be included on any outputs
 realized using the software:
  
-        Matthew W. Flood and Bernd Grimm, 
+        Matthew W. Flood and Bernd Grimm (2021), 
         EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
-        2021 www.EntropyHub.xyz
+        PLoS ONE 16(11):e0259448
+        DOI:   10.1371/journal.pone.0259448
+        www.EntropyHub.xyz
 
 __________________________________________________________________
 
@@ -229,8 +233,10 @@ If you find this package useful, please consider starring it on GitHub,
 MatLab File Exchange, PyPI or Julia Packages as this helps us to gauge user 
 satisfaction.
 
-If you have any questions about the package or identify any issues, 
-please do not hesitate to contact us at:    info@entropyhub.xyz
+If you have any questions about the package, please do not hesitate to contact us at: info@entropyhub.xyz
+If you identify any bugs, please contact us at: fix@entropyhub.xyz
+If you need any help installing or using the toolkit, please contact us at: help@entropyhub.xyz
+
 
 
 ***Thank you*** for using EntropyHub.

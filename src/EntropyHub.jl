@@ -244,11 +244,12 @@ Cross Spectral Entropy                                |	XSpecEn
 Cross Kolmogorov Entropy                              |	XK2En
 	
 _________________________________________________________________________
-Bi-Dimensional Entropies                              |	Function Name
-______________________________________________________|__________________
-Bi-Dimensional Sample Entropy                         |	SampEn2D
-Bi-Dimensional Fuzzy Entropy                          |	FuzzEn2D
-Bi-Dimensional Distribution Entropy                   |	DistEn2D
+Bidimensional Entropies                              |	Function Name
+_____________________________________________________|__________________
+Bidimensional Sample Entropy                         |	SampEn2D
+Bidimensional Fuzzy Entropy                          |	FuzzEn2D
+Bidimensional Distribution Entropy                   |	DistEn2D
+Bidimensional Dispersion Entropy                     |	DispEn2D
 	
 _________________________________________________________________________
 Multiscale Entropy Functions                          | Function Name
@@ -307,9 +308,11 @@ Multiscale Cross-Conditional Entropy                  |
   include the following citation with the appropriate version number,
   as well as original articles upon which functions are derived:
 
-  Matthew W. Flood, 
+  Matthew W. Flood and Bernd Grimm (2021), 
   "EntropyHub - An open source toolkit for entropic time series analysis"
-  2021, https://github.com/MattWillFlood/EntropyHub
+  PLoS ONE 16(11):e0295448, 
+  DOI:  10.1371/journal.pone.0259448
+  https://www.EntropyHub.xyz
 
   © Copyright 2021 Matthew W. Flood, EntropyHub
 

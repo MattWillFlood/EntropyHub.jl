@@ -11,6 +11,7 @@ using Statistics: std, var, mean
     parameters: embedding dimension = 2, time delay = 1, logarithm = base 2, 
     normalisation = w.r.t #symbols (`m`-1)
     Note: using the standard PermEn estimation, `Perm` = 0 when `m` = 1.
+    Note: It is recommeneded that signal length > 5m! (see [8] and Amigo et al., Europhys. Lett. 83:60005, 2008)
 
         Perm, Pnorm, cPE = PermEn(Sig, m)
 
