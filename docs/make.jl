@@ -3,28 +3,24 @@ using Documenter
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
-makedocs(;
-    modules=[EntropyHub],
-    authors="Matthew W. Flood <info@entropyhub.xyz>",
-    repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
-    sitename="EntropyHub.jl",
-    format=Documenter.HTML(;
-        prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://mattwillflood.github.io/EntropyHub.jl",
-        assets=String[],
-        collapselevel = 1,
-    ),
-    pages=[
-        "Home" => "index.md",
+makedocs(modules = [EntropyHub],
+    authors = "Matthew W. Flood <info@entropyhub.xyz>",
+    repo = "https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
+    sitename = "EntropyHub.jl",
+    doctest = false,
+    format = Documenter.HTML(;  prettyurls=get(ENV, "CI", nothing) == "true",
+           canonical="https://mattwillflood.github.io/EntropyHub.jl",
+           assets=String[],  
+           collapselevel = 1, 
+           ),
+    pages = [ "Home" => "index.md",
         
-        "Guide" => [
-                "Base Entropies" => "Guide/Base_Entropies.md",
+        "Guide" => ["Base Entropies" => "Guide/Base_Entropies.md",
                 "Cross-Entropies" => "Guide/Cross_Entropies.md",
                 "Multiscale Entropies" => "Guide/Multiscale_Entropies.md",
                 "Multiscale Cross-Entropies" => "Guide/Multiscale_Cross_Entropies.md",
                 "Bidimensional Entropies" => "Guide/Bidimensional_Entropies.md",
                 ],
-
         
         "Examples" => ["Notes on Examples" => "Examples/Examples.md",
                 "Ex.1: Sample Entropy" =>  "Examples/Example1.md",
@@ -45,5 +41,5 @@ deploydocs(;
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#.#"],
+    versions = ["stable" => "v^", "v#.#.#", devurl =>devurl],
 )

@@ -33,6 +33,8 @@ export
     FuzzEn2D,
     DistEn2D,
     DispEn2D,
+    PermEn2D,
+    EspEn2D,
 
     MSobject,
     MSEn,
@@ -93,6 +95,8 @@ include("./_SampEn2D.jl"),
 include("./_FuzzEn2D.jl"),
 include("./_DistEn2D.jl"),
 include("./_DispEn2D.jl"),
+include("./_PermEn2D.jl"),
+include("./_EspEn2D.jl"),
 
 
 
@@ -148,6 +152,8 @@ using ._SampEn2D: SampEn2D
 using ._DistEn2D: DistEn2D
 using ._FuzzEn2D: FuzzEn2D
 using ._DispEn2D: DispEn2D
+using ._PermEn2D: PermEn2D
+using ._EspEn2D: EspEn2D
 
 # (cross) Multiscale Entropies
 using ._MSobject: MSobject
@@ -250,6 +256,8 @@ Bidimensional Sample Entropy                         |	SampEn2D
 Bidimensional Fuzzy Entropy                          |	FuzzEn2D
 Bidimensional Distribution Entropy                   |	DistEn2D
 Bidimensional Dispersion Entropy                     |	DispEn2D
+Bidimensional Permutation Entropy                    |	PermEn2D
+Bidimensional Espinosa Entropy                       |	EspEn2D
 	
 _________________________________________________________________________
 Multiscale Entropy Functions                          | Function Name
