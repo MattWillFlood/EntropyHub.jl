@@ -8,8 +8,8 @@ matrices. Hence, bidimensional entropy functions are useful for applications suc
 
 !!! danger "IMPORTANT: Locked Matrix Size"
 
-    Each bidimensional entropy function (`SampEn2D`, `FuzzEn2D`, `DistEn2D`, `Disp2DEn`) has
-    an important keyword argument - `Lock`. Bidimensional entropy functions are
+    Each bidimensional entropy function (`SampEn2D`, `FuzzEn2D`, `DistEn2D`, `DispEn2D`, 
+    `EspEn2D`, `PermEn2D`) has an important keyword argument - `Lock`. Bidimensional entropy functions are
     "locked" by default (`Lock == true`) to only permit matrices with a maximum size of 128 x 128.
 
     The reason for this is because there are hundreds of millions of pairwise calculations
@@ -30,4 +30,6 @@ EntropyHub.SampEn2D
 EntropyHub.FuzzEn2D
 EntropyHub.DistEn2D
 EntropyHub.DispEn2D
+EntropyHub.PermEn2D
+EntropyHub.EspEn2D
 ```
