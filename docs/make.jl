@@ -18,8 +18,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         
-        "Guide" => [
-                "Base Entropies" => "Guide/Base_Entropies.md",
+        "Guide" => ["Base Entropies" => "Guide/Base_Entropies.md",
                 "Cross-Entropies" => "Guide/Cross_Entropies.md",
                 "Multiscale Entropies" => "Guide/Multiscale_Entropies.md",
                 "Multiscale Cross-Entropies" => "Guide/Multiscale_Cross_Entropies.md",
@@ -46,7 +45,7 @@ deploydocs(;
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#.#", devurl =>devurl],
+    versions = ["stable" => "v^", "v#.#.#"],
 )
 
 
