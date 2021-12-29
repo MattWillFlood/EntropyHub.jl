@@ -1,10 +1,10 @@
 using EntropyHub, Documenter
 using DocumenterTools 
-OutdatedWarning.generate(raw"C:\Users\Maitiú\Documents\GitHub\EntropyHubJl\EntropyHub.jl\EntropyHub\docs\src")
+OutdatedWarning.generate("src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
-makedocs(;
+makedocs(
     modules=[EntropyHub],
     authors="Matthew W. Flood <info@entropyhub.xyz>",
     repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
@@ -40,7 +40,7 @@ makedocs(;
     ],
 )
 
-deploydocs(;
+deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
