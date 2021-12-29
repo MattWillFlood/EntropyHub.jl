@@ -1,4 +1,6 @@
 using EntropyHub, Documenter
+#using DocumenterTools 
+#OutdatedWarning.generate(raw"C:\Users\Maitiú\Documents\GitHub\EntropyHubJl\EntropyHub.jl\EntropyHub\docs\src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
@@ -8,7 +10,7 @@ makedocs(;
     repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
     sitename="EntropyHub.jl",
     doctest=false,
-    clean=false,
+    clean=true,
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", nothing) == "true",
         canonical="https://mattwillflood.github.io/EntropyHub.jl",
@@ -42,7 +44,7 @@ deploydocs(;
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#.#"],
+    versions = ["stable" => "v^", "v#.#"],
 )
 
 
