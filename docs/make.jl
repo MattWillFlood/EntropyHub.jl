@@ -1,6 +1,6 @@
 using EntropyHub, Documenter
-#using DocumenterTools 
-#OutdatedWarning.generate(raw"C:\Users\Maitiú\Documents\GitHub\EntropyHubJl\EntropyHub.jl\EntropyHub\docs\src")
+using DocumenterTools 
+OutdatedWarning.generate(raw"C:\Users\Maitiú\Documents\GitHub\EntropyHubJl\EntropyHub.jl\EntropyHub\docs\src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
@@ -44,7 +44,7 @@ deploydocs(;
     repo="github.com/MattWillFlood/EntropyHub.jl",
     devbranch = "master",
     devurl = "dev",
-    versions = ["stable" => "v^", "v#.#"],
+    versions = ["stable" => "v^", "v#.#.#", devurl =>devurl],
 )
 
 
