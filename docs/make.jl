@@ -1,5 +1,4 @@
-using EntropyHub
-using Documenter
+using EntropyHub, Documenter
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
@@ -9,23 +8,21 @@ makedocs(;
     repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
     sitename="EntropyHub.jl",
     doctest=false,
+    clean=false,
     format=Documenter.HTML(;
-        prettyurls=get(ENV, "CI", "false") == "true",
+        prettyurls=get(ENV, "CI", nothing) == "true",
         canonical="https://mattwillflood.github.io/EntropyHub.jl",
-        assets=String[],
+        assets = ["assets/favicon.ico"],
         collapselevel = 1,
     ),
     pages=[
         "Home" => "index.md",
-        
         "Guide" => ["Base Entropies" => "Guide/Base_Entropies.md",
                 "Cross-Entropies" => "Guide/Cross_Entropies.md",
                 "Multiscale Entropies" => "Guide/Multiscale_Entropies.md",
                 "Multiscale Cross-Entropies" => "Guide/Multiscale_Cross_Entropies.md",
                 "Bidimensional Entropies" => "Guide/Bidimensional_Entropies.md",
                 ],
-
-        
         "Examples" => ["Notes on Examples" => "Examples/Examples.md",
                 "Ex.1: Sample Entropy" =>  "Examples/Example1.md",
                 "Ex.2: Permutation Entropy" =>  "Examples/Example2.md",

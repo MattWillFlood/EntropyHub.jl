@@ -123,7 +123,7 @@ EntropyHub functions fall into 5 categories:
 
 ## Contact
 
-For general queries and information about EntropyHub, contact: `info@entropyhub.xyz`     
+For general queries and information about EntropyHub, contact: `info@entropyhub.xyz`        
 If you have any questions or need help using the package, please contact us at: `help@entropyhub.xyz`       
 If you notice or identify any issues, please do not hesitate to contact us at: `fix@entropyhub.xyz`        
 
