@@ -42,6 +42,7 @@ makedocs(
 
 deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
+    versions = ["stable" => "v^"],
 )
 
 
