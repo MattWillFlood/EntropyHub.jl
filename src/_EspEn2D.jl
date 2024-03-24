@@ -6,7 +6,7 @@ export EspEn2D
     Returns the bidimensional Espinosa entropy estimate (`Esp2D`) 
     estimated for the data matrix (`Mat`) using the default parameters: 
     time delay = 1, tolerance threshold = 20, percentage similarity = 0.7
-    logarithm = natural, matrix template size = [floor(H/10) floor(W/10)]  
+    logarithm = natural, matrix template size = [floor(H/10) floor(W/10)], 
     (where H and W represent the height (rows) and width (columns) of 
     the data matrix `Mat`) 
     ** The minimum number of rows and columns of `Mat` must be > 10.
@@ -24,7 +24,7 @@ export EspEn2D
               (default: [floor(H/10) floor(W/10)]) \n
     `tau`   - Time Delay, a positive integer       (default: 1) \n
     `r`     - Tolerance threshold, a positive scalar  (default: 20) \n
-    `ps`    - Percentage similarity, a value in range [0 1]  (default: 0.7) \n
+    `ps`    - Percentage similarity, a value in range [0 1],  (default: 0.7) \n
     `Logx`  - Logarithm base, a positive scalar    (default: natural)  \n
     `Lock`  - By default, EspEn2D only permits matrices with a maximum
               size of 128 x 128 to prevent memory errors when storing data
