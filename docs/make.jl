@@ -1,5 +1,5 @@
-using EntropyHub, Documenter
-using DocumenterTools 
+using EntropyHub
+using Documenter, DocumenterTools 
 OutdatedWarning.generate("src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
@@ -47,7 +47,7 @@ deploydocs(
 )
 
 
-"""using EntropyHub
+#= """using EntropyHub
 using Documenter
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
@@ -95,3 +95,4 @@ deploydocs(;
     versions = ["stable" => "v^", "v#.#.#", devurl =>devurl],
 )
 """
+=#

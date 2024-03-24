@@ -16,11 +16,23 @@ graining procedure where:
 ``y_j^{(\tau)} =\frac{1}{\tau } \sum_{i=\left(j-1\right)\tau +1}^{j\tau } x{_i},    1<= j <= \frac{N}{\tau }``
 
 
-
 ```@example
 using EntropyHub # hide
 X = ExampleData("randintegers"); # hide
 Mobj = MSobject(IncrEn, m = 3, R = 6, Norm = true) # hide
 MSx, _ = MSEn(X, Mobj, Scales = 5, Methodx = "modified");
+MSx # hide
+```
+
+Change the graining method to return generalized multiscale increment entropy.
+
+``y_j^{(\tau)} =\frac{1}{\tau } \sum_{i=\left(j-1\right)\tau +1}^{j\tau } \left( x{_i} - \bar{x} \right)^{2},    1<= j <= \frac{N}{\tau }``
+
+
+```@example
+using EntropyHub # hide
+X = ExampleData("randintegers"); # hide
+Mobj = MSobject(IncrEn, m = 3, R = 6, Norm = true) # hide
+MSx, _ = MSEn(X, Mobj, Scales = 5, Methodx = "generalized");
 MSx # hide
 ```
