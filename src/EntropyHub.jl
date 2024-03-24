@@ -102,8 +102,10 @@ include("./_DispEn2D.jl"),
 include("./_PermEn2D.jl"),
 include("./_EspEn2D.jl"),
 
-#= 
-@reexport using ._ApEn
+
+#=
+@reexport using ._ApEn: ApEn
+
 @reexport using ._MSobject
 
 @reexport using ._AttnEn
@@ -170,6 +172,7 @@ using ._rXMSEn: rXMSEn
 using ._hXMSEn: hXMSEn
 
 using ._ExampleData: ExampleData
+
 
 
 greet() = print(raw"""  
