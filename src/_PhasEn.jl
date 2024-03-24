@@ -16,12 +16,14 @@ using Random: randperm
    
     # Arguments:
     `K`     - Angular partitions (coarse graining), an integer > 1  \n
+                *Note: Division of partitions begins along the positive x-axis. As this point is somewhat arbitrary, it is
+                 recommended to use even-numbered (preferably multiples of 4) partitions for sake of symmetry. \n
     `tau`   - Time Delay, a positive integer    \n
     `Logx`  - Logarithm base, a positive scalar \n 
     `Norm`  - Normalisation of `Phas` value:    \n
               [false]  no normalisation
               [true]   normalises w.r.t. the number of partitions Log(`K`)
-    `Plotx` - When `Plotx` == true, returns Poicaré plot (default: false)  \n
+    `Plotx` - When `Plotx` == true, returns Poincaré plot (default: false)  \n
  
     # See also `SampEn`, `ApEn`, `GridEn`, `MSEn`, `SlopEn`, `CoSiEn`, `BubbEn`
   

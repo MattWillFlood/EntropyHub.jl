@@ -1,7 +1,7 @@
 name = "EntropyHub"
 uuid = "3938faea-3bfa-4bc3-8092-0c6746ff9af1"
 authors = ["Matthew W. Flood <info@entropyhub.xyz>"]
-version = "0.1.1"
+version = "0.2"
 
 [deps]
 Clustering = "aaaa29a8-35af-508c-8bc3-b662a17a0fe5"
@@ -20,7 +20,6 @@ StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 StatsFuns = "4c63d2b9-4356-54db-8cca-17b64c39e42c"
 
 [compat]
-julia = "1.5"
 Clustering = "0.14.2"
 Combinatorics = "1.0.2"
 DSP = "0.6.8"
@@ -31,6 +30,7 @@ HTTP = "0.8.19"
 Plots = "1.10.3"
 StatsBase = "0.33.2"
 StatsFuns = "0.9.6"
+julia = "1.5"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

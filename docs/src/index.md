@@ -42,7 +42,6 @@ best capture the uncertainty of the system under examination. This has resulted
 in many entropy statistics from approximate entropy and sample entropy, to
 multiscale sample entropy and refined-composite multiscale cross-sample entropy.
 
-
 As the number of statisitcal entropy measures grows, it becomes more difficult
 to identify, contrast and compare the performance of each measure. To overcome
 this, we have developed EntropyHub - an open-source toolkit designed to 
@@ -82,12 +81,13 @@ EntropyHub is licensed under the Apache License (Version 2.0) and is free to use
 all on condition that the following reference be included on any outputs realized using the
 software:
 ```
-Matthew W. Flood and Bernd Grimm,
+Matthew W. Flood and Bernd Grimm (2021),
 EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
-2021, www.EntropyHub.xyz 
+PLoS ONE 16(11):e0259448
+DOI:  10.1371/journal.pone.0259448
+www.EntropyHub.xyz 
 ```
 __________________________________________________________________
-
 
         © Copyright 2021 Matthew W. Flood, EntropyHub
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -117,10 +117,14 @@ EntropyHub functions fall into 5 categories:
 * `Multiscale`          functions for estimating the multiscale entropy of a single univariate time series using any of the Base entropy functions.
 * `Multiscale Cross`    functions for estimating the multiscale entropy between two univariate time series using any of the Cross-entropy functions.
 
-
-
 ## Contact
-If have run into any difficulty with this pacakge, please do not hesitate to contact us at: `info@entropyhub.xyz`
+
+For general queries and information about EntropyHub, contact: `info@entropyhub.xyz`   
+
+If you have any questions or need help using the package, please contact us at: `help@entropyhub.xyz`     
+
+If you notice or identify any issues, please do not hesitate to contact us at: `fix@entropyhub.xyz`     
+
 
 We will do our best to help you with any relevant issues that you may have.
 
