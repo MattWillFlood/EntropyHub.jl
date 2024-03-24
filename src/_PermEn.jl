@@ -2,6 +2,7 @@ module _PermEn
 export PermEn
 using Combinatorics: permutations
 using Statistics: std, var, mean
+using DSP: hilbert, unwrap, angle
     """
         Perm, Pnorm, cPE = PermEn(Sig) 
 
@@ -36,13 +37,14 @@ using Statistics: std, var, mean
               is calculated w.r.t. log(tpx^m)\n
     `Typex`  - Permutation entropy variation, one of the following:
               {`"none", "uniquant", "finegrain", "modified", "ampaware",
-              "weighted", "edge"}
+              "weighted", "edge", "phase"}
               See the EntropyHub guide for more info on PermEn variations.    \n
     `tpx`   - Tuning parameter for associated permutation entropy variation.\n
               [uniquant]  'tpx' is the L parameter, an integer > 1 (default = 4).           
               [finegrain] 'tpx' is the alpha parameter, a positive scalar (default = 1)
               [ampaware]  'tpx' is the A parameter, a value in range [0 1] (default = 0.5)
               [edge]      'tpx' is the r sensitivity parameter, a scalar > 0 (default = 1)
+              [phase]     'tpx' unwraps the instantaneous phase (angle of analytic signal) when tpx==1 (default = 0)
               See the EntropyHub guide for more info on PermEn variations.    \n
 
     # See also `XPermEn`, `MSEn`, `XMSEn`, `SampEn`, `ApEn`, `CondEn`
@@ -82,17 +84,22 @@ using Statistics: std, var, mean
                 45th Annual Conference of the IEEE Industrial Electronics Soc,
                 (2019), 5998-6003
 
-        [8] Zhe Chen, et al. 
+        [7] Zhe Chen, et al. 
                 "Improved permutation entropy for measuring complexity of time
                 series under noisy condition." 
                 Complexity 
                 1403829 (2019).
 
-        [9] Maik Riedl, Andreas Müller, and Niels Wessel,
+        [8] Maik Riedl, Andreas Müller, and Niels Wessel,
                 "Practical considerations of permutation entropy." 
                 The European Physical Journal Special Topics 
                 222.2 (2013): 249-262.
 
+        [9] Kang Huan, Xiaofeng Zhang, and Guangbin Zhang,
+                "Phase permutation entropy: A complexity measure for nonlinear time 
+                series incorporating phase information." 
+                Physica A: Statistical Mechanics and its Applications 
+                568 (2021): 125686.          
 
     """
     function PermEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, 
@@ -105,11 +112,16 @@ using Statistics: std, var, mean
     (m > 1) ? nothing :  error("m:     must be an integer > 1")
     (tau > 0) ? nothing :  error("tau:   must be an integer > 0")
     (Logx>0) ? nothing : error("Logx:     must be a positive number > 0")
-    (lowercase(Typex) in ["none","uniquant","finegrain","modified","ampaware","weighted","edge"]) ?
+    (lowercase(Typex) in ["none","uniquant","finegrain","modified","ampaware","weighted","edge","phase"]) ?
      nothing : error("Typex:    must be one of the following strings - 
-        'uniquant','finegrain','modified','ampaware','weighted','edge'")
+        'uniquant','finegrain','modified','ampaware','weighted','edge','phase'")
     (isnothing(tpx) || tpx>0) ? nothing : error("tpx:   the value of tpx relates to 'Type'.
         See the EntropyHub guide for further info on the 'tpx' value.")
+
+    if lowercase(Typex) == "phase"
+        Sig = angle.(hilbert(Sig))
+        tpx == 1 ? Sig = unwrap(Sig) : nothing
+    end
 
     Sx = zeros(N,m)
     Perm = zeros(m)
@@ -273,7 +285,7 @@ using Statistics: std, var, mean
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

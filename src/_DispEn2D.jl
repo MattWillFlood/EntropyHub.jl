@@ -97,13 +97,13 @@ using StatsFuns: normcdf
         Zi = map(x -> sum(range(0,1,length=c+1)[1:c].<=x), Zx);
 
     elseif lowercase(Typex) == "equal"
-        ix = sortperm(Mat[:]);
+        ix = sortperm(Mat'[:],alg=MergeSort);
         xx = Int.(round.(range(0,length(Mat),length=c+1)))
         Zi = zeros(Int, length(Mat))
         for k = 1:c
             Zi[ix[xx[k]+1:xx[k+1]]] .= k
         end
-        Zi = reshape(Zi,size(Mat))
+        Zi = reshape(Zi,size(Mat'))'
     end
 
     NL = NL - (mL-1)*tau
@@ -151,7 +151,7 @@ using StatsFuns: normcdf
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

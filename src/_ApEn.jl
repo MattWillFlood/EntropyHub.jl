@@ -55,7 +55,7 @@ using Statistics: mean, std
         end
     end
 
-    Phi[1] = log(Logx, N)/N
+    #Phi[1] = log(Logx, N)/N
     Phi[2] = mean(log.(Logx, sum(Counter.>0,dims=2)/N))
     Ap[1]  = Phi[1] - Phi[2]
 
@@ -73,7 +73,7 @@ using Statistics: mean, std
 
 end
 
-"""Copyright 2021 Matthew W. Flood, EntropyHub
+"""Copyright 2024 Matthew W. Flood, EntropyHub
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

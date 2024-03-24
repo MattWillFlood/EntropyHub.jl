@@ -8,6 +8,7 @@ export
     CondEn, 
     DispEn, 
     DistEn,
+    DivEn,
     EnofEn,
     FuzzEn,
     GridEn,
@@ -15,6 +16,7 @@ export
     K2En,
     PermEn,
     PhasEn,
+    RangEn,
     SampEn,
     SlopEn,
     SyDyEn,
@@ -58,6 +60,7 @@ include("./_CondEn.jl"),
 include("./_CoSiEn.jl"),
 include("./_DispEn.jl"),
 include("./_DistEn.jl"),
+include("./_DivEn.jl"),
 include("./_FuzzEn.jl"),
 include("./_EnofEn.jl"),
 include("./_GridEn.jl"),
@@ -65,6 +68,7 @@ include("./_IncrEn.jl"),
 include("./_K2En.jl"),
 include("./_PermEn.jl"),
 include("./_PhasEn.jl"),
+include("./_RangEn.jl"),
 include("./_SampEn.jl"),
 include("./_SpecEn.jl"),
 include("./_SyDyEn.jl"),
@@ -98,8 +102,6 @@ include("./_DispEn2D.jl"),
 include("./_PermEn2D.jl"),
 include("./_EspEn2D.jl"),
 
-
-
 #= 
 @reexport using ._ApEn
 @reexport using ._MSobject
@@ -114,9 +116,6 @@ include("./_EspEn2D.jl"),
 @reexport using ._FuzzEn =#
 
 
-
-
-
 # Base Entropies:
 using ._ApEn: ApEn
 using ._AttnEn: AttnEn
@@ -125,6 +124,7 @@ using ._CoSiEn: CoSiEn
 using ._CondEn: CondEn
 using ._DispEn: DispEn
 using ._DistEn: DistEn
+using ._DivEn: DivEn
 using ._EnofEn: EnofEn
 using ._FuzzEn: FuzzEn
 using ._GridEn: GridEn
@@ -132,6 +132,7 @@ using ._IncrEn: IncrEn
 using ._K2En: K2En
 using ._PermEn: PermEn
 using ._PhasEn: PhasEn
+using ._RangEn: RangEn
 using ._SampEn: SampEn
 using ._SlopEn: SlopEn
 using ._SpecEn: SpecEn
@@ -184,6 +185,17 @@ greet() = print(raw"""
     |  _  || | | ||    \     entropic time-      | |  \___/  | |
     | | | || |_| ||     \    series analysis     |  \_______/  |
     |_| |_|\_____/|_____/                         \___________/  
+    
+    
+    Please use the following citation on any scientific outputs achieved with the help of EntropyHub:
+
+    Matthew W. Flood,
+    EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
+    PLoS One 16(11):e0259448 (2021),
+    DOI: 10.1371/journal.pone.0259448
+
+    www.EntropyHub.xyz
+    
     """)
 
 
@@ -236,6 +248,8 @@ Bubble Entropy                                		    |	BubbEn
 Gridded Distribution Entropy                          |	GridEn
 Entropy of Entropy                            		    |	EnofEn
 Attention Entropy                                     |	AttnEn
+Diversity Entropy                                     | DivEn
+Range Entropy                                         | RangEn
 
 _________________________________________________________________________
 Cross Entropies                                       |	Function Name
@@ -289,6 +303,8 @@ Multiscale Distribution Entropy                       |
 Multiscale Bubble Entropy                             |	
 Multiscale Increment Entropy			                    |	
 Multiscale Attention Entropy                          |	
+Multiscale Diversity Entropy                          | 
+Multiscale Range Entropy                              | 
 	
 _________________________________________________________________________
 Multiscale Cross-Entropy Functions                    |   Function Name
@@ -316,13 +332,13 @@ Multiscale Cross-Conditional Entropy                  |
   include the following citation with the appropriate version number,
   as well as original articles upon which functions are derived:
 
-  Matthew W. Flood and Bernd Grimm (2021), 
+  Matthew W. Flood (2021), 
   "EntropyHub - An open source toolkit for entropic time series analysis"
   PLoS ONE 16(11):e0295448, 
   DOI:  10.1371/journal.pone.0259448
   https://www.EntropyHub.xyz
 
-  © Copyright 2021 Matthew W. Flood, EntropyHub
+  © Copyright 2024 Matthew W. Flood, EntropyHub
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.

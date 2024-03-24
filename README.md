@@ -1,9 +1,16 @@
-# EntropyHub: An open-source toolkit for entropic time series analysis
+# EntropyHub: An open-source toolkit for entropic data analysis
 __*Julia Edition*__
 
 <p align="center">
 <img src="https://github.com/MattWillFlood/EntropyHub/blob/main/Graphics/EntropyHub_JuliaLogo.png" alt = "EntropyHub Git" width="250" height="340" />
 </p>
+
+
+## Welcome
+This toolkit provides a wide range of functions to calculate different entropy statistics.
+There is an ever-growing range of information-theoretic and dynamical systems entropy measures presented in the scientific literature. 
+The goal of EntropyHub is to integrate the many established entropy methods in one open-source package.
+
 
 ## About
 
@@ -11,12 +18,6 @@ Information and uncertainty can be regarded as two sides of the same coin:
 the more uncertainty there is, the more information we gain by removing that 
 uncertainty. In the context of information and probability theory, ***Entropy*** 
 quantifies that uncertainty. 
-
-The concept of entropy has its origins in 
-[classical physics](http://www.scholarpedia.org/article/Entropy "Scholarpedia")
-under the second law of thermodynamics, a law 
-[considered to underpin our fundamental understanding](https://www.penguin.co.uk/books/301539/the-order-of-time/9780141984964.html "Rovelli") 
-of [time in physics](https://en.wikipedia.org/wiki/Time_in_physics "Wiki Time"). 
 Attempting to analyse the analog world around
 us requires that we measure time in discrete steps, but doing so compromises 
 our ability to measure entropy accurately. Various measures have been derived 
@@ -81,7 +82,7 @@ There are two ways to install EntropyHub for Julia.
 There are several package dependencies which will be installed alongside EntropyHub (if not already installed):
 
 DSP, FFTW, HTTP, Random, Plots, StatsBase, StatsFuns, GroupSlices, 
-Statistics, DelimitedFiles, Combinatorics, LinearAlgebra, Dierckx, Clustering
+Statistics, DelimitedFiles, Combinatorics, LinearAlgebra, DataInterpolations, Clustering
 
 EntropyHub was designed using Julia 1.5 and is intended for use with Julia versions >= 1.2.
 
@@ -143,6 +144,8 @@ Bubble Entropy                                		  |	BubbEn
 Gridded Distribution Entropy                         |	GridEn
 Entropy of Entropy                            	     |	EnofEn
 Attention Entropy                                    |	AttnEn
+Range Entropy                                        |   RangEn
+Diversity Entropy                                    |   DivEn
 
 _______________________________________________________________________
 
@@ -203,7 +206,7 @@ EntropyHub is licensed under the Apache License (Version 2.0) and is free to
 use by all on condition that the following reference be included on any outputs
 realized using the software:
  
-        Matthew W. Flood and Bernd Grimm (2021), 
+        Matthew W. Flood (2021), 
         EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
         PLoS ONE 16(11):e0259448
         DOI:   10.1371/journal.pone.0259448
@@ -212,7 +215,7 @@ realized using the software:
 __________________________________________________________________
 
 
-        © Copyright 2021 Matthew W. Flood, EntropyHub
+        © Copyright 2024 Matthew W. Flood, EntropyHub
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
@@ -240,10 +243,7 @@ If you identify any bugs, please contact us at: fix@entropyhub.xyz
 If you need any help installing or using the toolkit, please contact us at: help@entropyhub.xyz
 
 
-
 ***Thank you*** for using EntropyHub.
-
-Yours in research,
 
 Matt
 

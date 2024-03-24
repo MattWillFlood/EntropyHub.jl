@@ -46,7 +46,10 @@ export MSobject
         `GridEn`    - Gridded Distribution Entropy  \n  	
         `EnofEn`    - Entropy of Entropy	\n    
         `AttnEn`    - Attention Entropy    \n
-    
+        `DivEn`     - Diversity Entropy \n
+        `RangEn`    - Range Entropy \n
+
+        
     # Cross Entropies:
         ------------------
         `XApEn`     - Cross-Approximate Entropy    \n 
@@ -64,8 +67,8 @@ export MSobject
     function MSobject(EnType::Function=SampEn; kwargs...)
     #function MSobject(EnType::Function= EntropyHub.SampEn; kwargs...)
 
-    Chk = ["ApEn";"SampEn";"FuzzEn";"K2En";"PermEn";"CondEn";"DistEn";
-        "DispEn";"SyDyEn";"IncrEn";"CoSiEn";"PhasEn";"SpecEn";"SlopEn";
+    Chk = ["ApEn";"SampEn";"FuzzEn";"K2En";"PermEn";"CondEn";"DistEn";"DivEn";
+        "DispEn";"SyDyEn";"IncrEn";"CoSiEn";"PhasEn";"SpecEn";"SlopEn";"RangEn";
         "GridEn";"BubbEn";"EnofEn";"AttnEn";"XApEn";"XSampEn";"XFuzzEn";
         "XPermEn";"XCondEn";"XDistEn";"XSpecEn";"XK2En"]
     (String(Symbol(EnType)) in Chk) ? nothing :
@@ -82,7 +85,7 @@ export MSobject
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

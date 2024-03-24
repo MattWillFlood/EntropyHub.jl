@@ -24,25 +24,36 @@ using Statistics: mean, std
               [height, width] with a minimum value > 1.
               (default: [floor(H/10) floor(W/10)])  \n
     `tau`   - Time Delay, a positive integer   (default: 1)  \n
-    `Fx`    - Fuzzy funtion name, one of the following:
-              {`"sigmoid", "modsampen", "default", "gudermannian", "linear"`}  \n
+    `Fx`    - Fuzzy function name, one of the following: 
+              {`"sigmoid", "modsampen", "default", "gudermannian",`
+              `"bell", "triangular", "trapezoidal1", "trapezoidal2",`
+              `"z_shaped", "gaussian", "constgaussian"`}\n 
     `r`     - Fuzzy function parameters, a 1 element scalar or a 2 element
               vector of positive values. The 'r' parameters for each fuzzy
               function are defined as follows:\n
-              sigmoid:      r(1) = divisor of the exponential argument
-                            r(2) = value subtracted from argument (pre-division)
-              modsampen:    r(1) = divisor of the exponential argument
-                            r(2) = value subtracted from argument (pre-division)
-              default:      r(1) = divisor of the exponential argument
-                            r(2) = argument exponent (pre-division)
+              sigmoid:        r(1) = divisor of the exponential argument
+                              r(2) = value subtracted from argument (pre-division)
+              modsampen:      r(1) = divisor of the exponential argument
+                              r(2) = value subtracted from argument (pre-division)
+              default:        r (1) = divisor of the exponential argument
+                              r(2) = argument exponent (pre-division)
               gudermannian:   r  = a scalar whose value is the numerator of
                                    argument to gudermannian function:
                                    GD(x) = atan(tanh(r/x))
-              linear:         r  = an integer value. When r = 0, the
-                                   argument of the exponential function is 
-                                   normalised between [0 1]. When r = 1,
-                                   the minimuum value of the exponential 
-                                   argument is set to 0. \n
+              triangular:     r = a scalar whose value is the threshold (corner point) of the triangular function.
+              trapezoidal1:   r = a scalar whose value corresponds to the upper (2r) and lower (r) corner points of the trapezoid.
+              trapezoidal2:   r(1) = a value corresponding to the upper corner point of the trapezoid.
+                              r(2) = a value corresponding to the lower corner point of the trapezoid.
+              z_shaped:       r = a scalar whose value corresponds to the upper (2r) and lower (r) corner points of the z-shape.
+              bell:           r(1) = divisor of the distance value
+                              r(2) = exponent of generalized bell-shaped function
+              gaussian:       r = a scalar whose value scales the slope of the Gaussian curve.
+              constgaussian:  r = a scalar whose value defines the lower threshod and shape of the Gaussian curve.                    
+              [DEPRICATED] linear:       r  = an integer value. When r = 0, the
+                                argument of the exponential function is 
+                                normalised between [0 1]. When r = 1,
+                                the minimuum value of the exponential 
+                                argument is set to 0.   \n    
     `Logx`  - Logarithm base, a positive scalar    (default: natural)\n
     `Lock`  - By default, FuzzEn2D only permits matrices with a maximum
               size of 128 x 128 to prevent memory errors when storing data on RAM. 
@@ -68,6 +79,12 @@ using Statistics: mean, std
             41st Annual International Conference of the IEEE (EMBC) Society
             2019.
 
+        [3] Hamed Azami, et al.
+            "Fuzzy Entropy Metrics for the Analysis of Biomedical Signals: 
+            Assessment and Comparison"
+            IEEE Access
+            7 (2019): 104833-104847
+
     """
     function FuzzEn2D(Mat::AbstractArray{T,2} where T<:Real; 
         m::Union{Int,Tuple{Int,Int}}=floor.(Int, size(Mat)./10), 
@@ -88,9 +105,11 @@ using Statistics: mean, std
     (tau > 0) ? nothing : error("tau:   must be an integer > 0")
     (minimum(r)>=0) ? nothing : error("r:     must be a positive value")
         #error("r:     must be 2 element tuple of positive values")
-    (lowercase(Fx) in ["default","sigmoid","modsampen","gudermannian","linear"]) ?
+    (lowercase(Fx) in ["default","sigmoid","modsampen","gudermannian","bell", "z_shaped",
+        "triangular", "trapezoidal1","trapezoidal2","gaussian","constgaussian"]) ?
         nothing : error("Fx:    must be one of the following strings -
-        'default', 'sigmoid', 'modsampen', 'gudermannian', 'linear'")
+        'default', 'sigmoid', 'modsampen', 'gudermannian', 'bell', 'z_shaped',
+        'triangular', 'trapezoidal1','trapezoidal2','gaussian','constgaussian'")
     (Logx>0) ? nothing :  error("Logx:     must be a positive number > 0")
 
     if length(r) == 2 && lowercase(Fx)=="linear"
@@ -166,6 +185,7 @@ using Statistics: mean, std
         return y    
     end
 
+    """
     function linear(x,r)
         if r == 0 && length(x)>1
             y = exp.(-(x .- minimum(x))/(maximum(x)-minimum(x)))
@@ -178,11 +198,63 @@ using Statistics: mean, std
         end
         return y
     end
+    """
+
+    function triangular(x,r)
+        length(r)==1 ? nothing : error("When Fx = 'Triangular', r must be a scalar > 0.")
+        y = 1 .- (x./r)
+        y[x .> r] .= 0
+        return y
+    end
+
+    function trapezoidal1(x, r)
+        length(r)==1 ? nothing : ("When Fx = 'Trapezoidal1', r must be a scalar > 0.")
+        y = zeros(length(x))
+        y[x .<= r*2] = 2 .- (x[x .<= r*2]./r)
+        y[x .<= r] .= 1
+        return y
+    end
+
+    function trapezoidal2(x, r)
+        (r isa Tuple) && (length(r)==2) ? nothing : error("When Fx = 'Trapezoidal2', r must be a two-element tuple.")
+        y = zeros(length(x))
+        y[x .<= maximum(r)] = 1 .- (x[x .<= maximum(r)] .- minimum(r))./(maximum(r)-minimum(r))
+        y[x .<= minimum(r)] .= 1
+        return y
+    end
+
+    function z_shaped(x, r)
+        length(r)==1 ? nothing : error("When Fx = 'Z_shaped', r must be a scalar > 0.")
+        y = zeros(length(x))
+        y[x .<= 2*r] .= 2*(((x[x .<= 2*r] .- 2*r)./r).^2)
+        y[x .<= 1.5*r] .= 1 .- (2*(((x[x .<= 1.5*r] .- r)/r).^2))
+        y[x .<= r] .= 1
+        return y
+    end
+
+    function bell(x, r)
+        (r isa Tuple) && length(r)==2 ? nothing : error("When Fx = 'Bell', r must be a two-element tuple.")
+        y = inv.(1 .+ abs.(x./r[1]).^(2*r[2]))
+        return y
+    end
+
+    function gaussian(x, r)
+        length(r)==1 ? nothing : error("When Fx = 'Gaussian', r must be a scalar > 0.")
+        y = exp.(-((x.^2)./(2*(r.^2))))
+        return y
+    end
+
+    function constgaussian(x, r)
+        length(r)==1 ? nothing : error("When Fx = 'ConstGaussian', r must be a scalar > 0.")
+        y = ones(length(x))
+        y[x .> r] = exp.(-log(2)*((x[x .> r] .- r)./r).^2)
+        return y
+    end
 
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
