@@ -6,6 +6,53 @@ __*Julia Edition*__
 </p>
 
 
+## Latest Update
+### v1.0
+__*----- New entropy methods -----*__             
+Two new base entropy functions (and their multiscale versions) have been added:         
+        > [Diversity Entropy](https://ieeexplore.ieee.org/document/9194995)             
+        > [Range Entropy](https://www.mdpi.com/1099-4300/20/12/962)             
+
+__*----- New fuzzy membership functions -----*__          
+Several new fuzzy membership functions have been added to FuzzEn, XFuzzEn and FuzzEn2D to provide more options for mapping the degree of similarity between embedding vectors.          
+These include *trapezoidal*, *triangular* and *gaussian*, among others.                 
+Further info on these membership functions can be found [here.](https://hal.science/hal-02267711/document)              
+
+__*----- Phase Permutation Entropy -----*__               
+A new variant - '*phase*' permutation entropy - has been added to PermEn.                  
+This method employs a hilbert transformation of the data sequence, based on the methods outlined [here.](https://doi.org/10.1016/j.physa.2020.125686)           
+
+__*----- Cross-Entropy with different length sequences -----*__           
+EntropyHub v1.0 now allows for cross-entropy (and multiscale cross-entropy) estimation with different length signals (_except XCondEn and XPermEn_).            
+As a result, the new cross-entropy functions require a separate input for each sequence (Sig1, Sig2).                   
+
+__*----- Refined-Composite Multiscale Fuzzy Entropy -----*__              
+In addition to the refined-composite multiscale sample entropy that was available in earlier versions, now one can estimate the refined-composite multiscale fuzzy entropy based on the method outlined [here.](https://link.springer.com/article/10.1007/s11517-017-1647-5)    
+What's more, refined-composite multicale cross-fuzzy entropy is also available, and both can be estimated using any of the fuzzy membership functions in FuzzEn or XFuzzEn.             
+
+__*----- Generalized Multiscale Entropy -----*__          
+Generaized multiscale entropy and generalized multiscale cross-entropy can now be estimated. Just choose the '*generalized*' as the graining procedure in MSEn or XMSEn.        
+
+__*----- Variance of sample entropy estimate -----*__             
+Based on the [method outlined by Lake et al.,](https://journals.physiology.org/doi/epdf/10.1152/ajpregu.00069.2002) it is now possible to obtain a measure of the variance in the sample entropy estimate.              
+This is achieved by approximating the number of overlapping embedding vectors.          
+To do so, just set the parameter '*Vcp*'==true in SampEn and XSampEn, but note that doing so requires *a lot* of computer memory.              
+
+*Several little bugs and inconsistencies have also been fixed in this release. We want to thank all of you who have identified and alerted us to these bugs.*       
+*Most of these bugs have been noted via the [GitHub issues portal](https://github.com/MattWillFlood/EntropyHub/issues).*        
+
+__*----- Bug fixes -----*__             
+        - The DispEn2D function in python has now fixed [this issue](https://github.com/MattWillFlood/EntropyHub/issues/8).     
+        - The type hint for FuzzEn in python has been updated [as requested](https://github.com/MattWillFlood/EntropyHub/issues/1).             
+        - [Compatbility issues with EntropyHub.jl](https://github.com/MattWillFlood/EntropyHub.jl/issues/3) are now resolved.           
+        - A bug in the K2En python function led to incorrect entropy estimates for data sequences with many equal values. This has been corrected.              
+    
+__*----- Other Changes -----*__             
+        - The *'equal'* method for discretizing data in DispEn and DispEn2D has been updated to be consistent across Python, MatLab and Julia. This is unlikely to have impacted any users previously.          
+        - The zeroth dimension (m=0) estimate of ApEn and XApEn has been changed to -phi(1).                    
+        - The default radius threshold distance for XApEn, XSampEn and XK2En has been changed to use the *pooled* standard deviation [i.e. 0.2*SDpooled(X,Y)].   
+        
+
 ## Welcome
 This toolkit provides a wide range of functions to calculate different entropy statistics.
 There is an ever-growing range of information-theoretic and dynamical systems entropy measures presented in the scientific literature. 
