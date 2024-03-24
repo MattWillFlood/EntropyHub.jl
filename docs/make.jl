@@ -7,7 +7,8 @@ DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=tr
 makedocs(
     modules=[EntropyHub],
     authors="Matthew W. Flood <info@entropyhub.xyz>",
-    repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
+    #repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
+    #repo = Remotes.repourl("https://github.com/MattWillFlood/EntropyHub.jl"),
     sitename="EntropyHub.jl",
     doctest=false,
     clean=true,
@@ -42,7 +43,7 @@ makedocs(
 
 deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
-    versions = ["stable" => "v^", "v#.#.#"],
+    versions = ["stable" => "v^", "v#.#",],
     #versions = nothing,
 )
 
