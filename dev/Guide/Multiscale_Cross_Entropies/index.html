@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Multiscale Cross-Entropies · EntropyHub.jl</title><meta name="title" content="Multiscale Cross-Entropies · EntropyHub.jl"/><meta property="og:title" content="Multiscale Cross-Entropies · EntropyHub.jl"/><meta property="twitter:title" content="Multiscale Cross-Entropies · EntropyHub.jl"/><meta name="description" content="Documentation for EntropyHub.jl."/><meta property="og:description" content="Documentation for EntropyHub.jl."/><meta property="twitter:description" content="Documentation for EntropyHub.jl."/><meta property="og:url" content="https://mattwillflood.github.io/EntropyHub.jl/Guide\\Multiscale_Cross_Entropies/"/><meta property="twitter:url" content="https://mattwillflood.github.io/EntropyHub.jl/Guide\\Multiscale_Cross_Entropies/"/><link rel="canonical" href="https://mattwillflood.github.io/EntropyHub.jl/Guide\\Multiscale_Cross_Entropies/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="EntropyHub.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">EntropyHub.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><input class="collapse-toggle" id="menuitem-2" type="checkbox" checked/><label class="tocitem" for="menuitem-2"><span class="docs-label">Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../Base_Entropies/">Base Entropies</a></li><li><a class="tocitem" href="../Cross_Entropies/">Cross-Entropies</a></li><li><a class="tocitem" href="../Multiscale_Entropies/">Multiscale Entropies</a></li><li class="is-active"><a class="tocitem" href>Multiscale Cross-Entropies</a></li><li><a class="tocitem" href="../Bidimensional_Entropies/">Bidimensional Entropies</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-3" type="checkbox"/><label class="tocitem" for="menuitem-3"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../Examples/Examples/">Notes on Examples</a></li><li><a class="tocitem" href="../../Examples/Example1/">Ex.1: Sample Entropy</a></li><li><a class="tocitem" href="../../Examples/Example2/">Ex.2: Permutation Entropy</a></li><li><a class="tocitem" href="../../Examples/Example3/">Ex.3: Phase Entropy</a></li><li><a class="tocitem" href="../../Examples/Example4/">Ex.4: Cross-Distribution Entropy</a></li><li><a class="tocitem" href="../../Examples/Example5/">Ex.5: Multiscale Entropy Object</a></li><li><a class="tocitem" href="../../Examples/Example6/">Ex.6: Multiscale [Increment] Entropy</a></li><li><a class="tocitem" href="../../Examples/Example7/">Ex.7: Refined Multiscale [Sample] Entropy</a></li><li><a class="tocitem" href="../../Examples/Example8/">Ex.8: Composite Multiscale Cross-Approximate Entropy</a></li><li><a class="tocitem" href="../../Examples/Example9/">Ex.9: Hierarchical Multiscale corrected Cross-Conditional Entropy</a></li><li><a class="tocitem" href="../../Examples/Example10/">Ex.10: Bidimensional Fuzzy Entropy</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Guide</a></li><li class="is-active"><a href>Multiscale Cross-Entropies</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Multiscale Cross-Entropies</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/MattWillFlood/EntropyHub.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/master/docs/src/Guide/Multiscale_Cross_Entropies.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Multiscale-Cross-Entropies"><a class="docs-heading-anchor" href="#Multiscale-Cross-Entropies">Multiscale Cross-Entropies</a><a id="Multiscale-Cross-Entropies-1"></a><a class="docs-heading-anchor-permalink" href="#Multiscale-Cross-Entropies" title="Permalink"></a></h1><p><strong><em>Functions for estimating the multiscale entropy between two univariate time series.</em></strong></p><p>Just as one can calculate multiscale entropy using any Base entropy, the same functionality is possible with multiscale cross-entropy using any Cross-entropy function:     (<code>XApEn</code>, <code>XSampEn</code>, <code>XK2En</code>, <code>XCondEn</code>, <code>XPermEn</code>, <code>XSpecEn</code>, <code>XDistEn</code>, <code>XFuzzEn</code>).</p><p>To do so, we again use the <code>MSobject</code> function to pass a multiscale object (<code>Mobj</code>) to the multiscale cross-entropy functions.</p><div class="admonition is-info"><header class="admonition-header">NOTE:</header><div class="admonition-body"><p>Multiscale cross-entropy functions have three positional arguments:</p><ol><li>the first data seuqence, <code>Sig1</code> (an Nx1 matrix),</li><li>the second data seuqence, <code>Sig2</code> (an Nx1 matrix),</li><li>the multiscale entropy object, <code>Mobj</code>.</li></ol></div></div><p><a href="../Multiscale_Entropies/#EntropyHub._MSobject.MSobject"><code>EntropyHub.MSobject</code></a></p><p>The following functions use the multiscale entropy object shown above.</p><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="EntropyHub._XMSEn.XMSEn" href="#EntropyHub._XMSEn.XMSEn"><code>EntropyHub._XMSEn.XMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">MSx, CI = XMSEn(Sig1, Sig2, Mobj)</code></pre><p>Returns a vector of multiscale cross-entropy values <code>MSx</code> and the complexity  index <code>CI</code> between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters  specified by the multiscale object <code>Mobj</code> over 3 temporal scales with coarse- graining <code>default</code>. </p><pre><code class="nohighlight hljs">MSx,CI = MSEn(Sig1::AbstractVector{T} where T&lt;:Real, Sig2::AbstractVector{T} where T&lt;:Real, Mobj::NamedTuple; 
+                 Scales::Int=3, Methodx::String=&quot;coarse&quot;, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of multiscale cross-entropy values <code>MSx</code> and the complexity  index <code>CI</code> of the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters  specified by the multiscale object <code>Mobj</code> and the following &#39;keyword&#39; arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3) </p><p><code>Method</code>   - Graining method, one of the following:</p><pre><code class="nohighlight hljs">         {`&quot;coarse&quot;, &quot;modified&quot;, &quot;imf&quot;, &quot;timeshift&quot;,&quot;generalized&quot;`}  [default: &#39;coarse&#39;] 
+         For further info on graining procedures, see the Entropyhub guide.</code></pre><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>XSampEn</code> or <code>XApEn</code>,               <code>RadNew</code> allows the radius threshold to be updated at each               time scale (Xt). If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of <code>RadNew</code> specifies one of the               following methods: </p><pre><code class="nohighlight hljs">         [1]    Pooled Standard Deviation          - r*std(Xt) 
+
+         [2]    Pooled Variance                    - r*var(Xt) 
+
+         [3]    Total Mean Absolute Deviation      - r*mean_ad(Xt) 
+
+         [4]    Total Median Absolute Deviation    - r*med_ad(Xt)</code></pre><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the entropy value at each              time scale (i.e. the multiscale entropy curve)  [default: false]</p><p><code>For further info on these graining procedures see the EntropyHub guide.</code></p><p><strong>See also <code>MSobject</code>, <code>MSEn</code>, <code>cXMSEn</code>, <code>rXMSEn</code>, <code>hXMSEn</code>, <code>XSampEn</code>, <code>XApEn</code>, <code>XFuzzEn</code></strong></p><p><strong>References:</strong></p><pre><code class="nohighlight hljs">[1] Rui Yan, Zhuo Yang, and Tao Zhang,
+    &quot;Multiscale cross entropy: a novel algorithm for analyzing two
+    time series.&quot; 
+    5th International Conference on Natural Computation. 
+    Vol. 1, pp: 411-413 IEEE, 2009.
+
+[2] Madalena Costa, Ary Goldberger, and C-K. Peng,
+    &quot;Multiscale entropy analysis of complex physiologic time series.&quot;
+    Physical review letters
+    89.6 (2002): 068102.
+
+[3] Vadim V. Nikulin, and Tom Brismar,
+    &quot;Comment on “Multiscale entropy analysis of complex physiologic
+    time series”.&quot; 
+    Physical review letters 
+    92.8 (2004): 089803.
+
+[4] Madalena Costa, Ary L. Goldberger, and C-K. Peng. 
+    &quot;Costa, Goldberger, and Peng reply.&quot; 
+    Physical Review Letters
+    92.8 (2004): 089804.
+
+[5] Antoine Jamin, et al,
+    &quot;A novel multiscale cross-entropy method applied to navigation 
+    data acquired with a bike simulator.&quot; 
+    41st annual international conference of the IEEE EMBC
+    IEEE, 2019.
+
+[6] Antoine Jamin and Anne Humeau-Heurtier. 
+    &quot;(Multiscale) Cross-Entropy Methods: A Review.&quot; 
+    Entropy 
+    22.1 (2020): 45.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/b713b4e920e2e5ea2f8fff57da4781c5049d6f05/src/_XMSEn.jl#L17-L97">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="EntropyHub._cXMSEn.cXMSEn" href="#EntropyHub._cXMSEn.cXMSEn"><code>EntropyHub._cXMSEn.cXMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">MSx, CI = cXMSEn(Sig1, Sig2, Mobj)</code></pre><p>Returns a vector of composite multiscale cross-entropy values (<code>MSx</code>)  between two univariate data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the  parameters specified by the multiscale object (<code>Mobj</code>) using the composite  multiscale method (cMSE) over 3 temporal scales.</p><pre><code class="nohighlight hljs">MSx, CI = cXMSEn(Sig1::AbstractVector{T} where T&lt;:Real, Sig2::AbstractVector{T} where T&lt;:Real, Mobj::NamedTuple; 
+                      Scales::Int=3, RadNew::Int=0, Refined::Bool=false, Plotx::Bool=false)</code></pre><p>Returns a vector of composite multiscale cross-entropy values (<code>MSx</code>)  between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters specified by the multiscale object (<code>Mobj</code>) and the following keyword arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3)</p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by Mobj is <code>XSampEn</code> or <code>XApEn</code>,               RadNew rescales the radius threshold of the sub-sequences              at each time scale (Ykj). If a radius value is specified by              <code>Mobj</code> (<code>r</code>), this becomes the rescaling coefficient, otherwise              it is set to 0.2 (default). The value of RadNew specifies              one of the following methods:</p><pre><code class="nohighlight hljs">         [1]    Pooled Standard Deviation          - r*std(Ykj)
+
+         [2]    Pooled Variance                    - r*var(Ykj)
+
+         [3]    Total Mean Absolute Deviation      - r*mean_ad(Ykj)
+
+         [4]    Total Median Absolute Deviation    - r*med_ad(Ykj,1)</code></pre><p><code>Refined</code>  - Refined-composite XMSEn method. When <code>Refined</code> == true and the               entropy function specified by <code>Mobj</code> is <code>XSampEn</code> or <code>XFuzzEn</code>, cXMSEn              returns the refined-composite multiscale entropy (rcXMSEn).              (default: false) <code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the entropy value at each               time scale (i.e. the multiscale entropy curve) [default: false]</p><p><strong>See also <code>MSobject</code>, <code>XMSEn</code>, <code>rXMSEn</code>, <code>hXMSEn</code>, <code>XSampEn</code>, <code>XApEn</code>, <code>cMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="nohighlight hljs">[1] Rui Yan, Zhuo Yang, and Tao Zhang,
+    &quot;Multiscale cross entropy: a novel algorithm for analyzing two
+    time series.&quot; 
+    5th International Conference on Natural Computation. 
+    Vol. 1, pp: 411-413 IEEE, 2009.
+
+[2] Yi Yin, Pengjian Shang, and Guochen Feng, 
+    &quot;Modified multiscale cross-sample entropy for complex time 
+    series.&quot;
+    Applied Mathematics and Computation 
+    289 (2016): 98-110.
+
+[3] Madalena Costa, Ary Goldberger, and C-K. Peng,
+    &quot;Multiscale entropy analysis of complex physiologic time series.&quot;
+    Physical review letters
+    89.6 (2002): 068102.
+
+[4] Antoine Jamin, et al,
+    &quot;A novel multiscale cross-entropy method applied to navigation 
+    data acquired with a bike simulator.&quot; 
+    41st annual international conference of the IEEE EMBC
+    IEEE, 2019.
+
+[5] Antoine Jamin and Anne Humeau-Heurtier. 
+    &quot;(Multiscale) Cross-Entropy Methods: A Review.&quot; 
+    Entropy 
+    22.1 (2020): 45.
+
+[6] Shuen-De Wu, et al.,
+    &quot;Time series analysis using composite multiscale entropy.&quot; 
+    Entropy 
+    15.3 (2013): 1069-1084.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/b713b4e920e2e5ea2f8fff57da4781c5049d6f05/src/_cXMSEn.jl#L6-L84">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="EntropyHub._rXMSEn.rXMSEn" href="#EntropyHub._rXMSEn.rXMSEn"><code>EntropyHub._rXMSEn.rXMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">MSx, CI = rXMSEn(Sig1, Sig2, Mobj)</code></pre><p>Returns a vector of refined multiscale cross-entropy values (<code>MSx</code>) and the complexity index (<code>CI</code>) between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters specified by the multiscale object (<code>Mobj</code>) and the following default parameters:   Scales = 3, Butterworth LPF Order = 6, Butterworth LPF cutoff frequency at scale (T): Fc = 0.5/T.  If the entropy function specified by <code>Mobj</code> is <code>XSampEn</code> or <code>XApEn</code>,  <code>rMSEn</code> updates the threshold radius of the data sequences (Xt) at each scale to 0.2<em>SDpooled(Xa, Xb) when no <code>r</code> value is provided by <code>Mobj</code>, or  <code>r</code></em>SDpooled(Xa, Xb) if <code>r</code> is specified.</p><pre><code class="nohighlight hljs">MSx, CI = rXMSEn(Sig1::AbstractVector{T} where T&lt;:Real, Sig2::AbstractVector{T} where T&lt;:Real, Mobj::NamedTuple;
+                 Scales::Int=3, F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of refined multiscale cross-entropy values (<code>MSx</code>) and  the complexity index (<code>CI</code>) between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters specified by the multiscale object (<code>Mobj</code>) and the following keyword arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1 (default: 3)  </p><p><code>F_Order</code>  - Butterworth low-pass filter order, a positive integer (default: 6)  </p><p><code>F_Num</code>    - Numerator of Butterworth low-pass filter cutoff frequency,              a scalar value in range [0 &lt; <code>F_Num</code> &lt; 1]. The cutoff frequency              at each scale (T) becomes: Fc = <code>F_Num</code>/T.  (default: 0.5) </p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>XSampEn</code> or <code>XApEn</code>,               <code>RadNew</code> allows the radius threshold to be updated at each               time scale (Xt). If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of <code>RadNew</code> specifies one of the               following methods: </p><pre><code class="nohighlight hljs">         [1]    Pooled Standard Deviation          - r*std(Xt) 
+
+         [2]    Pooled Variance                    - r*var(Xt) 
+
+         [3]    Total Mean Absolute Deviation      - r*mean_ad(Xt) 
+
+         [4]    Total Median Absolute Deviation    - r*med_ad(Xt)</code></pre><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the entropy value at               each time scale (i.e. the multiscale entropy curve)              [default = false] </p><p><strong>See also <code>MSobject</code>, <code>XMSEn</code>, <code>cXMSEn</code>, <code>hXMSEn</code>, <code>XSampEn</code>, <code>XApEn</code>, <code>MSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="nohighlight hljs">[1] Matthew W. Flood (2021), 
+    &quot;EntropyHub - An open source toolkit for entropic time series analysis&quot;
+    PLoS ONE 16(11):e0295448, 
+    DOI:  10.1371/journal.pone.0259448
+    https://www.EntropyHub.xyz
+
+[2]   Rui Yan, Zhuo Yang, and Tao Zhang,
+    &quot;Multiscale cross entropy: a novel algorithm for analyzing two
+    time series.&quot; 
+    5th International Conference on Natural Computation. 
+    Vol. 1, pp: 411-413 IEEE, 2009.
+
+[3] José Fernando Valencia, et al.,
+    &quot;Refined multiscale entropy: Application to 24-h holter 
+    recordings of heart period variability in healthy and aortic 
+    stenosis subjects.&quot; 
+    IEEE Transactions on Biomedical Engineering 
+    56.9 (2009): 2202-2213.
+
+[4] Puneeta Marwaha and Ramesh Kumar Sunkaria,
+    &quot;Optimal selection of threshold value ‘r’for refined multiscale
+    entropy.&quot; 
+    Cardiovascular engineering and technology 
+    6.4 (2015): 557-576.
+
+[5] Yi Yin, Pengjian Shang, and Guochen Feng, 
+    &quot;Modified multiscale cross-sample entropy for complex time 
+    series.&quot;
+    Applied Mathematics and Computation 
+    289 (2016): 98-110.
+
+[6] Antoine Jamin, et al,
+    &quot;A novel multiscale cross-entropy method applied to navigation 
+    data acquired with a bike simulator.&quot; 
+    41st annual international conference of the IEEE EMBC
+    IEEE, 2019.
+
+[7] Antoine Jamin and Anne Humeau-Heurtier. 
+    &quot;(Multiscale) Cross-Entropy Methods: A Review.&quot; 
+    Entropy 
+    22.1 (2020): 45.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/b713b4e920e2e5ea2f8fff57da4781c5049d6f05/src/_rXMSEn.jl#L6-L102">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="EntropyHub._hXMSEn.hXMSEn" href="#EntropyHub._hXMSEn.hXMSEn"><code>EntropyHub._hXMSEn.hXMSEn</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">MSx, Sn, CI = hXMSEn(Sig1, Sig2, Mobj)</code></pre><p>Returns a vector of cross-entropy values (<code>MSx</code>) calculated at each node  in the hierarchical tree, the average cross-entropy value across all  nodes at each scale (<code>Sn</code>), and the complexity index (<code>CI</code>) of the hierarchical  tree (i.e. sum(<code>Sn</code>)) between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using the parameters specified by the multiscale object (<code>Mobj</code>) over 3 temporal scales (default). The entropy values in <code>MSx</code> are ordered from the root node (S.00) to the Nth subnode at scale T (S.TN): i.e. S.00, S.10, S.11, S.20, S.21, S.22, S.23, S.30, S.31, S.32, S.33, S.34, S.35, S.36, S.37, S.40, ... , S.TN. The average cross-entropy values in Sn are ordered in the same way, with the value of the root node given first: i.e. S0, S1, S2, ..., ST</p><pre><code class="nohighlight hljs">MSx, Sn, CI = hXMSEn(Sig1::AbstractVector{T} where T&lt;:Real, Sig2::AbstractVector{T} where T&lt;:Real, Mobj::NamedTuple; 
+                         Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)</code></pre><p>Returns a vector of cross-entropy values (<code>MSx</code>) calculated at each node  in the hierarchical tree, the average cross-entropy value across all nodes at each scale (<code>Sn</code>), and the complexity index (<code>CI</code>) of the entire hierarchical tree between the data sequences contained in <code>Sig1</code> and <code>Sig2</code> using  the following name/value pair arguments:</p><p><strong>Arguments:</strong></p><p><code>Scales</code>   - Number of temporal scales, an integer &gt; 1   (default: 3)              At each scale (T), entropy is estimated for 2^(T-1) nodes. </p><p><code>RadNew</code>   - Radius rescaling method, an integer in the range [1 4].              When the entropy specified by <code>Mobj</code> is <code>XSampEn</code> or <code>XApEn</code>,               <code>RadNew</code> allows the radius threshold to be updated at each               node in the tree. If a radius value is specified by <code>Mobj</code> (<code>r</code>),              this becomes the rescaling coefficient, otherwise it is set              to 0.2 (default). The value of <code>RadNew</code> specifies one of the               following methods: </p><pre><code class="nohighlight hljs">         [1]    Pooled Standard Deviation          - r*std(Xt) 
+
+         [2]    Pooled Variance                    - r*var(Xt) 
+
+         [3]    Total Mean Absolute Deviation      - r*mean_ad(Xt) 
+
+         [4]    Total Median Absolute Deviation    - r*med_ad(Xt)</code></pre><p><code>Plotx</code>    - When <code>Plotx</code> == true, returns a plot of the average cross-entropy               value at each time scale (i.e. the multiscale entropy curve)              and a hierarchical graph showing the entropy value of each node              in the hierarchical tree decomposition.  (default: false) </p><p><strong>See also <code>MSobject</code>, <code>XMSEn</code>, <code>rXMSEn</code>, <code>cXMSEn</code>, <code>XSampEn</code>, <code>XApEn</code>, <code>hMSEn</code></strong></p><p><strong>References:</strong></p><pre><code class="nohighlight hljs">[1] Matthew W. Flood (2021), 
+    &quot;EntropyHub - An open source toolkit for entropic time series analysis&quot;
+    PLoS ONE 16(11):e0295448, 
+    DOI:  10.1371/journal.pone.0259448
+    https://www.EntropyHub.xyz
+
+[2]   Rui Yan, Zhuo Yang, and Tao Zhang,
+    &quot;Multiscale cross entropy: a novel algorithm for analyzing two
+    time series.&quot; 
+    5th International Conference on Natural Computation. 
+    Vol. 1, pp: 411-413 IEEE, 2009.
+
+[3] Ying Jiang, C-K. Peng and Yuesheng Xu,
+    &quot;Hierarchical entropy analysis for biological signals.&quot;
+    Journal of Computational and Applied Mathematics
+    236.5 (2011): 728-742.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/MattWillFlood/EntropyHub.jl/blob/b713b4e920e2e5ea2f8fff57da4781c5049d6f05/src/_hXMSEn.jl#L5-L75">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Multiscale_Entropies/">« Multiscale Entropies</a><a class="docs-footer-nextpage" href="../Bidimensional_Entropies/">Bidimensional Entropies »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.3.0 on <span class="colophon-date" title="Monday 25 March 2024 12:13">Monday 25 March 2024</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
