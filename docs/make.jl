@@ -5,6 +5,8 @@ using Documenter, DocumenterTools
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
 makedocs(
+    source="src",
+    build="v1.0",
     modules=[EntropyHub],
     authors="Matthew W. Flood <info@entropyhub.xyz>",
     #repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
