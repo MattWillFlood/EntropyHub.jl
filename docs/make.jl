@@ -6,7 +6,6 @@ DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=tr
 
 makedocs(
     source="src",
-    build="v1.0",
     modules=[EntropyHub],
     authors="Matthew W. Flood <info@entropyhub.xyz>",
     #repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
@@ -48,7 +47,7 @@ deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
     versions = ["stable" => "v^", "v#.#"],
     branch = "gh-pages",
-    tag_prefix = "v"
+    tag_prefix = "v1.0",
 
     #versions = nothing,
 )
