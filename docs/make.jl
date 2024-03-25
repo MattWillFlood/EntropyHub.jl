@@ -1,6 +1,6 @@
 using EntropyHub
 using Documenter, DocumenterTools 
-OutdatedWarning.generate("src")
+#OutdatedWarning.generate("src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
@@ -11,10 +11,11 @@ makedocs(
     #repo = Remotes.repourl("https://github.com/MattWillFlood/EntropyHub.jl"),
     sitename="EntropyHub.jl",
     doctest=false,
+    draft=false,
     clean=true,
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", nothing) == "true",
-        canonical="https://mattwillflood.github.io/EntropyHub.jl",
+        canonical="https://mattwillflood.github.io/EntropyHub.jl/",
         assets = ["assets/favicon.ico"],
         collapselevel = 1,
     ),
@@ -43,7 +44,10 @@ makedocs(
 
 deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
-    versions = ["stable" => "v^", "v#.#",],
+    versions = ["stable" => "v^", "v#.#"],
+    branch = "gh-pages",
+    tag_prefix = "v"
+
     #versions = nothing,
 )
 
