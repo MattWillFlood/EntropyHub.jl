@@ -13,24 +13,16 @@ cache:
     - ~/.julia/artifacts
     
 jobs:
-  fast_finish: true
-  allow_failures:
-    - julia: nightly
   include:
     - stage: "Documentation"
       julia: 1.6
-      os: windows
-      script: |
-        julia --project=docs -e '
-          using Pkg
-          Pkg.develop(PackageSpec(path=pwd()))
-          Pkg.instantiate()
-          using Documenter: DocMeta, doctest
-          using EntropyHub
-          DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
-          doctest(EntropyHub)
-          include("docs/make.jl")'
+      os: linux
+      script:
+        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));
+                                               Pkg.instantiate()'
+        - julia --project=docs/ docs/make.jl
       after_success: skip
+      
 after_success:
   - |
     julia -e '
