@@ -2,6 +2,7 @@ module _cMSEn
 export cMSEn
 using Statistics: std, mean, median, var
 using Plots
+using DSP: conv
     """
         MSx, CI = cMSEn(Sig, Mobj) 
 
@@ -76,7 +77,24 @@ using Plots
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("SampEn","ApEn"))) ? nothing :
         error("RadNew:     must be 0, or an integer in range [1 4] with 
                 entropy function 'SampEn' or 'ApEn'")
-                       
+    (Refined && String(Symbol(Mobj.Func)) in ("SampEn","FuzzEn")) || Refined==false ? 
+                    nothing : error("Refined:     If Refined == true, the base entropy function must be 'SampEn' or 'FuzzEn'")
+          
+    lowercase(String(Symbol(Mobj.Func))[1]) == 'x' ? error("Base entropy estimator is a cross-entropy method. 
+            To perform (refined-)composite multiscale CROSS-entropy estimation, use cXMSEn.") : nothing
+       
+    String(Symbol(Mobj.Func))=="SampEn" ? Mobj = merge(Mobj,(Vcp=false,)) : nothing
+
+    if Refined && String(Symbol(Mobj.Func))=="FuzzEn"
+        Tx = 1;
+        "Logx" in String.(Symbol.(keys(Mobj))) ? Logx = Mobj.Logx : Logx = exp(1);
+    elseif Refined && String(Symbol(Mobj.Func))=="SampEn"
+        Tx = 0;
+        "Logx" in String.(Symbol.(keys(Mobj))) ? Logx = Mobj.Logx : Logx = exp(1);
+    else
+        Tx = 0;
+    end      
+             
     MSx = zeros(Scales)
     Args = NamedTuple{keys(Mobj)[2:end]}(Mobj)
     if RadNew > 0
@@ -102,11 +120,10 @@ using Plots
     end
 
     for T = 1:Scales
-        Temp = modified(Sig,T) 
+        Temp = modified(Sig,T,Tx) 
         N = Int(T*floor(length(Temp)/T))
         Temp2 = zeros(T)
         Temp3 = zeros(T)
-
         for k = 1:T
             print(". ")
             RadNew > 0 ? Args = (Args..., r=Cx*Rnew(Temp[k:T:N])) : nothing
@@ -122,8 +139,15 @@ using Plots
             end
         end    
         
-        Refined ? MSx[T] = -log(sum(Temp2)/sum(Temp3)) : MSx[T] = mean(Temp3)
-        
+        #Refined ? MSx[T] = -log(sum(Temp2)/sum(Temp3)) : MSx[T] = mean(Temp3)
+
+        if Refined && Tx==0
+            MSx[T] = -log(sum(Temp2)/sum(Temp3))/log(Logx)
+        elseif Refined && Tx==1
+            MSx[T] = -log(sum(Temp3)/sum(Temp2))/log(Logx)
+        else
+            MSx[T] = mean(Temp3)
+        end        
     end
     CI = sum(MSx)
     print("\n")
@@ -147,19 +171,16 @@ using Plots
     return MSx, CI
     end
 
-    function modified(Z,sx)
-        Ns = length(Z) - sx + 1
-        Y = zeros(Ns)
-        for k = 1:Ns
-            Y[k] = mean(Z[k:k+sx-1])
-        end
-        return Y 
-    end
+    function modified(Z,sx, Tx)
+        Tx == 0 ? Y = (conv(Z,ones(Int,sx))/sx)[sx:end-sx+1] : 
+            Y = [std(Z[x:x+sx-1], corrected=false) for x in 1:(length(Z)-sx+1)]
+         return Y 
+     end
 
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

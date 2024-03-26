@@ -17,6 +17,6 @@ variance of the signal at each scale.
 using EntropyHub # hide
 X = ExampleData("randintegers2"); # hide 
 Mobj = MSobject(XApEn, m = 2, tau = 2, r = 0.5) # hide
-MSx, _ = cXMSEn(X, Mobj, Scales = 3, RadNew = 1)
+MSx, _ = cXMSEn(X[:,1], X[:,2], Mobj, Scales = 3, RadNew = 1)
 MSx # hide
 ```

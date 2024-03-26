@@ -3,18 +3,18 @@ export XDistEn
 using StatsBase: fit, Histogram, skewness
 using Statistics: mean, std
     """
-        XDist, Ppi = XDistEn(Sig) 
+        XDist, Ppi = XDistEn(Sig1, Sig2) 
 
     Returns the cross-distribution entropy estimate (`XDist`) and the
     corresponding distribution probabilities (`Ppi`) estimated between the data 
-    sequences contained in `Sig` using the default parameters: 
+    sequences contained in `Sig1` and `Sig2` using the default parameters: 
     embedding dimension = 2, time delay = 1, binning method = 'Sturges',
     logarithm = base 2, normalisation = w.r.t # of histogram bins
 
-        XDist, Ppi = XDistEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
+        XDist, Ppi = XDistEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing; m::Int=2, tau::Int=1, Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
 
     Returns the cross-distribution entropy estimate (`XDist`) estimated between the 
-    data sequences contained in `Sig` using the specified 'keyword' = arguments:
+    data sequences contained in `Sig1` and `Sig2` using the specified 'keyword' = arguments:
 
     # Arguments:
     `m`     - Embedding Dimension, a positive integer   [default: 2]    \n
@@ -39,14 +39,23 @@ using Statistics: mean, std
             94.2 (2018): 1361-1376.
     
     """
-    function XDistEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, 
-        Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
+    function XDistEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing; 
+             m::Int=2, tau::Int=1, Bins::Union{Int,String}="Sturges", Logx::Real=2, Norm::Bool=true)
 
-    (size(Sig,2) > size(Sig,1)) ? Sig = transpose(Sig) : nothing
+    if all(isa.((Sig1,Sig2), AbstractVector))
+        N1 = size(Sig1,1);  N2 = size(Sig2,1)  
+        S1 = copy(Sig1); S2 = copy(Sig2)
+    elseif (minimum(size(Sig1))==2 && (Sig2 isa Nothing)) 
+        argmin(size(Sig1)) == 2 ? nothing : Sig1 = Sig1'
+        S1 = Sig1[:,1]; S2 = Sig1[:,2];
+        N1 = maximum(size(Sig1)); N2 = maximum(size(Sig1));
+    else   error("""Sig1 and Sig2 must be 2 separate vectors 
+                \t\t\t - OR - 
+                Sig1 must be 2-column matrix and Sig2 nothing""")
+    end
+
     Logx == 0  ? Logx = exp(1) : nothing
-
-    N = size(Sig,1)
-    (N>10 && size(Sig,2)==2) ? nothing :  error("Sig:   must be a 2-columns matrix")
+    (N1>=10 && N2>=10) ? nothing :  error("Sig1/Sig2:   sequences must have >= 10 values")
     (m > 0) ? nothing : error("m:     must be an integer > 0")
     (tau>0) ? nothing : error("tau:   must be an integer > 0")
     (Logx>0) ? nothing : error("Logx:     must be a positive number > 0")
@@ -58,21 +67,21 @@ using Statistics: mean, std
                 'sturges', 'sqrt', 'rice', 'doanes' (or an integer >1)")
     end
 
-    S1 = Sig[:,1]; S2 = Sig[:,2];
-    Nx = size(S1,1) - ((m-1)*tau)
-    Zm1 = zeros(Nx,m)
-    Zm2 = zeros(Nx,m)
+    Nx1 = N1 - ((m-1)*tau)
+    Nx2 = N2 - ((m-1)*tau)
+    Zm1 = zeros(Nx1,m)
+    Zm2 = zeros(Nx2,m)
     for n = 1:m
-        Zm1[:,n] = S1[(n-1)*tau + 1:Nx+(n-1)*tau]
-        Zm2[:,n] = S2[(n-1)*tau + 1:Nx+(n-1)*tau]
+        Zm1[:,n] = S1[(n-1)*tau + 1:Nx1+(n-1)*tau]
+        Zm2[:,n] = S2[(n-1)*tau + 1:Nx2+(n-1)*tau]
     end
 
-    DistMat = zeros(Nx,Nx);
-    for k = 1:Nx
-        DistMat[k,:] = maximum(abs.(repeat(transpose(Zm1[k,:]),outer=Nx) - Zm2),dims=2)
+    DistMat = zeros(Nx1,Nx2);
+    for k = 1:Nx1
+        DistMat[k,:] = maximum(abs.(repeat(transpose(Zm1[k,:]),outer=Nx2) - Zm2),dims=2)
     end
 
-    Ny = Nx*Nx
+    Ny = Nx1*Nx2
     DistMat = reshape(DistMat,1,Ny)
     if eltype(Bins)<:Char
         if lowercase(Bins) == "sturges"
@@ -111,7 +120,7 @@ using Statistics: mean, std
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

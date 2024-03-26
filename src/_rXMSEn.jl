@@ -4,23 +4,23 @@ using DSP.Filters: filtfilt, Butterworth, Lowpass, digitalfilter
 using Statistics: std, mean, median, var
 using Plots
     """
-        MSx, CI = rXMSEn(Sig, Mobj)
+        MSx, CI = rXMSEn(Sig1, Sig2, Mobj)
 
     Returns a vector of refined multiscale cross-entropy values (`MSx`) and
-    the complexity index (`CI`) between the data sequences contained in `Sig`
+    the complexity index (`CI`) between the data sequences contained in `Sig1` and `Sig2`
     using the parameters specified by the multiscale object (`Mobj`) and the
     following default parameters:   Scales = 3, Butterworth LPF Order = 6,
     Butterworth LPF cutoff frequency at scale (T): Fc = 0.5/T. 
     If the entropy function specified by `Mobj` is `XSampEn` or `XApEn`, 
     `rMSEn` updates the threshold radius of the data sequences (Xt) at each scale
-    to 0.2std(Xt) when no `r` value is provided by `Mobj`, or r.std(Xt) if 
-    `r` is specified.
+    to 0.2*SDpooled(Xa, Xb) when no `r` value is provided by `Mobj`, or 
+    `r`*SDpooled(Xa, Xb) if `r` is specified.
      
-        MSx, CI = rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
-                                F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
+        MSx, CI = rXMSEn(Sig1::AbstractVector{T} where T<:Real, Sig2::AbstractVector{T} where T<:Real, Mobj::NamedTuple;
+                         Scales::Int=3, F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
 
     Returns a vector of refined multiscale cross-entropy values (`MSx`) and 
-    the complexity index (`CI`) between the data sequences contained in `Sig`
+    the complexity index (`CI`) between the data sequences contained in `Sig1` and `Sig2`
     using the parameters specified by the multiscale object (`Mobj`) and the
     following keyword arguments:
 
@@ -36,11 +36,11 @@ using Plots
                  time scale (Xt). If a radius value is specified by `Mobj` (`r`),
                  this becomes the rescaling coefficient, otherwise it is set
                  to 0.2 (default). The value of `RadNew` specifies one of the 
-                 following methods:  \n
-                 [1]    Standard Deviation          - r*std(Xt)  (default)  \n
-                 [2]    Variance                    - r*var(Xt)  \n
-                 [3]    Mean Absolute Deviation     - r*mean_ad(Xt)  \n
-                 [4]    Median Absolute Deviation   - r*med_ad(Xt,1) \n
+                 following methods: \n
+                 [1]    Pooled Standard Deviation          - r*std(Xt) \n
+                 [2]    Pooled Variance                    - r*var(Xt) \n
+                 [3]    Total Mean Absolute Deviation      - r*mean_ad(Xt) \n
+                 [4]    Total Median Absolute Deviation    - r*med_ad(Xt) \n
     `Plotx`    - When `Plotx` == true, returns a plot of the entropy value at 
                  each time scale (i.e. the multiscale entropy curve)
                  [default = false] \n
@@ -48,9 +48,11 @@ using Plots
     # See also `MSobject`, `XMSEn`, `cXMSEn`, `hXMSEn`, `XSampEn`, `XApEn`, `MSEn`
   
     # References:
-        [1]   Matthew W. Flood,
-            "rXMSEn - EntropyHub Project"
-            2021, https://github.com/MattWillFlood/EntropyHub
+        [1] Matthew W. Flood (2021), 
+            "EntropyHub - An open source toolkit for entropic time series analysis"
+            PLoS ONE 16(11):e0295448, 
+            DOI:  10.1371/journal.pone.0259448
+            https://www.EntropyHub.xyz
   
         [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
             "Multiscale cross entropy: a novel algorithm for analyzing two
@@ -89,12 +91,10 @@ using Plots
             22.1 (2020): 45.
    
     """
-    function rXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
-        F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
+    function rXMSEn(Sig1::AbstractVector{T} where T<:Real, Sig2::AbstractVector{T} where T<:Real, Mobj::NamedTuple;
+        Scales::Int=3, F_Order::Int=6, F_Num::Float64=0.5, RadNew::Int=0, Plotx::Bool=false)
         
-    size(Sig,1) == 2  ?  Sig = Sig' : nothing
-
-    (size(Sig,1)>10) ? nothing : error("Sig:   must be a numeric vector" )
+    (size(Sig1,1)>=10)  && (size(Sig2,1)>=10) ? nothing : error("Sig1/Sig2:   sequences must have >= 10 values")
     (length(Mobj) >= 1) ? nothing :  error("Mobj:    must be a multiscale entropy object created 
          with the function EntropyHub.MSobject")
     (Scales>1) ? nothing : error("Scales:     must be an integer > 1")
@@ -103,25 +103,26 @@ using Plots
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("XSampEn","XApEn"))) ? nothing :
     error("RadNew:  must be 0, or an integer in range [1 4] with entropy function `XSampEn` or `XApEn`")
         
+    String(Symbol(Mobj.Func))=="XSampEn" ? Mobj = merge(Mobj,(Vcp=false,)) : nothing
+
     MSx = zeros(Scales)
     Args = NamedTuple{keys(Mobj)[2:end]}(Mobj)
     (RadNew==0 && String(Symbol(Mobj.Func)) in ("XSampEn","XApEn")) ? RadNew=1 : nothing
     if RadNew > 0
         if RadNew == 1
-            Rnew = x -> std(x, corrected=false)
+            Rnew = (x,y) -> sqrt((var(x)*(size(x,1)-1) + var(y)*(size(y,1)-1))/(size(x,1)+size(y,1)-1))
         elseif RadNew == 2
-            Rnew = x -> var(x, corrected=false)
+            Rnew = (x,y) -> ((var(x)*(size(x,1)-1) + var(y)*(size(y,1)-1))/(size(x,1)+size(y,1)-1))
         elseif RadNew == 3
-            Rnew = x -> mean(abs.(x .- mean(x)))
+            Rnew = (x,y) -> mean(abs.(vcat(x,y) .- mean(vcat(x,y))))
         elseif RadNew == 4
-            Rnew = x -> median(abs.(x .- median(x)))    
+            Rnew = (x,y) -> median(abs.(vcat(x,y) .- median(vcat(x,y))))    
         end
 
         if haskey(Mobj,:r)
             Cx = Mobj.r
         else
-            Cy = ("Standard Deviation","Variance","Mean Abs Deviation",
-                    "Median Abs Deviation")
+            Cy = ("Pooled Standard Deviation","Pooled Variance","Total Mean Abs Deviation", "Total Median Abs Deviation")
             @warn("No radius value provided in Mobj.
                 Default set to 0.2*$(Cy[RadNew]) of each new time-series.")            
             Cx = .2
@@ -130,9 +131,9 @@ using Plots
 
     for T = 1:Scales
         print(" .")
-        Temp = refined(Sig,T,F_Order,F_Num)
-        RadNew > 0 ? Args = (Args..., r=Cx*Rnew(Temp[:])) : nothing      
-        Tempx = Mobj.Func(Temp; Args...)
+        TempA, TempB = refined(Sig1, Sig2,T,F_Order,F_Num)
+        RadNew > 0 ? Args = (Args..., r=Cx*Rnew(TempA, TempB)) : nothing      
+        Tempx = Mobj.Func(TempA, TempB; Args...)
         typeof(Tempx)<:Tuple ? MSx[T] = Tempx[1][end] : MSx[T] = Tempx[end]
         #MSx[T] = Tempx[1][end]
     end
@@ -156,14 +157,15 @@ using Plots
     return MSx, CI
     end
 
-    function refined(Z,sx,P1,P2)
-        Yt = filtfilt(digitalfilter(Lowpass(P2/sx), Butterworth(P1)), Z)
-        return Yt[1:sx:end,:]
+    function refined(Za, Zb,sx,P1,P2)
+        Y1 = filtfilt(digitalfilter(Lowpass(P2/sx), Butterworth(P1)), Za)[:]
+        Y2 = filtfilt(digitalfilter(Lowpass(P2/sx), Butterworth(P1)), Zb)[:]        
+        return Y1, Y2
     end
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -10,17 +10,9 @@ __*An Open-Source Toolkit For Entropic Time Series Analysis*__
 
 ## Introduction
 
-Welcome to **EntropyHub.jl**!
+This toolkit provides a wide range of functions to calculate different entropy statistics. 
+There is an ever-growing range of information-theoretic and dynamical systems entropy measures presented in the scientific literature. The goal of **EntropyHub.jl** is to integrate the many established entropy methods in one open-source package with an extensive documentation and consistent syntax [that is also accessible in multiple programming languages ([Matlab](https://www.entropyhub.xyz/matlab/EHmatlab.html), [Python](https://www.entropyhub.xyz/python/EHpython.html))].
 
-This is a toolkit that provides a wide range of functions to calculate different entropy statistics.
-
-There is an ever-growing range of information-theoretic entropy measures presented in the scientific literature.
-Although many functions for estimating these entropies can be found in various corners
-of the internet, there is currently no toolkit to perform entropic time-series analysis in Julia with an extensive documentation and consistent syntax,
- that is also accessible in multiple programming languages ([Matlab](https://www.entropyhub.xyz/matlab/EHmatlab.html), [Python](https://www.entropyhub.xyz/python/EHpython.html)).
-
-The goal of **EntropyHub.jl** is to integrate the many established entropy methods into one package that is available for
-users of Julia.
 
 ### About 
 
@@ -29,24 +21,13 @@ the more uncertainty there is, the more information we gain by removing that
 uncertainty. In the context of information and probability theory, **Entropy** 
 quantifies that uncertainty. 
 
-The concept of entropy has its origins in 
-[classical physics](http://www.scholarpedia.org/article/Entropy "Scholarpedia")
-under the second law of thermodynamics, a law 
-[considered to underpin our fundamental understanding](https://www.penguin.co.uk/books/301539/the-order-of-time/9780141984964.html "Rovelli") 
-of [time in physics](https://en.wikipedia.org/wiki/Time_in_physics "Wiki Time"). 
-Attempting to analyse the analog world around
-us requires that we measure time in discrete steps, but doing so compromises 
-our ability to measure entropy accurately. Various measures have been derived 
+Various measures have been derived 
 to estimate entropy (uncertainty) from discrete time series, each seeking to 
 best capture the uncertainty of the system under examination. This has resulted 
 in many entropy statistics from approximate entropy and sample entropy, to
 multiscale sample entropy and refined-composite multiscale cross-sample entropy.
 
-As the number of statisitcal entropy measures grows, it becomes more difficult
-to identify, contrast and compare the performance of each measure. To overcome
-this, we have developed EntropyHub - an open-source toolkit designed to 
-integrate the many established entropy methods into one package. The goal of 
-EntropyHub is to provide a comprehensive set of functions with a simple and 
+The goal of EntropyHub is to provide a comprehensive set of functions with a simple and 
 consistent syntax that allows the user to augment parameters at the command 
 line, enabling a range from basic to advanced entropy methods to be implemented
 with ease.
@@ -81,7 +62,7 @@ EntropyHub is licensed under the Apache License (Version 2.0) and is free to use
 all on condition that the following reference be included on any outputs realized using the
 software:
 ```
-Matthew W. Flood and Bernd Grimm (2021),
+Matthew W. Flood (2021),
 EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
 PLoS ONE 16(11):e0259448
 DOI:  10.1371/journal.pone.0259448
@@ -89,7 +70,7 @@ www.EntropyHub.xyz
 ```
 __________________________________________________________________
 
-        © Copyright 2021 Matthew W. Flood, EntropyHub
+        © Copyright 2024 Matthew W. Flood, EntropyHub
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
@@ -104,7 +85,7 @@ __________________________________________________________________
         
         For Terms of Use see https://github.com/MattWillFlood/EntropyHub
 
-If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub) 
+If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub.jl) 
 and Julia Packages (or MatLab File Exchange and PyPI). This helps us to gauge user satisfaction.
 
 ## Functions

@@ -23,7 +23,7 @@ value at each node.
 using EntropyHub # hide
 Data = ExampleData("henon"); # hide
 Mobj = MSobject(XCondEn, m = 2, tau = 2, c = 12,  Logx = 2, Norm = true) # hide
-MSx, Sn, Ci = hXMSEn(Data, Mobj, Scales = 4, Plotx = true)
+MSx, Sn, Ci = hXMSEn(Data[:,1], Data[:,2], Mobj, Scales = 4, Plotx = true)
 ```
 
 ![hXMSEn](../assets/hXMSEnjl.png)

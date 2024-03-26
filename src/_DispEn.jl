@@ -100,7 +100,7 @@ using StatsFuns: normcdf
         Yi = floor.(maximum(abs.(diff(Ym,dims=2)),dims=2)./(rho*std(abs.(diff(Sig)),corrected=false)))
 
     elseif lowercase(Typex) == "equal"
-        ix = sortperm(Sig);
+        ix = sortperm(Sig,alg=MergeSort);
         xx = Int.(round.(range(0,N,length=c+1)))
         Zi = zeros(N)
         for k = 1:c
@@ -181,7 +181,7 @@ if Fluct
 end =#
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

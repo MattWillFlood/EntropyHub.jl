@@ -1,9 +1,11 @@
 module _MSEn
 export MSEn, EMD
 using Statistics: std, mean, median, var
-#using DataInterpolations: CubicSpline
-using Dierckx: Spline1D
+using DataInterpolations: CubicSpline
+#using Dierckx: Spline1D
 using Plots
+using DSP: conv
+
 #=function __init__()
  @warn("\n\n Methodx option IMF (Intrinisic Mode Function) is not stable.
  Random or highly aperiodic signals may not decompose fully.
@@ -30,7 +32,7 @@ end=#
     # Arguments:
     `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
     `Method`   - Graining method, one of the following: 
-                 {`coarse`,`modified`,`imf`,`timeshift`} [default = `coarse`]  
+                 {`coarse`,`modified`,`imf`,`timeshift`,`generalized`} [default = `coarse`]  
                  For further info on these graining procedures, see the EntropyHub guide.  \n
     `RadNew`   - Radius rescaling method, an integer in the range [1 4].
                  When the entropy specified by `Mobj` is `SampEn` or `ApEn`, 
@@ -112,6 +114,11 @@ end=#
                 and dispersion entropy." 
                 Entropy 20.2 (2018): 138.
 
+        [12] Madalena Costa and Ary L. Goldberger,
+                "Generalized multiscale entropy analysis: Application to quantifying 
+                the complex volatility of human heartbeat time series." 
+                Entropy 17.3 (2015): 1197-1203.
+
     """
     function MSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple; Scales::Int=3, 
         Methodx::String="coarse", RadNew::Int=0, Plotx::Bool=false)
@@ -120,21 +127,34 @@ end=#
     (length(Mobj) >= 1) ? nothing :  error("Mobj:    must be a multiscale entropy object created 
                 with the function EntropyHub.MSobject")
     (Scales>1) ? nothing : error("Scales:     must be an integer > 1")
-    (lowercase(Methodx) in ["coarse","modified","imf","timeshift"]) ? nothing :
-        error("Method:  must be one of the following string names -
-                'coarse','modified','imf','timeshift'")
+    (lowercase(Methodx) in ["coarse","modified","imf","timeshift","generalized"]) ? nothing :
+        error("Method:  must be one of the following string names - 'coarse','modified','imf','timeshift','generalized'")
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("SampEn","ApEn"))) ? nothing :
         error("RadNew:     must be 0, or an integer in range [1 4] with 
                 entropy function 'SampEn' or 'ApEn'")
         
-    if lowercase(Methodx)=="imf" 
-        Sig,_  = EMD(Sig,Scales-1)
-        sum(all(Sig.==0,dims=2))==0 ? nothing : Sig = Sig[all(Sig.!=0,dims=2),:]
-        Scales >= size(Sig,1) ? nothing : 
-        @warn("Max number of IMF's decomposed from EMD is less than number of Scales.
-            MSEn evaluated over $(size(Sig,1)) scales instead of $Scales.")
-        Scales = size(Sig,1)
+    lowercase(String(Symbol(Mobj.Func))[1]) == 'x' ? error("Base entropy estimator is a cross-entropy method. 
+    To perform multiscale CROSS-entropy estimation, use rXMSEn.") : nothing
+    
+    String(Symbol(Mobj.Func))=="SampEn" ? Mobj = merge(Mobj,(Vcp=false,)) : nothing
+
+    if lowercase(Methodx)=="imf"
+        Sig, _  = EMD(Sig,Scales-1)
+       # sum(all(Sig.==0,dims=2))==0 ? nothing : Sig = Sig[all(Sig.!=0,dims=2),:]
+        #Scales >= size(Sig,1) ? nothing : 
+        #@warn("Max number of IMF's decomposed from EMD is less than number of Scales.
+        #    MSEn evaluated over $(size(Sig,1)) scales instead of $Scales.")
+        #Scales = size(Sig,1)
+    
+        sum(all(Sig.==0,dims=2))==0 ? Tp1 = ones(Int,size(Sig,1)) : Tp1 = vec(collect(all(Sig .!= 0, dims=2)));
+        if !all(Bool.(Tp1)) || (size(Sig,1)<Scales) 
+            Sig = Sig[Bool.(Tp1),:]
+            @warn("Max number of IMF's decomposed from EMD is less than number of Scales.
+                MSEn evaluated over $(size(Sig,1)) scales instead of $Scales.")
+            Scales = size(Sig,1);
+        end  
     end
+
     MSx = zeros(Scales)
     Args = NamedTuple{keys(Mobj)[2:end]}(Mobj)
     Func2 = getfield(_MSEn,Symbol(lowercase(Methodx)))
@@ -211,11 +231,12 @@ end=#
         return Y
     end
     function modified(Z,sx)
-        Ns = size(Z,1) - sx + 1
+       #= Ns = size(Z,1) - sx + 1
         Y = zeros(Ns)
         for k = 1:Ns
             Y[k] = mean(Z[k:k+sx-1])
-        end
+        end=#
+        Y = (conv(Z,ones(Int,sx))/sx)[sx:end-sx+1]
         return Y 
     end
     function imf(Z,sx)
@@ -227,6 +248,12 @@ end=#
                 (sx,Int(floor(length(Z)/sx))))
         return Y
     end
+    function generalized(Z,sx)
+        Ns = floor(Int, length(Z)/sx)
+        Y = var(reshape(Z[1:sx*Ns],sx,Ns)',corrected=false,dims=2)
+        return Y
+    end
+    
 
     function PkFind(X)
         Nx = length(X)
@@ -246,7 +273,7 @@ end=#
             end
         end
         Indx = Indx[Indx.!==0]
-    return Indx
+        return Indx
     end
     
     function EMD(X, Scales::Int)
@@ -258,18 +285,18 @@ end=#
             r0 = Xt
             x = 0;            
             Upx = PkFind(r0);  Lwx = PkFind(-r0)  
-            UpEnv = Spline1D(Upx,r0[Upx],k=3,bc="nearest")
-            LwEnv = Spline1D(Lwx,r0[Lwx],k=3,bc="nearest")
-            r1 = r0.- (UpEnv.(1:N) .+ LwEnv.(1:N))./2     
+            UpEnv = CubicSpline(r0[Upx], Upx)  #Spline1D(Upx,r0[Upx],k=3,bc="nearest")
+            LwEnv = CubicSpline(r0[Lwx], Lwx)  #Spline1D(Lwx,r0[Lwx],k=3,bc="nearest")
+            r1 = r0.- (UpEnv(1:N) .+ LwEnv(1:N))./2 #r0.- (UpEnv.(1:N) .+ LwEnv.(1:N))./2   
             RT = (sum(r0.*r0) - sum(r1.*r1))/sum(r0.*r0)
             length(vcat(Upx,Lwx)) <= MinTN ? (LOG = "Decomposition hit minimal extrema criteria."; break) : nothing
     
             while x < 100 && RT > 0.2
                 r0 = 1*r1
                 Upx = PkFind(r0);  Lwx = PkFind(-r0)  
-                UpEnv = Spline1D(Upx,r0[Upx],k=3,bc="nearest")
-                LwEnv = Spline1D(Lwx,r0[Lwx],k=3,bc="nearest")
-                r1 = r0.- (UpEnv.(1:N) .+ LwEnv.(1:N))./2  
+                UpEnv = CubicSpline(r0[Upx], Upx)  #Spline1D(Upx,r0[Upx],k=3,bc="nearest")
+                LwEnv = CubicSpline(r0[Lwx], Lwx)  #Spline1D(Lwx,r0[Lwx],k=3,bc="nearest")
+                r1 = r0.- (UpEnv(1:N) .+ LwEnv(1:N))./2 #r0.- (UpEnv.(1:N) .+ LwEnv.(1:N))./2     
                 RT = (sum(r0.*r0) - sum(r1.*r1))/sum(r0.*r0)
                 x += 1;
                 10*log10(sqrt(sum(r0.*r0))/sqrt(sum(r1.*r1))) > MaxER ? 
@@ -288,7 +315,7 @@ end=#
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

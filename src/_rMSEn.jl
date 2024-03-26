@@ -90,6 +90,11 @@ using Plots
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("SampEn","ApEn"))) ? nothing :
     error("RadNew:  must be 0, or an integer in range [1 4] with entropy function `SampEn` or `ApEn`")
         
+    lowercase(String(Symbol(Mobj.Func))[1]) == 'x' ? error("Base entropy estimator is a cross-entropy method. 
+            To perform refined multiscale CROSS-entropy estimation, use rXMSEn.") : nothing
+
+    String(Symbol(Mobj.Func))=="SampEn" ? Mobj = merge(Mobj,(Vcp=false,)) : nothing
+
     MSx = zeros(Scales)
     Args = NamedTuple{keys(Mobj)[2:end]}(Mobj)
     (RadNew==0 && String(Symbol(Mobj.Func)) in ("SampEn","ApEn")) ? RadNew=1 : nothing
@@ -150,9 +155,7 @@ using Plots
 end
 
 """
-
-
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

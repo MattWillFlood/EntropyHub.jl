@@ -22,8 +22,7 @@ julia> names(EntropyHub)
 ```
 
 
-
-```@docs
+```@docs 
 EntropyHub.ApEn
 EntropyHub.SampEn
 EntropyHub.FuzzEn
@@ -42,4 +41,6 @@ EntropyHub.BubbEn
 EntropyHub.GridEn
 EntropyHub.EnofEn
 EntropyHub.AttnEn
+EntropyHub.RangEn
+EntropyHub.DivEn
 ```

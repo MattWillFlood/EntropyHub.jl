@@ -1,19 +1,22 @@
-using EntropyHub, Documenter
-using DocumenterTools 
-OutdatedWarning.generate("src")
+using EntropyHub
+using Documenter, DocumenterTools 
+#OutdatedWarning.generate("src")
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
 
 makedocs(
+    source="src",
     modules=[EntropyHub],
     authors="Matthew W. Flood <info@entropyhub.xyz>",
-    repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
+    #repo="https://github.com/MattWillFlood/EntropyHub.jl/blob/{commit}{path}#{line}",
+    #repo = Remotes.repourl("https://github.com/MattWillFlood/EntropyHub.jl"),
     sitename="EntropyHub.jl",
     doctest=false,
+    draft=false,
     clean=true,
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", nothing) == "true",
-        canonical="https://mattwillflood.github.io/EntropyHub.jl",
+        canonical="https://mattwillflood.github.io/EntropyHub.jl/",
         assets = ["assets/favicon.ico"],
         collapselevel = 1,
     ),
@@ -42,12 +45,15 @@ makedocs(
 
 deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
-    versions = ["stable" => "v^", "v#.#.#"],
+    versions = ["stable" => "v^", "v#.#"],
+    branch = "gh-pages",
+    tag_prefix = "v1.0",
+
     #versions = nothing,
 )
 
 
-"""using EntropyHub
+#= """using EntropyHub
 using Documenter
 
 DocMeta.setdocmeta!(EntropyHub, :DocTestSetup, :(using EntropyHub); recursive=true)
@@ -95,3 +101,4 @@ deploydocs(;
     versions = ["stable" => "v^", "v#.#.#", devurl =>devurl],
 )
 """
+=#

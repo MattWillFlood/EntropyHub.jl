@@ -3,12 +3,12 @@ export hXMSEn
 using Statistics: std, mean, median, var
 using Plots
     """
-        MSx, Sn, CI = hXMSEn(Sig, Mobj)
+        MSx, Sn, CI = hXMSEn(Sig1, Sig2, Mobj)
 
     Returns a vector of cross-entropy values (`MSx`) calculated at each node 
     in the hierarchical tree, the average cross-entropy value across all 
     nodes at each scale (`Sn`), and the complexity index (`CI`) of the hierarchical 
-    tree (i.e. sum(`Sn`)) between the data sequences contained in `Sig` using
+    tree (i.e. sum(`Sn`)) between the data sequences contained in `Sig1` and `Sig2` using
     the parameters specified by the multiscale object (`Mobj`) over 3 temporal
     scales (default).
     The entropy values in `MSx` are ordered from the root node (S.00) to the
@@ -17,13 +17,13 @@ using Plots
     The average cross-entropy values in Sn are ordered in the same way, with the
     value of the root node given first: i.e. S0, S1, S2, ..., ST
      
-        MSx, Sn, CI = hXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
+        MSx, Sn, CI = hXMSEn(Sig1::AbstractVector{T} where T<:Real, Sig2::AbstractVector{T} where T<:Real, Mobj::NamedTuple; 
                                  Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
     
     Returns a vector of cross-entropy values (`MSx`) calculated at each node 
     in the hierarchical tree, the average cross-entropy value across all
     nodes at each scale (`Sn`), and the complexity index (`CI`) of the entire
-    hierarchical tree between the data sequences contained in `Sig` using 
+    hierarchical tree between the data sequences contained in `Sig1` and `Sig2` using 
     the following name/value pair arguments:
 
     # Arguments:
@@ -36,10 +36,10 @@ using Plots
                  this becomes the rescaling coefficient, otherwise it is set
                  to 0.2 (default). The value of `RadNew` specifies one of the 
                  following methods: \n
-                 [1]    Standard Deviation          - r*std(Xt) \n
-                 [2]    Variance                    - r*var(Xt) \n
-                 [3]    Mean Absolute Deviation     - r*mean_ad(Xt) \n
-                 [4]    Median Absolute Deviation   - r*med_ad(Xt,1) \n
+                 [1]    Pooled Standard Deviation          - r*std(Xt) \n
+                 [2]    Pooled Variance                    - r*var(Xt) \n
+                 [3]    Total Mean Absolute Deviation      - r*mean_ad(Xt) \n
+                 [4]    Total Median Absolute Deviation    - r*med_ad(Xt) \n
     `Plotx`    - When `Plotx` == true, returns a plot of the average cross-entropy 
                  value at each time scale (i.e. the multiscale entropy curve)
                  and a hierarchical graph showing the entropy value of each node
@@ -48,10 +48,12 @@ using Plots
     # See also `MSobject`, `XMSEn`, `rXMSEn`, `cXMSEn`, `XSampEn`, `XApEn`, `hMSEn`
   
     # References:
-        [1]   Matthew W. Flood,
-            "hXMSEn - EntropyHub Project"
-            2021, https://github.com/MattWillFlood/EntropyHub
-  
+        [1] Matthew W. Flood (2021), 
+            "EntropyHub - An open source toolkit for entropic time series analysis"
+            PLoS ONE 16(11):e0295448, 
+            DOI:  10.1371/journal.pone.0259448
+            https://www.EntropyHub.xyz
+    
         [2]   Rui Yan, Zhuo Yang, and Tao Zhang,
             "Multiscale cross entropy: a novel algorithm for analyzing two
             time series." 
@@ -63,51 +65,49 @@ using Plots
             Journal of Computational and Applied Mathematics
             236.5 (2011): 728-742.
   
-
     """
-    function hXMSEn(Sig::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; 
+    function hXMSEn(Sig1::AbstractVector{T} where T<:Real, Sig2::AbstractVector{T} where T<:Real, Mobj::NamedTuple; 
         Scales::Int=3, RadNew::Int=0, Plotx::Bool=false)
 
-    size(Sig,1) == 2 ? Sig = Sig' : nothing
-
-    (size(Sig,1)>10) ? nothing : error("Sig:   must be a numeric vector" )
+    (size(Sig1,1)>=10)  && (size(Sig2,1)>=10) ? nothing : error("Sig1/Sig2:   sequences must have >= 10 values")
     (length(Mobj) >= 1) ? nothing :  error("Mobj:    must be a multiscale entropy object created 
             with the function EntropyHub.MSobject")
     (Scales>1) ? nothing : error("Scales:     must be an integer > 1")
     (RadNew==0 || (RadNew in 1:4 && String(Symbol(Mobj.Func)) in ("XSampEn","XApEn"))) ? nothing :
     error("RadNew:  must be 0, or an integer in range [1 4] with entropy function `XSampEn` or `XApEn`")
-                
+    
+    String(Symbol(Mobj.Func))=="XSampEn" ? Mobj = merge(Mobj,(Vcp=false,)) : nothing            
+
     Args = NamedTuple{keys(Mobj)[2:end]}(Mobj)
     if RadNew > 0
         if RadNew == 1
-            Rnew = x -> std(x, corrected=false)
+            Rnew = (x,y) -> sqrt((var(x)*(size(x,1)-1) + var(y)*(size(y,1)-1))/(size(x,1)+size(y,1)-1))
         elseif RadNew == 2
-            Rnew = x -> var(x, corrected=false)
+            Rnew = (x,y) -> ((var(x)*(size(x,1)-1) + var(y)*(size(y,1)-1))/(size(x,1)+size(y,1)-1))
         elseif RadNew == 3
-            Rnew = x -> mean(abs.(x .- mean(x)))
+            Rnew = (x,y) -> mean(abs.(vcat(x,y) .- mean(vcat(x,y))))
         elseif RadNew == 4
-            Rnew = x -> median(abs.(x .- median(x)))    
+            Rnew = (x,y) -> median(abs.(vcat(x,y) .- median(vcat(x,y))))    
         end
 
         if haskey(Mobj,:r)
             Cx = Mobj.r
         else
-            Cy = ("Standard Deviation","Variance","Mean Abs Deviation",
-                    "Median Abs Deviation")
+            Cy = ("Pooled Standard Deviation","Pooled Variance","Total Mean Abs Deviation", "Total Median Abs Deviation")
             @warn("No radius value provided in Mobj.
                 Default set to 0.2*$(Cy[RadNew]) of each new time-series.")            
             Cx = .2
         end
     end
 
-    XX, YY, N = Hierarchy(Sig, Scales)
+    XX, YY, Na, Nb = Hierarchy(Sig1, Sig2, Scales)
     MSx = zeros(size(XX,1))
-    for T = 1:size(XX,1)
+    for T in eachindex(XX[:,1]) # = 1:size(XX,1)
         print(" .")
-        Temp = hcat(XX[T,1:Int(N/(2^(floor(log2(T)))))],
-                YY[T,1:Int(N/(2^(floor(log2(T)))))])
-        RadNew > 0 ? Args = (Args..., r=Cx*Rnew(Temp[:])) : nothing      
-        Temp2 = Mobj.Func(Temp; Args...)
+        TempA = XX[T,1:Int(Na/(2^(floor(log2(T)))))]
+        TempB = YY[T,1:Int(Nb/(2^(floor(log2(T)))))]
+        RadNew > 0 ? Args = (Args..., r=Cx*Rnew(TempA, TempB)) : nothing      
+        Temp2 = Mobj.Func(TempA, TempB; Args...)
         typeof(Temp2)<:Tuple ? MSx[T] = Temp2[1][end] : MSx[T] = Temp2[end]
     end
 
@@ -162,27 +162,40 @@ using Plots
     return MSx, Sn, CI
     end
 
-    function Hierarchy(Z,sx)
-        N = Int(2^floor(log2(size(Z,1))))
-        if mod(log2(size(Z,1)),1) != 0
-            @warn("Only first $(N) samples were used in hierarchical decomposition.
-                The last $(size(Z,1)-N) samples of the data sequence were ignored.")
+    function Hierarchy(Za, Zb,sx)
+        Na = Int(2^floor(log2(size(Za,1))))      
+        Nb = Int(2^floor(log2(size(Zb,1))))
+        if mod(log2(size(Za,1)),1) != 0
+            @warn("Only first $(Na) samples were used in hierarchical decomposition.
+                The last $(size(Za,1)-Na) samples of the data sequence were ignored.")
         end
-        if N/(2^(sx-1)) < 8
-           error("Data length ($(N)) is too short to estimate entropy at the lowest subtree.
+        if mod(log2(size(Zb,1)),1) != 0
+            @warn("Only first $(Nb) samples were used in hierarchical decomposition.
+                The last $(size(Zb,1)-Nb) samples of the data sequence were ignored.")
+        end
+
+        if Na/(2^(sx-1)) < 8
+           error("Data length ($(Na)) of Sig1 is too short to estimate entropy at the lowest subtree.
            Consider reducing the number of scales.") 
+        elseif  Nb/(2^(sx-1)) < 8
+            error("Data length ($(Nb)) of Sig2 is too short to estimate entropy at the lowest subtree.
+            Consider reducing the number of scales.") 
         end
         
-        Z = Z[1:N,:]
-        U1 = zeros((2^sx)-1,N);  U2 = zeros((2^sx)-1,N)
-        U1[1,:] = Z[:,1];  U2[1,:] = Z[:,2]
+        Za = Za[1:Na,:]
+        Zb = Zb[1:Nb,:]
+        
+        U1 = zeros((2^sx)-1,Na);  
+        U2 = zeros((2^sx)-1,Nb);
+        U1[1,:] = Za;  
+        U2[1,:] = Zb;
         
         p=2
         for k = 1:sx-1
             for n = 1:2^(k-1)
                 Temp = U1[2^(k-1)+n-1,:]       
-                U1[p,1:Int(N/2)]  = (Temp[1:2:end] + Temp[2:2:end])/2
-                U1[p+1,1:Int(N/2)]= (Temp[1:2:end] - Temp[2:2:end])/2
+                U1[p,1:Int(Na/2)]  = (Temp[1:2:end] + Temp[2:2:end])/2
+                U1[p+1,1:Int(Na/2)]= (Temp[1:2:end] - Temp[2:2:end])/2
                 p +=2
             end
         end
@@ -191,13 +204,13 @@ using Plots
         for k = 1:sx-1
             for n = 1:2^(k-1)
                 Temp = U2[2^(k-1)+n-1,:]       
-                U2[p,1:Int(N/2)]  = (Temp[1:2:end] + Temp[2:2:end])/2
-                U2[p+1,1:Int(N/2)]= (Temp[1:2:end] - Temp[2:2:end])/2
+                U2[p,1:Int(Nb/2)]  = (Temp[1:2:end] + Temp[2:2:end])/2
+                U2[p+1,1:Int(Nb/2)]= (Temp[1:2:end] - Temp[2:2:end])/2
                 p +=2
             end
         end
 
-        return U1, U2, N
+        return U1, U2, Na, Nb
     end
 end
 
@@ -228,7 +241,7 @@ title(sprintf('Hierarchical Multiscale (%s) Entropy',func2str(Y{1})),...
 """
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -3,22 +3,22 @@ export XCondEn
 using StatsBase: fit, Histogram
 using Statistics: mean, std
     """
-        XCond, SEw, SEz = XCondEn(Sig) 
+        XCond, SEw, SEz = XCondEn(Sig1, Sig2) 
 
     Returns the corrected cross-conditional entropy estimates (`XCond`) and the
     corresponding Shannon entropies (m: SEw, m+1: SEz) for m = [1,2] 
-    estimated for the data sequences contained in `Sig` using the default
+    estimated for the data sequences contained in `Sig1` and `Sig2` using the default
     parameters:  embedding dimension = 2, time delay = 1, number of symbols = 6, 
     logarithm = natural
     ** Note: XCondEn is direction-dependent. Therefore, the order of the
-    data sequences in `Sig` matters. If the first row/column of `Sig` is the
-    sequence 'y', and the second row/column is the sequence 'u', the `XCond` is
+    data sequences `Sig1` and `Sig2` matters. If `Sig1` is the
+    sequence 'y', and `Sig2` is the second sequence 'u', the `XCond` is
     the amount of information carried by y(i) when the pattern u(i) is found.**
 
-        XCond, SEw, SEz = XCondEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
+        XCond, SEw, SEz = XCondEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing; m::Int=2, tau::Int=1, c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
 
     Returns the corrected cross-conditional entropy estimates (`XCond`) for
-    the data sequences contained in `Sig` using the specified 'keyword' arguments:
+    the data sequences contained in `Sig1` and `Sig2` using the specified 'keyword' arguments:
 
     # Arguments:
     `m`     - Embedding Dimension, an integer > 1        [default: 2]  \n
@@ -39,20 +39,30 @@ using Statistics: mean, std
             81.2 (1999): 119-129.
                        
     """
-    function XCondEn(Sig::AbstractArray{T,2} where T<:Real; m::Int=2, tau::Int=1, 
-        c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
+    function XCondEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing;
+             m::Int=2, tau::Int=1,  c::Int=6, Logx::Real=exp(1), Norm::Bool=false)
 
-    (size(Sig,2) > size(Sig,1)) ? Sig = transpose(Sig) : nothing
+    if all(isa.((Sig1,Sig2), AbstractVector))
+        N = size(Sig1,1);   
+        S1 = (Sig1 .- mean(Sig1))/std(Sig1,corrected=false)
+        S2 = (Sig2 .- mean(Sig2))/std(Sig2,corrected=false) 
+    elseif (minimum(size(Sig1))==2 && (Sig2 isa Nothing)) 
+        argmin(size(Sig1)) == 2 ? nothing : Sig1 = Sig1'
+        S1 = (Sig1[:,1] .- mean(Sig1[:,1]))/std(Sig1[:,1],corrected=false)
+        S2 = (Sig2[:,2] .- mean(Sig2[:,2]))/std(Sig2[:,2],corrected=false)
+        N = maximum(size(Sig1)); 
+    else   error("""Sig1 and Sig2 must be 2 separate vectors 
+        \t\t\t - OR - 
+        Sig1 must be 2-column matrix and Sig2 nothing""")
+    end
 
-    N = size(Sig,1)
-    (N>10 && size(Sig,2)==2) ? nothing :  error("Sig:   must be a 2-columns matrix")
+    length(S2)==N ? nothing : error("Sig1 and Sig2 must be the same length!")
+    (N>=10) ? nothing :  error("Sig1/Sig2:   sequences must have >= 10 values")
     (m > 1) ? nothing : error("m:     must be an integer > 1")
     (tau>0) ? nothing : error("tau:   must be an integer > 0")
     (Logx>0) ? nothing : error("Logx:     must be a positive number > 0")
     (c>1) ? nothing :  error("c:     must be an integer > 1")
 
-    S1 = (Sig[:,1] .- mean(Sig[:,1]))/std(Sig[:,1],corrected=false)
-    S2 = (Sig[:,2] .- mean(Sig[:,2]))/std(Sig[:,2],corrected=false) 
     Edges = range(minimum(S1),maximum(S1),length=c+1)
     Sx1 = map(x -> sum(Edges[1:c].<=x), S1)
     Edges = range(minimum(S2),maximum(S2),length=c+1)
@@ -81,8 +91,8 @@ using Statistics: mean, std
         SEz[k] = -transpose(Pz)*log.(Logx, Pz)
     end
 
-    Temp = fit(Histogram,Sx2,nbins=c).weights/N
-    Temp = Temp[Temp.!=0]
+    Temp = fit(Histogram,Sx2,nbins=c).weights
+    Temp = Temp[Temp.!=0]./N
     Sy = -transpose(Temp)*log.(Logx, Temp)
     XC = SEz - SEw + Prcm*Sy
     XC = vcat(Sy, XC)
@@ -94,7 +104,7 @@ using Statistics: mean, std
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
     
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

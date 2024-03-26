@@ -1,9 +1,63 @@
-# EntropyHub: An open-source toolkit for entropic time series analysis
+# EntropyHub: An open-source toolkit for entropic data analysis
 __*Julia Edition*__
 
 <p align="center">
 <img src="https://github.com/MattWillFlood/EntropyHub/blob/main/Graphics/EntropyHub_JuliaLogo.png" alt = "EntropyHub Git" width="250" height="340" />
 </p>
+
+
+## Latest Update
+### v1.0
+__*----- New entropy methods -----*__             
+Two new base entropy functions (and their multiscale versions) have been added:         
+        > [Diversity Entropy](https://ieeexplore.ieee.org/document/9194995)             
+        > [Range Entropy](https://www.mdpi.com/1099-4300/20/12/962)             
+
+__*----- New fuzzy membership functions -----*__          
+Several new fuzzy membership functions have been added to FuzzEn, XFuzzEn and FuzzEn2D to provide more options for mapping the degree of similarity between embedding vectors.          
+These include *trapezoidal*, *triangular* and *gaussian*, among others.                 
+Further info on these membership functions can be found [here.](https://hal.science/hal-02267711/document)              
+
+__*----- Phase Permutation Entropy -----*__               
+A new variant - '*phase*' permutation entropy - has been added to PermEn.                  
+This method employs a hilbert transformation of the data sequence, based on the methods outlined [here.](https://doi.org/10.1016/j.physa.2020.125686)           
+
+__*----- Cross-Entropy with different length sequences -----*__           
+EntropyHub v1.0 now allows for cross-entropy (and multiscale cross-entropy) estimation with different length signals (_except XCondEn and XPermEn_).            
+As a result, the new cross-entropy functions require a separate input for each sequence (Sig1, Sig2).                   
+
+__*----- Refined-Composite Multiscale Fuzzy Entropy -----*__              
+In addition to the refined-composite multiscale sample entropy that was available in earlier versions, now one can estimate the refined-composite multiscale fuzzy entropy based on the method outlined [here.](https://link.springer.com/article/10.1007/s11517-017-1647-5)    
+What's more, refined-composite multicale cross-fuzzy entropy is also available, and both can be estimated using any of the fuzzy membership functions in FuzzEn or XFuzzEn.             
+
+__*----- Generalized Multiscale Entropy -----*__          
+Generaized multiscale entropy and generalized multiscale cross-entropy can now be estimated. Just choose the '*generalized*' as the graining procedure in MSEn or XMSEn.        
+
+__*----- Variance of sample entropy estimate -----*__             
+Based on the [method outlined by Lake et al.,](https://journals.physiology.org/doi/epdf/10.1152/ajpregu.00069.2002) it is now possible to obtain a measure of the variance in the sample entropy estimate.              
+This is achieved by approximating the number of overlapping embedding vectors.          
+To do so, just set the parameter '*Vcp*'==true in SampEn and XSampEn, but note that doing so requires *a lot* of computer memory.              
+
+*Several little bugs and inconsistencies have also been fixed in this release. We want to thank all of you who have identified and alerted us to these bugs.*       
+*Most of these bugs have been noted via the [GitHub issues portal](https://github.com/MattWillFlood/EntropyHub/issues).*        
+
+__*----- Bug fixes -----*__             
+        - The DispEn2D function in python has now fixed [this issue](https://github.com/MattWillFlood/EntropyHub/issues/8).     
+        - The type hint for FuzzEn in python has been updated [as requested](https://github.com/MattWillFlood/EntropyHub/issues/1).             
+        - [Compatbility issues with EntropyHub.jl](https://github.com/MattWillFlood/EntropyHub.jl/issues/3) are now resolved.           
+        - A bug in the K2En python function led to incorrect entropy estimates for data sequences with many equal values. This has been corrected.              
+    
+__*----- Other Changes -----*__             
+        - The *'equal'* method for discretizing data in DispEn and DispEn2D has been updated to be consistent across Python, MatLab and Julia. This is unlikely to have impacted any users previously.          
+        - The zeroth dimension (m=0) estimate of ApEn and XApEn has been changed to -phi(1).                    
+        - The default radius threshold distance for XApEn, XSampEn and XK2En has been changed to use the *pooled* standard deviation [i.e. 0.2*SDpooled(X,Y)].   
+        
+
+## Welcome
+This toolkit provides a wide range of functions to calculate different entropy statistics.
+There is an ever-growing range of information-theoretic and dynamical systems entropy measures presented in the scientific literature. 
+The goal of EntropyHub is to integrate the many established entropy methods in one open-source package.
+
 
 ## About
 
@@ -11,12 +65,6 @@ Information and uncertainty can be regarded as two sides of the same coin:
 the more uncertainty there is, the more information we gain by removing that 
 uncertainty. In the context of information and probability theory, ***Entropy*** 
 quantifies that uncertainty. 
-
-The concept of entropy has its origins in 
-[classical physics](http://www.scholarpedia.org/article/Entropy "Scholarpedia")
-under the second law of thermodynamics, a law 
-[considered to underpin our fundamental understanding](https://www.penguin.co.uk/books/301539/the-order-of-time/9780141984964.html "Rovelli") 
-of [time in physics](https://en.wikipedia.org/wiki/Time_in_physics "Wiki Time"). 
 Attempting to analyse the analog world around
 us requires that we measure time in discrete steps, but doing so compromises 
 our ability to measure entropy accurately. Various measures have been derived 
@@ -81,7 +129,7 @@ There are two ways to install EntropyHub for Julia.
 There are several package dependencies which will be installed alongside EntropyHub (if not already installed):
 
 DSP, FFTW, HTTP, Random, Plots, StatsBase, StatsFuns, GroupSlices, 
-Statistics, DelimitedFiles, Combinatorics, LinearAlgebra, Dierckx, Clustering
+Statistics, DelimitedFiles, Combinatorics, LinearAlgebra, DataInterpolations, Clustering
 
 EntropyHub was designed using Julia 1.5 and is intended for use with Julia versions >= 1.2.
 
@@ -143,6 +191,8 @@ Bubble Entropy                                		  |	BubbEn
 Gridded Distribution Entropy                         |	GridEn
 Entropy of Entropy                            	     |	EnofEn
 Attention Entropy                                    |	AttnEn
+Range Entropy                                        |   RangEn
+Diversity Entropy                                    |   DivEn
 
 _______________________________________________________________________
 
@@ -203,7 +253,7 @@ EntropyHub is licensed under the Apache License (Version 2.0) and is free to
 use by all on condition that the following reference be included on any outputs
 realized using the software:
  
-        Matthew W. Flood and Bernd Grimm (2021), 
+        Matthew W. Flood (2021), 
         EntropyHub: An Open-Source Toolkit for Entropic Time Series Analysis,
         PLoS ONE 16(11):e0259448
         DOI:   10.1371/journal.pone.0259448
@@ -212,7 +262,7 @@ realized using the software:
 __________________________________________________________________
 
 
-        © Copyright 2021 Matthew W. Flood, EntropyHub
+        © Copyright 2024 Matthew W. Flood, EntropyHub
         Licensed under the Apache License, Version 2.0 (the "License");
         you may not use this file except in compliance with the License.
         You may obtain a copy of the License at
@@ -240,10 +290,7 @@ If you identify any bugs, please contact us at: fix@entropyhub.xyz
 If you need any help installing or using the toolkit, please contact us at: help@entropyhub.xyz
 
 
-
 ***Thank you*** for using EntropyHub.
-
-Yours in research,
 
 Matt
 

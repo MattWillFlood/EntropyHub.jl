@@ -13,29 +13,13 @@ In the following examples, signals / data are imported into Julia using the Exam
 To use this function as shown in the examples below, __*an internet connection is required*__.
 
 
-ExampleData() accepts any of the following strings: 
-
-* `"uniform"`         -    vector of uniformly distributed random numbers in range [0 1]
-* `"gaussian"`        -    vector of normally distributed random numbers with mean = 0, SD = 1
-* `"randintegers"`    -    vector of uniformly distributed pseudorandom integers in range [1 8]
-* `"chirp"`           -    vector of chirp signal with the following parameters:   f0 = .01; t1 = 4000; f1 = .025
-* `"lorenz"`          -    3-column matrix: X, Y, Z components of the Lorenz system  (alpha: 10; beta: 8/3 ; rho: 28); [Xo = 10; Yo = 20; Zo = 10]
-* `"henon"`           -    2-column matrix: X, Y components of the Henon attractor (alpha: 1.4; beta: 0.3); [Xo = 0; Yo = 0]
-* `"uniform2"`        -    2-column matrix: uniformly distributed random numbers in range [0 1]
-* `"gaussian2"`       -    2-column matrix: normally distributed random numbers with mean = 0, SD = 1
-* `"randintegers2"`   -    2-column matrix: uniformly distributed pseudorandom integers in range [1 8]
-* `"uniform_Mat"`     -    Matrix of uniformly distributed random numbers in range [0 1]
-* `"gaussian_Mat"`    -    Matrix of normally distributed random numbers with mean = 0; SD = 1
-* `"randintegers_Mat"`-    Matrix of uniformly distributed pseudorandom integers in range [1 8]
-* `"mandelbrot_Mat"`  -    Matrix of image of fractal generated from the mandelbrot set
-* `"entropyhub_Mat"`  -    Matrix of image of the entropyhub logo
+```@docs
+EntropyHub.ExampleData
+```
 
 
 !!! tip "IMPORTANT TO NOTE"
     
-    For cross-entropy and multiscale cross-entropy functions, the two time series signals are passed as a two-column or two-row matrix. 
-    At present, it is not possible  to pass signals of different lengths separately. 
-
     Parameters of the base or cross- entropy methods are passed to multiscale and multiscale cross- functions using the multiscale entropy object using MSobject.
     Base and cross- entropy methods are declared with MSobject() using any Base or Cross- entropy function.
     See the MSobject example in the following sections for more info.

@@ -8,14 +8,14 @@ using DSP: conv
     Returns the cross-spectral entropy estimate (`XSpec`) of the full cross-
     spectrum and the within-band entropy (`BandEn`) estimated between the data 
     sequences contained in `Sig` using the default  parameters: 
-    N-point FFT = 2*len(`Sig`) + 1, normalised band edge frequencies = [0 1],
+    N-point FFT = 2 * max(length(`Sig1`/`Sig2`)) + 1, normalised band edge frequencies = [0 1],
     logarithm = base 2, normalisation = w.r.t # of spectrum/band frequency 
     values.
 
-        XSpec, BandEn = XSpecEn(Sig::AbstractArray{T,2} where T<:Real; N::Int=1 + (2*size(Sig,1)), Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
+        XSpec, BandEn = XSpecEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing;  N::Union{Nothing,Int}=nothing, Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
 
     Returns the cross-spectral entropy (`XSpec`) and the within-band entropy 
-    (`BandEn`) estimate between the data sequences contained in `Sig` using the
+    (`BandEn`) estimate between the data sequences contained in `Sig1` and `Sig2` using the
     following specified 'keyword' arguments:
 
     # Arguments:
@@ -40,19 +40,30 @@ using DSP: conv
 
  
     """
-    function XSpecEn(Sig::AbstractArray{T,2} where T<:Real; N::Int=1 + (2*size(Sig,1)), 
-        Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
+    function XSpecEn(Sig1::Union{AbstractMatrix{T}, AbstractVector{T}} where T<:Real, Sig2::Union{AbstractVector{T} where T<:Real, Nothing} = nothing; 
+        N::Union{Nothing,Int}=nothing, Freqs::Tuple{Real,Real}=(0,1), Logx::Real=exp(1), Norm::Bool=true)
         
-    (size(Sig,2) > size(Sig,1)) ? Sig = transpose(Sig) : nothing
+    if all(isa.((Sig1,Sig2), AbstractVector))
+        N1 = size(Sig1,1);  N2 = size(Sig2,1)  
+        S1 = copy(Sig1); S2 = copy(Sig2)
+    elseif (minimum(size(Sig1))==2 && (Sig2 isa Nothing)) 
+        argmin(size(Sig1)) == 2 ? nothing : Sig1 = Sig1'
+        S1 = Sig1[:,1]; S2 = Sig1[:,2];
+        N1 = maximum(size(Sig1)); N2 = maximum(size(Sig1));
+    else   error("""Sig1 and Sig2 must be 2 separate vectors 
+                \t\t\t - OR - 
+                Sig1 must be 2-column matrix and Sig2 nothing""")
+    end
+    
+    N isa Nothing ? N = 2*max(N1,N2) + 1 : N = 2*N1 + 1;
 
-    (size(Sig,1) > 10 && size(Sig,2)==2) ? nothing :  error("Sig:   must be a 2-columns matrix")
+    (N1>=10 && N2>=10) ? nothing :  error("Sig1/Sig2:   sequences must have >= 10 values")
     (N > 1) ? nothing :  error("N:     must be an integer > 1")
     (0<=Freqs[1]<1 && 0<Freqs[2]<=1 && Freqs[1]<Freqs[2]) ? nothing :
         error("Freq:    must be a two element tuple with values in range [0 1].
                 The values must be in increasing order.")
     (Logx>0) ? nothing : error("Logx:     must be a positive number > 0")
         
-    S1 = Sig[:,1]; S2 = Sig[:,2]
     Freqs = collect(Freqs)
     Fx = Int(ceil(N/2))
     Freqs = Int.(round.(Freqs.*Fx))
@@ -86,7 +97,7 @@ using DSP: conv
 end
 
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

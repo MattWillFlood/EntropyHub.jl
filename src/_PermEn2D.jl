@@ -5,7 +5,7 @@ export PermEn2D
 
     Returns the bidimensional permutation entropy estimate (`Perm2D`) estimated for 
     the data matrix (`Mat`) using the default parameters: time delay = 1,
-    logarithm = natural, template matrix size = [floor(H/10) floor(W/10)]  
+    logarithm = natural, template matrix size = [floor(H/10) floor(W/10)],  
     (where H and W represent the height (rows) and width (columns) of the data matrix `Mat`) \n
     ** The minimum dimension size of Mat must be > 10.**
 
@@ -135,7 +135,7 @@ export PermEn2D
 
 end
 """
-Copyright 2021 Matthew W. Flood, EntropyHub
+Copyright 2024 Matthew W. Flood, EntropyHub
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

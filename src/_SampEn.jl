@@ -10,7 +10,18 @@ using LinearAlgebra: UpperTriangular, I
  using the default parameters: embedding dimension = 2, time delay = 1, 
  radius threshold = 0.2*SD(`Sig`), logarithm = natural
  
-    Samp, A, B = SampEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
+    Samp, A, B, (Vcp, Ka, Kb) = SampEn(Sig, ..., Vcp = true) 
+    
+ If `Vcp == true`, an additional tuple `(Vcp, Ka, Kb)` is returned with    
+ the sample entropy estimates (`Samp`) and the number of matched state
+ vectors (`m: B`, `m+1: A`). `(Vcp, Ka, Kb)`  contains the variance of the conditional
+ probabilities (`Vcp`), i.e. CP = A/B,  and the number of **overlapping**
+ matching vector pairs of lengths m+1 (`Ka`) and m (`Kb`),
+ respectively.  Note `Vcp` is undefined for the zeroth embedding dimension (m = 0) 
+ and due to the computational demand, **will take substantially more time to return function outputs.**
+ See Appendix B in [2] for more info.
+
+    Samp, A, B = SampEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1), Vcp::Bool=false)
     
  Returns the sample entropy estimates `Samp` for dimensions = [0,1,...,`m`]
  estimated from the data sequence `Sig` using the specified keyword arguments:
@@ -29,8 +40,13 @@ using LinearAlgebra: UpperTriangular, I
         and sample entropy." 
         American Journal of Physiology-Heart and Circulatory Physiology (2000).
 
+    [2] Douglas E Lake, Joshua S Richman, M.P. Griffin, J. Randall Moorman
+        "Sample entropy analysis of neonatal heart rate variability."
+        American Journal of Physiology-Regulatory, Integrative and Comparative Physiology
+        283, no. 3 (2002): R789-R797.
+
 """
-    function SampEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1))
+    function SampEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2*std(Sig,corrected=false), Logx::Real=exp(1), Vcp::Bool=false)
 
     N = length(Sig)
     (N>10) ? nothing : error("Sig:   must be a numeric vector")
@@ -67,12 +83,48 @@ using LinearAlgebra: UpperTriangular, I
     end
 
     Samp = -log.(Logx, A./B)
-    return Samp, A, B
+
+    if Vcp
+        Temp = hcat(getindex.(findall(Counter.>m),1), getindex.(findall(Counter.>m),2))
+        if length(Temp[:,1])>1
+            Ka = zeros(Int, length(Temp[:,1]) -1)             
+            for k = 1:size(Temp,1)-1 # (length(Temp[:,1])-1)
+                TF = (abs.(Temp[k+1:end,:] .- Temp[k,1]) .<= m*tau) .+ (abs.(Temp[k+1:end,:] .- Temp[k,2]) .<= m*tau)
+                Ka[k] = sum(any(TF.>0, dims=2))
+            end
+        else
+            Ka = 0
+        end
+        
+        Temp = hcat(getindex.(findall(Counter[:,1:end-m*tau].>=m),1), getindex.(findall(Counter[:,1:end-m*tau].>=m),2))       
+        if length(Temp[:,1])>1
+            Kb = zeros(Int, length(Temp[:,1]) -1)   
+            for k = 1:size(Temp,1)-1  # (length(Temp[:,1]) -1)
+                TF = (abs.(Temp[k+1:end,:] .- Temp[k,1]) .<= (m-1)*tau) + (abs.(Temp[k+1:end,:] .- Temp[k,2]) .<= (m-1)*tau)
+                Kb[k] = sum(any(TF.>0, dims=2))      
+            end
+        else
+            Kb = 0
+        end
+
+        Ka = sum(Ka)
+        Kb = sum(Kb)
+        CP = A[end]/B[end]
+        Vcp = (CP*(1-CP)/B[end]) + (Ka - Kb*(CP^2))/(B[end]^2)
+
+        return Samp, A, B, (Vcp, Ka, Kb)
+    
+    else
+        return Samp, A, B 
+
+    # return Samp, A, B
+    end
+
     end
 
 end
 
-"""Copyright 2021 Matthew W. Flood, EntropyHub
+"""Copyright 2024 Matthew W. Flood, EntropyHub
   
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
