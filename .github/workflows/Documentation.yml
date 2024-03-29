@@ -13,6 +13,7 @@ on:
 jobs:
   build:
     permissions:
+      actions: write
       contents: write
       statuses: write
     runs-on: ubuntu-latest
