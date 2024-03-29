@@ -45,9 +45,9 @@ makedocs(
 
 deploydocs(
     repo="github.com/MattWillFlood/EntropyHub.jl.git",
+    target = "build",
     versions = ["stable" => "v^", "v#.#"],
     branch = "gh-pages",
-    tag_prefix = "v1.0",
 
     #versions = nothing,
 )
