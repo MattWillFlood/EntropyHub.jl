@@ -31,6 +31,7 @@ using LinearAlgebra: UpperTriangular, I
  `tau`   - Time Delay, a positive integer\n
  `r`     - Radius Distance Threshold, a positive scalar  \n
  `Logx`  - Logarithm base, a positive scalar \n 
+ `Vcp`   - Option to return the variance of the conditional probabilities and the number of overlapping matching vector pairs of lengths \n
  
 # See also `ApEn`, `FuzzEn`, `PermEn`, `CondEn`, `XSampEn`, `SampEn2D`, `MSEn`
   

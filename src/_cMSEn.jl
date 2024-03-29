@@ -31,7 +31,7 @@ using DSP: conv
                  [3]    Mean Absolute Deviation     - r*mean_ad(Xt) \n
                  [4]    Median Absolute Deviation   - r*med_ad(Xt)\n
     `Refined`  - Refined-composite MSEn method. When `Refined == true` and the 
-                 entropy function specified by Mobj is `SampEn`, cMSEn returns 
+                 entropy function specified by Mobj is `SampEn` or `FuzzEn`, cMSEn returns 
                  the refined-composite multiscale entropy (rcMSEn) [default: false]\n
     `Plotx`    - When `Plotx` == true, returns a plot of the entropy value at each
                 time scale (i.e. the multiscale entropy curve) [default: false]\n
@@ -65,6 +65,11 @@ using DSP: conv
             multiscale entropy." 
             Physics Letters A 
             378.20 (2014): 1369-1374.
+
+        [6] Azami, Hamed, Alberto Fernández, and Javier Escudero.
+            "Refined multiscale fuzzy entropy based on standard deviation
+            for biomedical signal analysis." 
+            Medical & biological engineering & computing 55 (2017): 2037-2052.
 
     """
     function cMSEn(Sig::AbstractArray{T,1} where T<:Real, Mobj::NamedTuple;  
