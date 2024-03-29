@@ -73,12 +73,7 @@ best capture the uncertainty of the system under examination. This has resulted
 in many entropy statistics from approximate entropy and sample entropy, to
 multiscale sample entropy and refined-composite multiscale cross-sample entropy.
 
-
-As the number of statisitcal entropy measures grows, it becomes more difficult
-to identify, contrast and compare the performance of each measure. To overcome
-this, we have developed EntropyHub - an open-source toolkit designed to 
-integrate the many established entropy methods into one package. The goal of 
-EntropyHub is to provide a comprehensive set of functions with a simple and 
+The goal of EntropyHub is to provide a comprehensive set of functions with a simple and 
 consistent syntax that allows the user to augment parameters at the command 
 line, enabling a range from basic to advanced entropy methods to be implemented
 with ease.
@@ -186,7 +181,7 @@ Symbolic Dynamic Entropy                          	  |	SyDyEn
 Increment Entropy                                 	  |	IncrEn
 Cosine Similarity Entropy                         	  |	CoSiEn
 Phase Entropy                                        |	PhasEn
-Slope Entropy                                        |	SlopEn
+Slope Entropy                                    	  |	SlopEn
 Bubble Entropy                                		  |	BubbEn
 Gridded Distribution Entropy                         |	GridEn
 Entropy of Entropy                            	     |	EnofEn
@@ -206,7 +201,7 @@ Cross Fuzzy Entropy                                   |	XFuzzEn
 Cross Permutation Entropy                             |	XPermEn
 Cross Conditional Entropy                             |	XCondEn
 Cross Distribution Entropy                            |	XDistEn
-Cross Spectral Entropy                          	   |	XSpecEn
+Cross Spectral Entropy                            	   |	XSpecEn
 Cross Kolmogorov Entropy                              |	XK2En
 	
 _______________________________________________________________________
@@ -221,7 +216,6 @@ Bidimensional Distribution Entropy                   |	DistEn2D
 Bidimensional Dispersion Entropy                     |	DispEn2D
 Bidimensional Permutation Entropy                    |	PermEn2D
 Bidimensional Espinosa Entropy                       |	EspEn2D
-
 	
 _________________________________________________________________________
 
@@ -315,4 +309,3 @@ Matt
 <p  align="center">
 	<img src="https://github.com/MattWillFlood/EntropyHub/blob/main/Graphics/EntropyHubLogo3.png" width="250" height="350"/>
 </p>
-
