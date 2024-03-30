@@ -195,7 +195,9 @@ version = "1.6.0"
 
 [[deps.EntropyHub]]
 deps = ["Clustering", "Combinatorics", "DSP", "DataInterpolations", "DelimitedFiles", "FFTW", "GroupSlices", "HTTP", "LinearAlgebra", "Plots", "Random", "Statistics", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "430c5fe7de8e4858a0afda38cdb68a4c4e6ade61"
+git-tree-sha1 = "2c28979761b39b6c70d0d53a9e17d41ae6efc568"
+repo-rev = "master"
+repo-url = "https://github.com/MattWillFlood/EntropyHub.jl.git"
 uuid = "3938faea-3bfa-4bc3-8092-0c6746ff9af1"
 version = "1.0.0"
 
