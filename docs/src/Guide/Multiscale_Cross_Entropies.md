@@ -11,8 +11,8 @@ To do so, we again use the `MSobject` function to pass a multiscale object (`Mob
 
     Multiscale cross-entropy functions have three positional arguments:
 
-    1. the first data seuqence, `Sig1` (an Nx1 matrix),
-    2. the second data seuqence, `Sig2` (an Nx1 matrix),
+    1. the first data seuqence, `Sig1` (a vector of >10 elements),
+    2. the second data seuqence, `Sig2` (a vector of > 10 elements),
     2. the multiscale entropy object, `Mobj`.
 
 

@@ -9,17 +9,17 @@ using Statistics: mean
     using the sample entropy algorithm and the following default parameters: 
     embedding dimension = 2, time delay = 1, radius threshold = 0.2, logarithm = natural.    
 
-        Rangx, A, B = RangEn(Sig, keyword = value, ...)
+        Rangx, A, B = RangEn(Sig::AbstractArray{T,1} where T<:Real; m::Int=2, tau::Int=1, r::Real=0.2, Methodx::String="SampEn", Logx::Real=exp(1))
         
     Returns the range entropy estimates (`Rangx`) for dimensions = `m`
     estimated for the data sequence (`Sig`) using the specified keyword arguments:
        
     # Arguments:    
-    `m`         - Embedding Dimension, a positive integer
-    `tau`       - Time Delay, a positive integer
-    `r`         - Radius Distance Threshold, a positive value between 0 and 1
-    `Methodx`   - Base entropy method, either 'SampEn' [default] or 'ApEn'
-    `Logx`      - Logarithm base, a positive scalar  
+    `m`         - Embedding Dimension, a positive integer\n
+    `tau`       - Time Delay, a positive integer\n
+    `r`         - Radius Distance Threshold, a positive value between 0 and 1\n
+    `Methodx`   - Base entropy method, either 'SampEn' [default] or 'ApEn'\n
+    `Logx`      - Logarithm base, a positive scalar  \n
 
     # See also `ApEn`, `SampEn`, `FuzzEn`,  `MSEn`
 
