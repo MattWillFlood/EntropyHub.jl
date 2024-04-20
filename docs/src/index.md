@@ -88,7 +88,7 @@ __________________________________________________________________
 If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub.jl) 
 and Julia Packages (or MatLab File Exchange and PyPI). This helps us to gauge user satisfaction.
 
-## Functions
+## Function List
 
 EntropyHub functions fall into 5 categories: 
 

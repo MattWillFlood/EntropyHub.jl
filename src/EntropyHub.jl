@@ -49,7 +49,9 @@ export
     hXMSEn,
 
     EMD,
-    ExampleData
+    ExampleData,
+    WindowData
+
 
 # using Reexport
 
@@ -85,6 +87,7 @@ include("./_XPermEn.jl"),
 
 include("./_MSobject.jl"),
 include("./_ExampleData.jl"),
+include("./_WindowData.jl"),
 
 include("./_MSEn.jl"),
 include("./_XMSEn.jl"),
@@ -156,6 +159,7 @@ using ._rXMSEn: rXMSEn
 using ._hXMSEn: hXMSEn
 
 using ._ExampleData: ExampleData
+using ._WindowData: WindowData
 
 greet() = print(raw"""  
      ___  _   _  _____  _____  ____  ____  _     _
