@@ -39,6 +39,7 @@ makedocs(
                 "Ex.8: Composite Multiscale Cross-Approximate Entropy" =>  "Examples/Example8.md",
                 "Ex.9: Hierarchical Multiscale corrected Cross-Conditional Entropy" =>  "Examples/Example9.md",
                 "Ex.10: Bidimensional Fuzzy Entropy" =>  "Examples/Example10.md",
+                "Ex.11: Window Data Tool" =>  "Examples/Example11.md",
                 ],
     ],
 )

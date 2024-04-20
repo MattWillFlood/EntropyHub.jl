@@ -195,11 +195,11 @@ version = "1.6.0"
 
 [[deps.EntropyHub]]
 deps = ["Clustering", "Combinatorics", "DSP", "DataInterpolations", "DelimitedFiles", "FFTW", "GroupSlices", "HTTP", "LinearAlgebra", "Plots", "Random", "Statistics", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "2c28979761b39b6c70d0d53a9e17d41ae6efc568"
+git-tree-sha1 = "a4e2a1cd4915352f8c1ff045bc45a44bc3d5d7c5"
 repo-rev = "master"
-repo-url = "https://github.com/MattWillFlood/EntropyHub.jl.git"
+repo-url = "https://github.com/MattWillFlood/EntropyHub.jl"
 uuid = "3938faea-3bfa-4bc3-8092-0c6746ff9af1"
-version = "1.0.0"
+version = "1.0.1"
 
 [[deps.EpollShim_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]

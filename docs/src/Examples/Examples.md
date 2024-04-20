@@ -1,6 +1,6 @@
 ```@contents
 Pages = ["Example1.md", "Example2.md", "Example3.md", "Example4.md", "Example5.md",
-        "Example6.md","Example7.md","Example8.md","Example9.md","Example10.md"]
+        "Example6.md","Example7.md","Example8.md","Example9.md","Example10.md", "Example11.md"]
 ```
 
 # Examples:
