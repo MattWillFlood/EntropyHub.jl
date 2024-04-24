@@ -14,7 +14,7 @@ using Combinatorics: combinations
  algorithm method = "v1" (see below), data transform = normalised cumulative density function (ncdf)
  logarithm = natural, data normalization = true,
 
- ________________________________________________________________________ 
+  
  
 !!! note 
 
@@ -27,8 +27,8 @@ using Combinatorics: combinations
     using each combination of multivariate delay vectors with lengths 1:max(m),
     with each entropy value returned accordingly. See [1] for more info.
 
- ________________________________________________________________________ 
-      
+-------------------------------------------------------------
+    
     MDisp, RDE = MvDispEn(Data::AbstractArray{T,2} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, c::Int=3, Methodx::String="v1", Typex::String="NCDF", Norm::Bool=false, Logx::Real=exp(1))
 
  Returns the multivariate dispersion entropy estimate (`MDisp`) for the M

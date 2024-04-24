@@ -11,8 +11,7 @@ using Statistics: std
  from the M multivariate sequences in `Data` using the default parameters: 
  embedding dimension = 2*ones(M), time delay = ones(M), radius threshold = 0.2,
  logarithm = natural, data normalization = false
-
- ________________________________________________________________________ 
+ 
  
 !!! note 
 
@@ -33,9 +32,9 @@ using Statistics: std
     uses N - max(m * tau) delay vectors and _**not**_ N-max(m) * max(tau) as employed 
     in [1][2].
  
- ________________________________________________________________________ 
+-------------------------------------------------------------
       
-   MSamp, B0, Bt, B1 = MvSampEn(Data::AbstractArray{T} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, r::Real=0.2, Logx::Real=exp(1), Norm::Bool=false)
+    MSamp, B0, Bt, B1 = MvSampEn(Data::AbstractArray{T} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, r::Real=0.2, Logx::Real=exp(1), Norm::Bool=false)
         
  Returns the multivariate sample entropy estimates (`MSamp`) estimated
  from the M multivariate data sequences in `Data` using the specified 

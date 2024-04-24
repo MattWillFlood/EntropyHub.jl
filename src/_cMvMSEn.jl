@@ -10,7 +10,6 @@ using DSP: conv
      index (`CI`) of the data sequences in `Data` using the parameters specified 
      by the multiscale object (`Mobj`) over 3 temporal scales with coarse-graining (default). 
     
-     ________________________________________________________________________
      
     !!! note
 
@@ -20,9 +19,9 @@ using DSP: conv
         These methods are not lower-bounded to 0, like most entropy algorithms,
         so `MvMSEn` may return negative entropy values if the base multivariate 
         entropy function is `MvSampEn` and `MvFuzzEn`, even for stochastic processes...
-
-     ________________________________________________________________________
-           
+            
+    -------------------------------------------------------------
+       
         MSx, CI = cMvMSEn(Data, Mobj, Refined = True) 
         
      Returns a vector of refined-composite multiscale entropy values (`MSx`) for the data 
@@ -40,11 +39,11 @@ using DSP: conv
 
      # Arguments:
      `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
-     `Refined`  - Refined-composite MvMSEn method. When `Refined == True` and the 
+     `Refined`  - Refined-composite MvMSEn method. \nWhen `Refined == True` and the 
                   entropy function specified by `Mobj` is `MvSampEn` or `MvFuzzEn`, 
-                  `cMvMSEn` returns the refined-composite multivariate multiscale entropy (rcMSEn) [default: False]
+                  `cMvMSEn` returns the refined-composite multivariate multiscale entropy (rcMSEn) [default: False]\n
      `Plotx`    - When Plotx == true, returns a plot of the entropy value at each
-                  time scale (i.e. the multiscale entropy curve) [default: false]\n
+                  time scale (i.e. the multiscale entropy curve) [default: false]
 
      # See also  `MvMSEn`, `MSobject`, `MvFuzzEn`, `MvSampEn`, `MvPermEn`, `MvCoSiEn`,  `MvDispEn`
     

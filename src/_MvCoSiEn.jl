@@ -10,16 +10,15 @@ using LinearAlgebra: Diagonal, UpperTriangular
      M multivariate sequences in `Data` using the default parameters: 
      embedding dimension = 2*ones(M), time delay = ones(M), 
      angular threshold = 0.1, logarithm = 2, data normalization = none, 
-     ________________________________________________________________________
+    
 
     !!! note
     
         To maximize the number of points in the embedding process, this algorithm 
         uses N-max(m * tau) delay vectors and _*not*_ N-max(m) * max(tau) as employed 
         in [1][2].
-    
-     ________________________________________________________________________
-    
+        
+    -------------------------------------------------------------
 
         MCoSi, Bm = MvCoSiEn(Data::AbstractArray{T,2} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, r::Real=.1, Logx::Real=2, Norm::Int=0)
 
@@ -33,7 +32,7 @@ using LinearAlgebra: Diagonal, UpperTriangular
      `tau`     - Time Delay, a vector of M positive integers\n
      `r`     - Angular threshold, a value in range [0 < r < 1]   \n
      `Logx`    - Logarithm base, a positive scalar (enter 0 for natural log) \n
-     `Norm`    - Normalisation of `Data`, one of the following integers:
+     `Norm`    - Normalisation of `Data`, one of the following integers:\n
                 *  [0]  no normalisation - default
                 *  [1]  remove median(`Data`) to get zero-median series
                 *  [2]  remove mean(`Data`) to get zero-mean series

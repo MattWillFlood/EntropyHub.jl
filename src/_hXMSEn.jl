@@ -154,7 +154,7 @@ using Plots
             lw=2.5, ylim=(Scales-1, maximum(y)+1), xlim=(0,2*N), grid=false)            
         end
         px = plot()
-        pt = plot(p1, px, p2, layout = grid(3,1, heights=[0.25,.1, 0.8]))
+        pt = plot(p1, px, p2, layout = grid(3,1, heights=[0.2,0.1, 0.7]))
         display(pt)  
 
     end

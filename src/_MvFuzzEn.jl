@@ -12,7 +12,6 @@ using Statistics: std, mean
  fuzzy membership function = "default", fuzzy function parameters= [0.2, 2],
  logarithm = natural, data normalization = false,
 
- ________________________________________________________________________ 
  
 !!! note 
 
@@ -33,7 +32,8 @@ using Statistics: std, mean
     uses N - max(m * tau) delay vectors and _*not*_ N - max(m) * max(tau) as employed 
     in [1] and [3].
 
- ________________________________________________________________________ 
+ 
+-------------------------------------------------------------
       
     MFuzz, B0, Bt, B1 = MvFuzzEn(Data::AbstractArray{T} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, r::Union{Real,Tuple{Real,Real}}=(.2,2.0), Fx::String="default", Logx::Real=exp(1), Norm::Bool=false)
         

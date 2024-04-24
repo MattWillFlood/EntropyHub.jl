@@ -10,10 +10,8 @@ using DSP: conv
      index (`CI`) of the data sequences in `Data` using the parameters specified 
      by the multiscale object (`Mobj`) over 3 temporal scales with coarse-
      graining (default). 
-    
-     ________________________________________________________________________
-     
-     !!! note
+         
+    !!! note
 
         By default, the `MvSampEn` and `MvFuzzEn` multivariate entropy algorithms
         estimate entropy values using the "full"  method by comparing delay vectors 
@@ -22,8 +20,8 @@ using DSP: conv
         so `MvMSEn` may return negative entropy values if the base multivariate 
         entropy function is `MvSampEn` and `MvFuzzEn`, even for stochastic processes...
 
-     ________________________________________________________________________
-           
+    -------------------------------------------------------------
+    
         MSx, CI = MSEn(Data::AbstractArray{T,2} where T<:Real, Mobj::NamedTuple; Scales::Int=3, Methodx::String="coarse", Plotx::Bool=false)
 
      Returns a vector of multivariate multiscale entropy values (`MSx`) and the complexity 
@@ -32,11 +30,11 @@ using DSP: conv
 
      # Arguments:
      `Scales`   - Number of temporal scales, an integer > 1   (default: 3) \n
-     `Method`   - Graining method, one of the following: 
+     `Method`   - Graining method, one of the following: \n
                   {`coarse`,`modified`,`generalized`} [default = `coarse`]  
                   For further info on these graining procedures, see the EntropyHub guide.  \n
      `Plotx`    - When Plotx == true, returns a plot of the entropy value at each
-                  time scale (i.e. the multiscale entropy curve) [default: false]\n
+                  time scale (i.e. the multiscale entropy curve) [default: false]
 
     !!! tip 
     

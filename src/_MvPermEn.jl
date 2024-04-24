@@ -12,7 +12,6 @@ using DSP: hilbert, unwrap, angle
  embedding dimension = 2*ones(M,1), time delay = ones(M,1), 
  logarithm = 2, normalisation = w.r.t #symbols (sum(`m-1`))
 
- ________________________________________________________________________ 
  
 !!! note 
 
@@ -31,7 +30,7 @@ using DSP: hilbert, unwrap, angle
     algorithm uses N- max(tau * m) delay vectors and _*not*_ N-max(m) * max(tau)
     as employed in [1].
 
- ________________________________________________________________________ 
+-------------------------------------------------------------
       
     MPerm, MPnorm = MvPermEn(Data::AbstractArray{T} where T<:Real; m::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, tau::Union{AbstractArray{T} where T<:Int, Nothing}=nothing, Typex::String="none", tpx::Union{Int,Nothing}=nothing, Norm::Bool=false, Logx::Real=2)
                 
@@ -45,13 +44,13 @@ using DSP: hilbert, unwrap, angle
  `Typex` - Permutation entropy variation, can be one of the following strings:\n
             {`'modified'`, `'ampaware'`, `'weighted'`, `'edge'`, `'phase'`}
             See the `EntropyHub guide <https://github.com/MattWillFlood/EntropyHub/blob/main/EntropyHub%20Guide.pdf>`_ for more info on MvPermEn variants.    
- `tpx`   - Tuning parameter for associated permutation entropy variation.
-            *   [ampaware]  `tpx` is the A parameter, a value in range [0 1] (default = 0.5)
-            *   [edge]      `tpx` is the r sensitivity parameter, a scalar > 0 (default = 1)
+ `tpx`   - Tuning parameter for associated permutation entropy variation. \n
+            *   [ampaware]  `tpx` is the A parameter, a value in range [0 1]; default = 0.5
+            *   [edge]      `tpx` is the r sensitivity parameter, a scalar > 0; default = 1
             *   [phase]     `tpx` is the option to unwrap the phase angle of Hilbert-transformed signal, either [] or 1 (default = 0)\n
  `Norm`  - Normalisation of MPnorm value, a boolean operator:\n
-            * false -  normalises w.r.t log(# of permutation symbols [sum(m)-1]) - default
-            * true  -  normalises w.r.t log(# of all possible permutations [sum(m)!])
+            *   false -  normalises w.r.t log(# of permutation symbols [sum(m)-1]) - default
+            *   true  -  normalises w.r.t log(# of all possible permutations [sum(m)!])
  `Logx`   - Logarithm base, a positive scalar \n 
         
  # See also    `PermEn`, `PermEn2D`, `XPermEn`, `MSEn`, `MvFuzzEn`, `MvSampEn`
