@@ -31,6 +31,12 @@ export
     XSpecEn,
     XSampEn,
 
+    MvSampEn,
+    MvCoSiEn,
+    MvPermEn,
+    MvDispEn,
+    MvFuzzEn,
+
     SampEn2D,
     FuzzEn2D,
     DistEn2D,
@@ -47,6 +53,8 @@ export
     cXMSEn,
     rXMSEn,
     hXMSEn,
+    MvMSEn,
+    cMvMSEn,
 
     EMD,
     ExampleData,
@@ -105,6 +113,17 @@ include("./_DispEn2D.jl"),
 include("./_PermEn2D.jl"),
 include("./_EspEn2D.jl"),
 
+
+include("./_MvSampEn.jl"),
+include("./_MvFuzzEn.jl"),
+include("./_MvDispEn.jl"),
+include("./_MvPermEn.jl"),
+include("./_MvCoSiEn.jl"),
+
+include("./_MvMSEn.jl"),
+include("./_cMvMSEn.jl"),
+
+
 # Base Entropies:
 using ._ApEn: ApEn
 using ._AttnEn: AttnEn
@@ -137,6 +156,15 @@ using ._XPermEn: XPermEn
 using ._XSampEn: XSampEn
 using ._XSpecEn: XSpecEn
 
+
+# Multivariate Entropies:
+using ._MvSampEn: MvSampEn
+using ._MvFuzzEn: MvFuzzEn
+using ._MvCoSiEn: MvCoSiEn
+using ._MvDispEn: MvDispEn
+using ._MvPermEn: MvPermEn
+
+
 # Bidimensional Entropies
 using ._SampEn2D: SampEn2D
 using ._DistEn2D: DistEn2D
@@ -145,7 +173,7 @@ using ._DispEn2D: DispEn2D
 using ._PermEn2D: PermEn2D
 using ._EspEn2D: EspEn2D
 
-# (cross) Multiscale Entropies
+# Multiscale Entropies
 using ._MSobject: MSobject
 
 using ._MSEn: MSEn, EMD
@@ -157,6 +185,11 @@ using ._XMSEn: XMSEn
 using ._cXMSEn: cXMSEn
 using ._rXMSEn: rXMSEn
 using ._hXMSEn: hXMSEn
+
+using ._MvMSEn: MvMSEn
+using ._cMvMSEn: cMvMSEn
+
+# Other Functions
 
 using ._ExampleData: ExampleData
 using ._WindowData: WindowData
@@ -253,6 +286,15 @@ raw"""
   Cross Kolmogorov Entropy                              |	XK2En
     
   _________________________________________________________________________
+  Multivariate Entropies                               |	Function Name
+  _____________________________________________________|___________________
+  Multivariate Sample Entropy                          |	MvSampEn
+  Multivariate Fuzzy Entropy                           |	MvFuzzEn
+  Multivariate Cosine Similarity Entropy               |	MvCoSiEn
+  Multivariate Dispersion Entropy                      |	MvDispEn
+  Multivariate Permutation Entropy                     |	MvPermEn
+    
+  _________________________________________________________________________
   Bidimensional Entropies                              |	Function Name
   _____________________________________________________|__________________
   Bidimensional Sample Entropy                         |	SampEn2D
@@ -315,6 +357,8 @@ raw"""
   Multiscale Cross-Distribution Entropy                 |	XMSEn / cXMSEn
   Multiscale Cross-Kolmogorov Entropy                   |	rXMSEn / hXMSEn
   Multiscale Cross-Conditional Entropy                  |	
+
+
 
 
     We kindly ask that if you use EntropyHub in your research, to please 

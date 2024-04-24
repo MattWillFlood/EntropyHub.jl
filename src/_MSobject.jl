@@ -61,16 +61,27 @@ export MSobject
         `XDistEn`   - Cross-Distribution Entropy    \n
         `XSpecEn`   - Cross-Spectral Entropy   \n
 
-    # See also `MSEn`, `XMSEn`, `rMSEn`, `cMSEn`, `hMSEn`, `rXMSEn`, `cXMSEn`, `hXMSEn`
+
+    # Multivariate Entropies:
+        ------------------
+        `MvSampEn`   - Multivariate Sample Entropy  \n
+        `MvFuzzEn`   - Multivariate Fuzzy Entropy   \n
+        `MvPermEn`   - Multivariate Permutation Entropy   \n  
+        `MvCoSiEn`   - Multivariate Cosine Similarity Entropy    \n
+        `MvDispEn`   - Multivariate Dispersion Entropy    \n
+
+    # See also `MSEn`, `XMSEn`, `MvMSEn`, `rMSEn`, `cMSEn`, `hMSEn`, `rXMSEn`, `cXMSEn`, `hXMSEn`, `cMvMSEn`
 
     """
     function MSobject(EnType::Function=SampEn; kwargs...)
-    #function MSobject(EnType::Function= EntropyHub.SampEn; kwargs...)
 
     Chk = ["ApEn";"SampEn";"FuzzEn";"K2En";"PermEn";"CondEn";"DistEn";"DivEn";
         "DispEn";"SyDyEn";"IncrEn";"CoSiEn";"PhasEn";"SpecEn";"SlopEn";"RangEn";
-        "GridEn";"BubbEn";"EnofEn";"AttnEn";"XApEn";"XSampEn";"XFuzzEn";
-        "XPermEn";"XCondEn";"XDistEn";"XSpecEn";"XK2En"]
+        "GridEn";"BubbEn";"EnofEn";"AttnEn";
+        "XApEn";"XSampEn";"XFuzzEn";"XPermEn";
+        "XCondEn";"XDistEn";"XSpecEn";"XK2En";
+        "MvSampEn";"MvFuzzEn";"MvPermEn";
+        "MvCoSiEn";"MvDispEn"]
     (String(Symbol(EnType)) in Chk) ? nothing :
         error("EnType:      must be a valid entropy function name.
         For more info, type:   julia>  ? EntropyHub.MSobject")

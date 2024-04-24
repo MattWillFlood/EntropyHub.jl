@@ -72,7 +72,7 @@ using LinearAlgebra: Diagonal, UpperTriangular
     Num = Zm*transpose(Zm); 
     Mag = sqrt.(sum(Diagonal(Num),dims=1))[:]
     Den = Mag*transpose(Mag)
-    AngDis = round.(acos.(round.(Num./Den,digits=6))/pi,digits=6)
+    AngDis = round.(acos.(round.(Num./Den,digits=8))/pi,digits=6)
     if maximum(imag.(AngDis)) < (10^-5)
         Bm = (sum(UpperTriangular(AngDis .< r))-Nx)/(Nx*(Nx-1)/2)
     else
@@ -80,7 +80,7 @@ using LinearAlgebra: Diagonal, UpperTriangular
         @warn("Complex values ignored.")
     end
     if Bm == 1 || Bm == 0
-        CoSi = 0
+        CoSi = NaN
     else
         CoSi = -(Bm*log(Logx, Bm)) - ((1-Bm)*log(Logx, 1-Bm))
     end
