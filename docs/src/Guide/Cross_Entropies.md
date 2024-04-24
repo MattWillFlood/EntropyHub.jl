@@ -1,24 +1,13 @@
+```@meta
+CollapsedDocStrings = true
+Description = "Entropy between two time series signals"
+```
 # Cross Entropies
 
 __*Functions for estimating the cross-entropy between two univariate time series.*__
 
-`The following functions also form the cross-entropy method used by Multiscale Cross-Entropy functions.`
+`The following functions also form the cross-entropy method used by Multiscale Cross-Entropy functions.` -> [`XMSEn`](@ref), [`cXMSEn`](@ref), [`rXMSEn`](@ref), [`hXMSEn`](@ref)
 
-These functions are directly available when EntropyHub is imported:
-
-```
-julia> using EntropyHub
-julia> names(EntropyHub)
-```
-```
- :ApEn
- :AttnEn
- :BubbEn
-   ⋮
- :hXMSEn
- :rMSEn
- :rXMSEn
-```
 
 ```@docs
 EntropyHub.XApEn

@@ -1,27 +1,27 @@
+```@meta
+CollapsedDocStrings = true
+Description = "Multiscale entropy of single time series signals"
+```
 # Multiscale Entropies
 
-__*Functions for estimating the multiscale entropy between of a univariate time series.*__
+__*Functions for estimating the multiscale entropy  of a univariate time series.*__
 
 Multiscale entropy can be calculated using any of the Base entropies: 
-    (`ApEn`, `AttnEn`, `BubbEn`, `CondEn`, `CoSiEn`, `DistEn`, `DivEn`, 
-    `DispEn`, `EnofEn`, `FuzzEn`, `GridEn`, `IncrEn`, `K2En`,
-    `PermEn`, `PhasEn`, `RangEn`, `SampEn`, `SlopEn`, `SpecEn`, `SyDyEn`).
+    ([`ApEn`](@ref), [`AttnEn`](@ref), [`BubbEn`](@ref), [`CondEn`](@ref), [`CoSiEn`](@ref), [`DistEn`](@ref), [`DivEn`](@ref), 
+    [`DispEn`](@ref), [`EnofEn`](@ref), [`FuzzEn`](@ref), [`GridEn`](@ref), [`IncrEn`](@ref), [`K2En`](@ref),
+    [`PermEn`](@ref), [`PhasEn`](@ref), [`RangEn`](@ref), [`SampEn`](@ref), [`SlopEn`](@ref), [`SpecEn`](@ref), [`SyDyEn`](@ref)).
 
 !!! info "NOTE:"
 
     Multiscale cross-entropy functions have two positional arguments:
 
     1. the data sequence, `Sig` (a vector > 10 elements),
-    2. the multiscale entropy object, `Mobj`.
+    2. the multiscale entropy object, `Mobj` -> see [`MSobject`](@ref)
+
 
 
 ```@docs
 EntropyHub.MSobject
-```
-
-The following functions use the multiscale entropy object shown above.
-
-```@docs
 EntropyHub.MSEn
 EntropyHub.cMSEn
 EntropyHub.rMSEn

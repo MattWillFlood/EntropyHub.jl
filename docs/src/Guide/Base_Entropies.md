@@ -1,26 +1,12 @@
+```@meta
+CollapsedDocStrings = true
+Description = "Entropy of single time series signals"
+```
 # Base Entropies
 
 __*Functions for estimating the entropy of a single univariate time series.*__
 
-`The following functions also form the base entropy method used by Multiscale functions.`
-
-These functions are directly available when EntropyHub is imported:
-
-```
-julia> using EntropyHub
-
-julia> names(EntropyHub)
-```
-```
- :ApEn
- :AttnEn
- :BubbEn
-   ⋮
- :hXMSEn
- :rMSEn
- :rXMSEn
-```
-
+`The following functions also form the base entropy method used by Multiscale functions` -> [`MSEn`](@ref), [`cMSEn`](@ref), [`rMSEn`](@ref), [`hMSEn`](@ref)
 
 ```@docs 
 EntropyHub.ApEn

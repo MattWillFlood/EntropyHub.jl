@@ -1,3 +1,7 @@
+```@meta
+CollapsedDocStrings = true
+Description = "Entropy of two-dimensional (2D) data"
+```
 # Bidimensional Entropies
 
 __*Functions for estimating the entropy of a two-dimensional univariate matrix.*__
@@ -8,8 +12,8 @@ matrices. Hence, bidimensional entropy functions are useful for applications suc
 
 !!! danger "IMPORTANT: Locked Matrix Size"
 
-    Each bidimensional entropy function (`SampEn2D`, `FuzzEn2D`, `DistEn2D`, `DispEn2D`, 
-    `EspEn2D`, `PermEn2D`) has an important keyword argument - `Lock`. Bidimensional entropy functions are
+    Each bidimensional entropy function ([`SampEn2D`](@ref), [`FuzzEn2D`](@ref), [`DistEn2D`](@ref), [`DispEn2D`](@ref), 
+    [`EspEn2D`](@ref), [`PermEn2D`](@ref)) has an important keyword argument - `Lock`. Bidimensional entropy functions are
     "locked" by default (`Lock == true`) to only permit matrices with a maximum size of 128 x 128.
 
     The reason for this is because there are hundreds of millions of pairwise calculations

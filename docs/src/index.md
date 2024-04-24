@@ -8,6 +8,37 @@ CurrentModule = EntropyHub
 # EntropyHub
 __*An Open-Source Toolkit For Entropic Time Series Analysis*__
 
+
+## Latest Updates
+### v2.0
+*----- New multivariate methods -----*
+
+Five new multivariate entropy functions incorporating several method-specific variations
+   + [Multivariate Sample Entropy](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.84.061918)       
+   + [Multivariate Fuzzy Entropy](https://www.mdpi.com/1099-4300/19/1/2) [++ many fuzzy functions]              
+   + [Multivariate Dispersion Entropy](https://www.mdpi.com/1099-4300/21/9/913) [++ many symbolic sequence transforms]         
+   + [Multivariate Cosine Similarity Entropy](https://www.mdpi.com/1099-4300/24/9/1287)               
+   + Multivariate Permutation Entropy  [++ *amplitude-aware*, *edge*, *phase*, *weighted* and *modified* variants]              
+
+*----- New multivariate multiscale methods -----*
+
+Two new multivariate multiscale entropy functions
+
+   + [Multivariate Multiscale Entropy](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.84.061918) [++ coarse, modified and generalized graining procedures]                
+   + [Composite and Refined-composite Multivariate Multiscale Entropy](https://link.springer.com/article/10.1007/s11517-017-1647-5)             
+
+*----- Extra signal processing tools -----*  
+
+[`WindowData()`](@ref) is a new function that allows users to segment data (univariate or multivariate time series) into windows with/without overlapping samples! This allows users to calculate entropy on subsequences of their data to perform analyses with greater time resolution.        
+
+__**Other little fixes...**__
+   
+*----- Docs edits -----*
+
+   - Examples in the www.EntropyHub.xyz documentation were updated to match the latest package syntax.    
+        
+_________________________________________________________
+
 ## Introduction
 
 This toolkit provides a wide range of functions to calculate different entropy statistics. 
@@ -88,16 +119,6 @@ __________________________________________________________________
 If you find this package useful, please consider starring it on [GitHub](https://github.com/MattWillFlood/EntropyHub.jl) 
 and Julia Packages (or MatLab File Exchange and PyPI). This helps us to gauge user satisfaction.
 
-## Function List
-
-EntropyHub functions fall into 5 categories: 
-
-* `Base`                functions for estimating the entropy of a single univariate time series.
-* `Cross`               functions for estimating the entropy between two univariate time series.
-* `Bidimensional`       functions for estimating the entropy of a two-dimensional univariate matrix.
-* `Multiscale`          functions for estimating the multiscale entropy of a single univariate time series using any of the Base entropy functions.
-* `Multiscale Cross`    functions for estimating the multiscale entropy between two univariate time series using any of the Cross-entropy functions.
-
 ## Contact
 
 For general queries and information about EntropyHub, contact: `info@entropyhub.xyz`   
@@ -115,6 +136,22 @@ Similarly, if you have any suggestions or recommendations on how this package ca
 __Thank you for using EntropyHub,__
 
 Matt
+
+## Function List
+
+EntropyHub functions fall into 8 categories: 
+
+* `Base`                           functions for estimating the entropy of a single univariate time series.
+* `Cross`                          functions for estimating the entropy between two univariate time series.
+* `Bidimensional`                  functions for estimating the entropy of a two-dimensional univariate matrix.
+* `Multiscale`                     functions for estimating the multiscale entropy of a single univariate time series using any of the Base entropy functions.
+* `Multiscale Cross`               functions for estimating the multiscale entropy between two univariate time series using any of the Cross-entropy functions.
+* `Multivariate Multiscale`        functions for estimating the multivariate multiscale entropy of multivariate dataset using any of the Multivariate-entropy functions.
+* `Other`                          Supplementary functions for various tasks related to EntropyHub and signal processing.
+
+
+```@index
+```
 
 
          ___  _   _  _____  _____  ____  ____  _     _          
@@ -134,6 +171,3 @@ Matt
 
 
 Documentation for [EntropyHub](https://github.com/MattWillFlood/EntropyHub.jl).
-
-```@index
-```

@@ -1,6 +1,7 @@
 ```@contents
 Pages = ["Example1.md", "Example2.md", "Example3.md", "Example4.md", "Example5.md",
-        "Example6.md","Example7.md","Example8.md","Example9.md","Example10.md", "Example11.md"]
+        "Example6.md","Example7.md","Example8.md","Example9.md","Example10.md",
+         "Example11.md", "Example12.md", "Example13.md"]
 ```
 
 # Examples:
@@ -9,13 +10,8 @@ Pages = ["Example1.md", "Example2.md", "Example3.md", "Example4.md", "Example5.m
 The following sections provide some basic examples of EntropyHub functions. 
 These examples are merely a snippet of the full range of EntropyHub functionality. 
 
-In the following examples, signals / data are imported into Julia using the ExampleData() function. 
+In the following examples, signals / data are imported into Julia using the  [`ExampleData()`](@ref) function. 
 To use this function as shown in the examples below, __*an internet connection is required*__.
-
-
-```@docs
-EntropyHub.ExampleData
-```
 
 
 !!! tip "IMPORTANT TO NOTE"
@@ -26,11 +22,11 @@ EntropyHub.ExampleData
 
 !!! warning "Hierarchical Multiscale Entropy (+ Multiscale Cross-Entropy)"
     
-    In hierarchical multiscale entropy (hMSEn) and hierarchical multiscale cross-entropy (hXMSEn) functions, the length of the time series signal(s) is halved at each scale. 
+    In hierarchical multiscale entropy ([hMSEn](@ref)) and hierarchical multiscale cross-entropy ([hXMSEn](@ref)) functions, the length of the time series signal(s) is halved at each scale. 
     Thus, hMSEn and hXMSEn only use the first 2^N data points where 2^N <= the length of the original time series signal.
     i.e. For a signal of 5000 points, only the first 4096 are used. For a signal of 1500 points, only the first 1024 are used.
 
 !!! danger "BIDIMENSIONAL ENTROPIES"
     
-    Each bidimensional entropy function (SampEn2D, FuzzEn2D, DistEn2D) has an important keyword argument - `Lock`. 
+    Each bidimensional entropy function (SampEn2D, FuzzEn2D, DistEn2D, EspEn2D) has an important keyword argument - `Lock`. 
     Bidimensional entropy functions are "locked" by default (`Lock == true`) to only permit matrices with a maximum  size of 128 x 128.
