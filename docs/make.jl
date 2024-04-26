@@ -19,6 +19,7 @@ makedocs(
         canonical="https://mattwillflood.github.io/EntropyHub.jl/",
         assets = ["assets/favicon.ico"],
         collapselevel = 1,
+        footer=" [www.EntropyHub.xyz](https://www.EntropyHub.xyz) ",
     ),
     pages=[
         "Home" => "index.md",
